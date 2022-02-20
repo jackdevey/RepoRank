@@ -10,13 +10,9 @@ ReactDOM.render(
     <MantineProvider
       theme={{
         headings: {
-          fontFamily: 'Open Sans', // this took me a while to find. I feel like theme.headings.fontFamily should inherit from theme.fontFamily
-          color: '#fff' // doesn't work. no way to set color globally for headings
+          fontFamily: 'Open Sans' // this took me a while to find. I feel like theme.headings.fontFamily should inherit from theme.fontFamily
         },
         colorScheme: 'dark', // had to dig around to see that the body background is magically set to theme.colors.dark[7] if and only if colorScheme is 'dark'
-        headings: {
-          fontFamily: 'Roboto, sans-serif'
-        }
       }}>
       <App />
     </MantineProvider>

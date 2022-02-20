@@ -26,15 +26,16 @@ function App() {
   const [repo, setRepo] = useState('');
   const [result, setResult] = useState(empty);
 
-  const [visible, setVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   return (
     <AppShell 
       className="background"
       style={BackgroundStyle(theme)}>
       <Container size="sm">
-        <Card shadow="sm" padding="lg">
-          <LoadingOverlay visible={visible} />
+        <Card shadow="md">
+          <LoadingOverlay visible={loading} />
           <h2>🔥 RepoRate</h2>
           <TextInput
             placeholder="Owner"
@@ -63,6 +64,8 @@ function App() {
             Calculate
           </Button>
         </Card>
+
+        <Text color="dimmed" style={{marginTop: "10px"}}>Created by <Anchor href="https://github.com/jackdevey">jack devey</Anchor>, <Anchor href="https://github.com/jackdevey/reporank">contribute</Anchor></Text>
       </Container>
 
       <Modal
@@ -84,7 +87,7 @@ function App() {
 
           <h3 style={CompactLineStyle()}>Score breakdown</h3>
 
-        <Accordion iconPosition="right" offsetIcon={false} multiple>
+        <Accordion iconPosition="right" offsetIcon={false}>
           <Accordion.Item label="Community 💞">
             The repo has a community percentage of <Code>{result.breakdown.community}%</Code>
           </Accordion.Item>
@@ -108,14 +111,34 @@ function App() {
 
       </Modal>
 
+      <Modal
+        centered
+        opened={error}
+        onClose={() => setError(false)}
+        title={`${owner}/${repo}`}>
+
+          <h1 
+            style={CompactLineStyle()}>
+              😭 Something went wrong
+          </h1>
+
+          <Text  style={{marginTop: "20px", marginBottom: "20px"}}>
+            Make sure that repo exists or is public &amp; try again!
+          </Text >
+
+      </Modal>
+
     </AppShell>
   );
 
   function Click() {
-    setVisible(true)
+    setLoading(true)
     RepoRank(owner, repo).then(value => {
-      setVisible(false);
+      setLoading(false);
       setResult(value);
+    }, _ => {
+      setLoading(false);
+      setError(true);
     })
   };
 

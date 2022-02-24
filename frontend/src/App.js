@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import RepoRank from './algorithm/RepoRank.js';
-import { Button, Card, Container, TextInput, AppShell, LoadingOverlay, useMantineTheme, Modal, Accordion, Box, Divider, Text, Code, Anchor } from '@mantine/core';
+import { Button, Card, Container, TextInput, AppShell, LoadingOverlay, useMantineTheme, Modal, Accordion, Text, Code, Anchor } from '@mantine/core';
 import { PersonIcon, RepoIcon } from '@primer/octicons-react';
 import { BackgroundStyle, CompactLineStyle } from './style/Style.js'
 
@@ -27,7 +27,7 @@ function App() {
   const [result, setResult] = useState(empty);
 
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(Error("null"));
 
   return (
     <AppShell 
@@ -113,9 +113,8 @@ function App() {
 
       <Modal
         centered
-        opened={error}
-        onClose={() => setError(false)}
-        title={`${owner}/${repo}`}>
+        opened={error.message !== "null"}
+        onClose={() => setError(Error("null"))}>
 
           <h1 
             style={CompactLineStyle()}>
@@ -123,7 +122,7 @@ function App() {
           </h1>
 
           <Text  style={{marginTop: "20px", marginBottom: "20px"}}>
-            Make sure that repo exists or is public &amp; try again!
+            {error.message}
           </Text >
 
       </Modal>
@@ -132,13 +131,19 @@ function App() {
   );
 
   function Click() {
+
+    if(owner === '' || repo === '') {
+      setError(Error("You didn't even enter anything!"));
+      return;
+    }
+
     setLoading(true)
     RepoRank(owner, repo).then(value => {
       setLoading(false);
       setResult(value);
     }, _ => {
       setLoading(false);
-      setError(true);
+      setError(Error("Make sure that repo exists or is public & try again!"));
     })
   };
 

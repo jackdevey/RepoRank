@@ -1,6 +1,6 @@
 {
-  "name": "reporank",
-  "version": "0.1.0",
+  "name": "reporate-frontend",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@mantine/core": "^3.6.9",
@@ -13,6 +13,7 @@
     "dotenv": "^16.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
     "styled-components": "^5.3.3",
     "web-vitals": "^2.1.4"

@@ -4,9 +4,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {MantineProvider} from '@mantine/core';
+import {Route, Router, Routes} from 'react-router-dom'
+import How from './How';
 
 ReactDOM.render(
-  <React.StrictMode>
     <MantineProvider
       theme={{
         headings: {
@@ -14,9 +15,10 @@ ReactDOM.render(
         },
         colorScheme: 'dark', // had to dig around to see that the body background is magically set to theme.colors.dark[7] if and only if colorScheme is 'dark'
       }}>
-      <App />
-    </MantineProvider>
-  </React.StrictMode>,
+
+      <App/>
+
+    </MantineProvider>,
   document.getElementById('root')
 );
 

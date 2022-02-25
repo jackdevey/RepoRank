@@ -32,7 +32,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: reporate-backend
-          path: ./backend/build/
+          path: backend/build/
 
   deploy:
     runs-on: ubuntu-latest
@@ -54,4 +54,4 @@ jobs:
           app-name: 'reporate'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E2B0E4AAC33F46A19F4B673E9B3101F8 }}
-          package: ./backend/build/
+          package: backend/build/

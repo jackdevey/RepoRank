@@ -5,6 +5,7 @@
 # testing
 */coverage
 
+# configuration files
 .env
 
 # production

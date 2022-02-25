@@ -4,6 +4,22 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./build/index.js",
+    "dev": "nodemon ./index.ts",
+    "build": "tsc -p"
+  },
+  "dependencies": {
+    "@types/connect": "^3.4.35",
+    "@types/express": "^4.17.13",
+    "@types/node": "^17.0.21",
+    "@types/vhost": "^3.0.4",
+    "connect": "^3.7.0",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "vhost": "^3.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15",
+    "ts-node": "^10.5.0"
   }
 }

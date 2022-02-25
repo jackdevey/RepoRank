@@ -23,5 +23,5 @@ app.get("/", (req, res) => {
 
 // Listen on port
 app.listen(process.env.PORT, () => {
-    console.log(`RepoRate backend running on port ${process.env.PORT}`);
+    console.log(`reporank server running on port ${process.env.PORT}`);
 });

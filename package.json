@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./build/index.js",
-    "dev": "nodemon ./backend/index.ts",
+    "dev": "nodemon index.ts",
     "build": "tsc",
     "build-prod": "npm install && npm run build"
   },

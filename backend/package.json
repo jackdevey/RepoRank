@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node ./build/index.js",
     "dev": "nodemon ./index.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "build-prod": "npm install && npm run build"
   },
   "dependencies": {
     "@types/connect": "^3.4.35",

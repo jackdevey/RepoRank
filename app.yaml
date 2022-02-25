@@ -1,6 +1,0 @@
-runtime: nodejs12
-env: standard
-
-handlers:
-- url: /.*
-  script: auto

@@ -22,7 +22,7 @@ jobs:
           node-version: '16.x'
 
       - name: npm install, build
-        run: npm --prefix run build-prod
+        run: npm run build-prod
 
       - name: "Deploy to Azure"
         id: deploy-to-webapp

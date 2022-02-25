@@ -23,6 +23,5 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
         cache-dependency-path: 'backend/package-lock.json'
-    - run: cd backend/
-    - run: npm ci
-    - run: npm run build
+    - run: npm --prefix backend/ ci
+    - run: npm --prefix backend/ run build

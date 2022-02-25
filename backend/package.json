@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node ./build/index.js",
     "dev": "nodemon ./index.ts",
-    "build": "tsc -p"
+    "build": "tsc"
   },
   "dependencies": {
     "@types/connect": "^3.4.35",

@@ -17,9 +17,7 @@ import api from './api';
 app.use(vhost(`api.${process.env.DOMAIN}`, api));
 
 // Server hello world
-app.get("/", (req, res) => {
-    res.send("Hello World!");
-});
+app.use(express.static("client/build"));
 
 // Listen on port
 app.listen(process.env.PORT, () => {

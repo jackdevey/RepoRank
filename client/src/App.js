@@ -36,7 +36,7 @@ function App() {
       <Container size="sm">
         <Card shadow="md">
           <LoadingOverlay visible={loading} />
-          <h2>🔥 RepoRate</h2>
+          <h2>🔥 RepoRank</h2>
           <TextInput
             placeholder="Owner"
             size="xl"

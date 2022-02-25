@@ -5,8 +5,7 @@ name: Deploy to azure
 
 on:
   push:
-    branches:
-      - master
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -23,7 +22,7 @@ jobs:
           node-version: '16.x'
 
       - name: npm install, build
-        run: npm run build-prod
+        run: npm --prefix backend/ run build-prod
 
       - name: "Deploy to Azure"
         id: deploy-to-webapp

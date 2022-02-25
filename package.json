@@ -1,11 +1,11 @@
 {
-  "name": "reporate-backend",
+  "name": "reporate",
   "version": "1.0.0",
   "private": true,
   "main": "index.js",
   "scripts": {
     "start": "node ./build/index.js",
-    "dev": "nodemon ./index.ts",
+    "dev": "nodemon ./backend/index.ts",
     "build": "tsc",
     "build-prod": "npm install && npm run build"
   },

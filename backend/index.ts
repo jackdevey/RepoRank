@@ -22,6 +22,6 @@ app.get("/", (req, res) => {
 });
 
 // Listen on port
-app.listen(process.env.PORT, () => {
-    console.log(`RepoRate backend running on port ${process.env.PORT}`);
+app.listen(8080, () => {
+    console.log(`RepoRate backend running on port 8080`);
 });

@@ -10,6 +10,7 @@
     "build-prod": "npm install && npm run build"
   },
   "dependencies": {
+    "@octokit/core": "^3.5.1",
     "@types/connect": "^3.4.35",
     "@types/express": "^4.17.13",
     "@types/node": "^17.0.21",

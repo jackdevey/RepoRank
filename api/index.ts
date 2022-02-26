@@ -3,12 +3,13 @@
 import express, { Request, Response } from 'express';
 const api = express();
 
-// Import reply function
-import reply from './core/reply';
+// Import functions
+import Reply from './core/Reply';
+import RepoRank from './reporank/CalculateScore';
 
 // Serve api root page
 api.get("/", (req: Request, res: Response) => {
-    reply(res, 200, {
+    Reply(res, 200, {
         title: "🔥reporank public api",
         version: process.env.VERSION,
         github: "https://github.com/jackdevey/reporank",
@@ -19,7 +20,13 @@ api.get("/", (req: Request, res: Response) => {
 
 // Dynamic owner/repo route
 api.get("/:owner/:repo", (req, res) => {
-    res.send(`Api: ${req.params.owner}/${req.params.repo}`);
+    RepoRank(req.params.owner, req.params.repo).then(r => {
+        // Reply with reporank score
+        Reply(res, 200, r);
+    }, e => {
+        // Reply with error message
+        Reply(res, 400, { message: e.message });
+    });
 });
 
 // Export as submodule

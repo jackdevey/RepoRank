@@ -1,18 +1,18 @@
 import { Response } from "express-serve-static-core";
 
 // Wrap a json reply with a code and message
-function reply(res: Response, code: number, body: object) {
+function Reply(res: Response, code: number, body: object) {
     res.status(code).json({
         header: {
             code: code,
-            message: getMessage(code)
+            message: GetMessage(code)
         },
         body: body
     });
 }
 
 // Get a message regarding a http code
-function getMessage(code: number) {
+function GetMessage(code: number) {
     switch(code) {
         case 200: return "OK";
         case 400: return "Bad Request";
@@ -25,4 +25,4 @@ function getMessage(code: number) {
 }
 
 // Export function
-export default reply;
+export default Reply;

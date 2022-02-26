@@ -20,5 +20,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        cache-dependency-path: 'api/package-lock.json'
     - run: npm --prefix api ci
     - run: npm --prefix api run build-prod

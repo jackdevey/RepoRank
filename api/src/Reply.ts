@@ -2,6 +2,7 @@ import { Response } from "express-serve-static-core";
 
 // Wrap a json reply with a code and message
 function Reply(res: Response, code: number, body: object) {
+    res.header("Access-Control-Allow-Origin", "*");
     res.status(code).json({
         header: {
             code: code,

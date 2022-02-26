@@ -15,9 +15,11 @@
     "@types/express": "^4.17.13",
     "@types/node": "^17.0.21",
     "@types/vhost": "^3.0.4",
+    "badge-maker": "^3.3.1",
     "connect": "^3.7.0",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
+    "gh-badges": "^2.2.2",
     "vhost": "^3.0.2"
   },
   "devDependencies": {

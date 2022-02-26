@@ -3,6 +3,9 @@
 import express, { Request, Response } from 'express';
 const api = express();
 
+// Import badge api
+import { makeBadge, ValidationError } from 'badge-maker'
+
 // Import functions
 import Reply from "./core/Reply";
 import CalculateScore from "./reporank/CalculateScore";
@@ -26,6 +29,31 @@ api.get("/:owner/:repo", (req, res) => {
     }, e => {
         // Reply with error message
         Reply(res, 400, { message: e.message });
+    });
+});
+
+// Badge for owner/repo route
+api.get("/:owner/:repo/badge", (req, res) => {
+    CalculateScore(req.params.owner, req.params.repo).then(r => {
+        // Reply with reporank badge
+        var svg = makeBadge({
+            label: '🔥RepoRank',
+            message: r.score.toString() + "pts",
+            color: 'orange',
+        });
+        // Set headers
+        res.setHeader('Content-Type', 'image/svg+xml');
+        res.send(svg);
+    }, e => {
+        // Reply with reporank badge
+        var svg = makeBadge({
+            label: '🔥RepoRank',
+            message: "Unknown",
+            color: 'lightgrey',
+        });
+        // Set headers
+        res.setHeader('Content-Type', 'image/svg+xml');
+        res.send(svg);
     });
 });
 

@@ -13,10 +13,10 @@ import CalculateScore from "./reporank/CalculateScore";
 // Serve api root page
 api.get("/", (req: Request, res: Response) => {
     Reply(res, 200, {
-        title: "🔥reporank public api",
+        title: "🔥RepoRank Public API",
         version: process.env.VERSION,
         github: "https://github.com/jackdevey/reporank",
-        docs: "https://github.com/jackdevey/reporank/wiki/api",
+        docs: "https://github.com/jackdevey/reporank/wiki/RepoRank-API",
         frontend: "https://" + process.env.DOMAIN + "/"
     });
 });

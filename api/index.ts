@@ -4,8 +4,8 @@ import express, { Request, Response } from 'express';
 const api = express();
 
 // Import functions
-import Reply from './core/Reply';
-import RepoRank from './reporank/CalculateScore';
+import Reply from "./core/Reply";
+import CalculateScore from "./reporank/CalculateScore";
 
 // Serve api root page
 api.get("/", (req: Request, res: Response) => {
@@ -20,7 +20,7 @@ api.get("/", (req: Request, res: Response) => {
 
 // Dynamic owner/repo route
 api.get("/:owner/:repo", (req, res) => {
-    RepoRank(req.params.owner, req.params.repo).then(r => {
+    CalculateScore(req.params.owner, req.params.repo).then(r => {
         // Reply with reporank score
         Reply(res, 200, r);
     }, e => {

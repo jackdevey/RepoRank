@@ -3,6 +3,10 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
+// Import cors for cross origin resource 
+// sharing
+import cors from 'cors';
+
 // Import express and vhost
 // & create express app
 import express from 'express';
@@ -15,6 +19,10 @@ import api from './src/Api';
 // Use vhost to create subdomains 
 // that map to submodules
 app.use(vhost(`api.${process.env.DOMAIN}`, api));
+
+// Use cors to allow cross origin resource
+// sharing
+app.use(cors());
 
 // Listen on port
 app.listen(process.env.PORT, () => {

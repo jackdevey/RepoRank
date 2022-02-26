@@ -137,14 +137,18 @@ function App() {
       return;
     }
 
-    setLoading(true)
-    RepoRank(owner, repo).then(value => {
-      setLoading(false);
-      setResult(value);
-    }, _ => {
-      setLoading(false);
-      setError(Error("Make sure that repo exists or is public & try again!"));
-    })
+    setLoading(true);
+
+    fetch(`https://api.reporank.dev/${owner}/${repo}`)
+      .then(res => res.json())
+      .then((data) => {
+        setLoading(false);
+        setResult(data.body);
+      })
+      .catch(_ => {
+        setLoading(false);
+        setError(Error("Make sure that repo exists or is public & try again!"));
+      });
   };
 
 }

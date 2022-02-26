@@ -17,6 +17,7 @@
     "@types/vhost": "^3.0.4",
     "badge-maker": "^3.3.1",
     "connect": "^3.7.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "vhost": "^3.0.2"

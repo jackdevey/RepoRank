@@ -1,5 +1,5 @@
 {
-  "name": "reporate",
+  "name": "@reporank/api",
   "version": "1.0.0",
   "private": true,
   "main": "index.js",
@@ -19,7 +19,6 @@
     "connect": "^3.7.0",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
-    "gh-badges": "^2.2.2",
     "vhost": "^3.0.2"
   },
   "devDependencies": {

@@ -1,61 +1,22 @@
-// Import express and create api
-// module
-import express, { Request, Response } from 'express';
-const api = express();
+// Import environment vars
+// from dotenv
+import dotenv from 'dotenv';
+dotenv.config();
 
-// Import badge api
-import { makeBadge, ValidationError } from 'badge-maker'
+// Import express and vhost
+// & create express app
+import express from 'express';
+import vhost from 'vhost';
+const app = express();
 
-// Import functions
-import Reply from "./core/Reply";
-import CalculateScore from "./reporank/CalculateScore";
+// Import submodules
+import api from './src/Api';
 
-// Serve api root page
-api.get("/", (req: Request, res: Response) => {
-    Reply(res, 200, {
-        title: "🔥RepoRank Public API",
-        version: process.env.VERSION,
-        github: "https://github.com/jackdevey/reporank",
-        docs: "https://github.com/jackdevey/reporank/wiki/RepoRank-API",
-        frontend: "https://" + process.env.DOMAIN + "/"
-    });
+// Use vhost to create subdomains 
+// that map to submodules
+app.use(vhost(`api.${process.env.DOMAIN}`, api));
+
+// Listen on port
+app.listen(process.env.PORT, () => {
+    console.log(`reporank server running on port ${process.env.PORT}`);
 });
-
-// Dynamic owner/repo route
-api.get("/:owner/:repo", (req, res) => {
-    CalculateScore(req.params.owner, req.params.repo).then(r => {
-        // Reply with reporank score
-        Reply(res, 200, r);
-    }, e => {
-        // Reply with error message
-        Reply(res, 400, { message: e.message });
-    });
-});
-
-// Badge for owner/repo route
-api.get("/:owner/:repo/badge", (req, res) => {
-    CalculateScore(req.params.owner, req.params.repo).then(r => {
-        // Reply with reporank badge
-        var svg = makeBadge({
-            label: '🔥RepoRank',
-            message: r.score.toString() + "pts",
-            color: 'orange',
-        });
-        // Set headers
-        res.setHeader('Content-Type', 'image/svg+xml');
-        res.send(svg);
-    }, e => {
-        // Reply with reporank badge
-        var svg = makeBadge({
-            label: '🔥RepoRank',
-            message: "Unknown",
-            color: 'lightgrey',
-        });
-        // Set headers
-        res.setHeader('Content-Type', 'image/svg+xml');
-        res.send(svg);
-    });
-});
-
-// Export as submodule
-export default api;

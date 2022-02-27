@@ -1,3 +1,3 @@
 # 🔥RepoRank
-![RepoRank Score](https://img.shields.io/badge/%F0%9F%94%A5RepoRank%20-1002pts-important)
+![RepoRank Score](https://api.reporank.dev/jackdevey/reporank/badge)
 > RepoRank Rest API documentation [here](https://github.com/jackdevey/reporank/wiki/RepoRank-API)

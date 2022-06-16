@@ -1,5 +1,5 @@
 // Generate the status of a repo, based on it's level
-function StatusGenerator(level) {
+export function StatusGenerator(level) {
     let status;
     switch(level) {
         // Beginner level
@@ -26,4 +26,7 @@ function StatusGenerator(level) {
     return status;
 }
 
-export default StatusGenerator;
+export interface Status {
+    title: string,
+    color: string
+}

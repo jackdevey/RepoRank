@@ -8,7 +8,7 @@ import { makeBadge, ValidationError } from 'badge-maker'
 
 // Import functions
 import Reply from "./Reply";
-import CalculateScore from "./CalculateScore";
+import { CalculateScore } from "./CalculateScore";
 
 // Serve api root page
 api.get("/", (req: Request, res: Response) => {
@@ -23,38 +23,24 @@ api.get("/", (req: Request, res: Response) => {
 
 // Dynamic owner/repo route
 api.get("/:owner/:repo", (req, res) => {
-    CalculateScore(req.params.owner, req.params.repo).then(r => {
-        // Reply with reporank score
-        Reply(res, 200, r);
-    }, e => {
-        // Reply with error message
-        Reply(res, 400, { message: e.message });
+    CalculateScore(req.params.owner, req.params.repo, (err, response) => {
+        Reply(res, 200, response);
     });
 });
 
 // Badge for owner/repo route
-api.get("/:owner/:repo/badge", (req, res) => {
-    CalculateScore(req.params.owner, req.params.repo).then(r => {
+api.get("/:owner/:repo/badge", async (req, res) => {
+    CalculateScore(req.params.owner, req.params.repo, (err, response) => {
         // Reply with reporank badge
         var svg = makeBadge({
             label: '🔥RepoRank',
-            message: r.score.toString() + "pts",
+            message: response.score.toString() + "pts",
             color: 'orange',
         });
         // Set headers
         res.setHeader('Content-Type', 'image/svg+xml');
         res.send(svg);
-    }, e => {
-        // Reply with reporank badge
-        var svg = makeBadge({
-            label: '🔥RepoRank',
-            message: "Unknown",
-            color: 'lightgrey',
-        });
-        // Set headers
-        res.setHeader('Content-Type', 'image/svg+xml');
-        res.send(svg);
-    });
+    })
 });
 
 // Export as submodule

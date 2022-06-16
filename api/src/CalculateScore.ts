@@ -1,15 +1,12 @@
-import { Response } from 'express';
 import { Octokit } from "@octokit/core";
 import { StatusGenerator, Status } from "./StatusGenerator";
 import parallel from 'async/parallel';
 import { CalculateBaseScore, BaseScore } from "./CalculateBaseScore";
 import { CalculateCodeChange } from "./CalculateCodeChange";
 import { CalculateCommunityPercentage, CommunityPercentage } from "./CalculateCommunityPercentage";
-import { StatSyncFn } from "fs";
-import { IncomingHttpStatusHeader } from "http2";
 
 // CalculateScore calculates the score of a repo
-export async function CalculateScore(own: string, rep: string, callback: (err: Error|null, response: Score|null) => void) {
+export async function CalculateScore(own: string, rep: string, callback: (err: any|null, response: Score|null) => void) {
   
     // Create new octokit instance
     const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });

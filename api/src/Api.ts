@@ -9,6 +9,7 @@ import { makeBadge, ValidationError } from 'badge-maker'
 // Import functions
 import Reply from "./Reply";
 import { CalculateScore } from "./CalculateScore";
+import { CalculateUserScore } from "./CalculateUserScore";
 
 // Serve api root page
 api.get("/", (req: Request, res: Response) => {
@@ -21,25 +22,47 @@ api.get("/", (req: Request, res: Response) => {
     });
 });
 
+// Dynamic user route
+api.get("/:user", (req, res) => {
+    CalculateUserScore(req.params.user).then(response => {
+        Reply(res, 200, response);
+    })
+});
+
 // Dynamic owner/repo route
 api.get("/:owner/:repo", (req, res) => {
     CalculateScore(req.params.owner, req.params.repo, (err, response) => {
-        Reply(res, 200, response);
+        // If error, reply with error
+        if(err) Reply(res, err.status, err);
+        else Reply(res, 200, response);
     });
 });
 
 // Badge for owner/repo route
 api.get("/:owner/:repo/badge", async (req, res) => {
     CalculateScore(req.params.owner, req.params.repo, (err, response) => {
-        // Reply with reporank badge
-        var svg = makeBadge({
-            label: '🔥RepoRank',
-            message: response.score.toString() + "pts",
-            color: 'orange',
-        });
-        // Set headers
-        res.setHeader('Content-Type', 'image/svg+xml');
-        res.send(svg);
+        // If error, reply with error
+        if(err) {
+            // Reply with error badge
+            var svg = makeBadge({
+                label: '🔥RepoRank',
+                message: 'Error',
+                color: 'inactive',
+            });
+            // Set headers
+            res.setHeader('Content-Type', 'image/svg+xml');
+            res.send(svg);
+        } else {
+            // Reply with reporank badge
+            var svg = makeBadge({
+                label: '🔥RepoRank',
+                message: response.score.toString() + "pts",
+                color: 'orange',
+            });
+            // Set headers
+            res.setHeader('Content-Type', 'image/svg+xml');
+            res.send(svg);
+        }
     })
 });
 

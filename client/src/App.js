@@ -42,7 +42,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  let endpoint = "https://api.reporank.dev/";
+  let endpoint = "https://api.reporank.dev";
 
   if (process.env.NODE_ENV !== 'production') {
     endpoint = "http://api.localhost:8080";

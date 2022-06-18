@@ -7,7 +7,7 @@ import CountUp from 'react-countup';
 export function ShowPopup(modals, theme, data) {
     // Show error popup instead if necessary
     if (data.header.code != 200) {
-        ShowErrorPopup(data.header, "user");
+        ShowErrorPopup(modals, data.header, "user");
         return;
     }
     // Extract the user contents from the data

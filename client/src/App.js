@@ -48,6 +48,7 @@ function App() {
     endpoint = "http://api.localhost:8080";
   }
 
+  document.title = title;
 
   return (
     <AppShell

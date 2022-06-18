@@ -33,7 +33,7 @@ export function ShowPopup(modals, theme, data) {
                         <h1 style={CompactLineStyle()}>✨<CountUp end={user.totalScore}></CountUp> <small>pts</small></h1>
                         <h3 style={CompactLineStyle()}>🏅 Level {user.level}</h3>
                         <Text style={{ marginTop: "20px" }}>
-                            This means <Anchor href={user.ghLink} target="_blank">{user.username}</Anchor> has recieved the {StatusBadge(user.level)} status from RepoRate
+                            This means <Anchor href={user.ghLink} target="_blank">{user.username}</Anchor> has recieved the {StatusBadge(user.level)} status from RepoRank
                         </Text>
                         <h3 style={{marginTop: "20px"}}>Top repos</h3>
                         <Timeline active={-1} bulletSize={24} lineWidth={2} style={{paddingBottom: "20px"}}>
@@ -52,11 +52,17 @@ export function ShowPopup(modals, theme, data) {
                     <Grid.Col lg={6} sm={12}>
                         <h3 style={CompactLineStyle()}>Score breakdown</h3>
                         <Accordion iconPosition="right" offsetIcon={false}>
-                            <Accordion.Item label={<Text>Years active ⏲️ <Code>{user.score.ageScore} pts</Code></Text>}>
-                                This account was created in <Code>{(new Date().getFullYear()) - user.accountAge}</Code>
+                            <Accordion.Item label={<Text>Stars earned 🌟 <Code>{user.score.repoStarsScore} pts</Code></Text>}>
+                                The account has earned <Code>{user.repoStars}</Code> stars in their top 3 repos
                             </Accordion.Item>
                             <Accordion.Item label={<Text>Awards 🏆 <Code>{user.score.awardsScore} pts</Code></Text>}>
                                 This account has scored <Code>{user.score.awardsScore} pts</Code> from GitHub awards
+                            </Accordion.Item>
+                            <Accordion.Item label={<Text>Repos 📙 <Code>{user.score.repoScore} pts</Code></Text>}>
+                                The account has contributed to <Code>{user.repos}</Code> repos
+                            </Accordion.Item>
+                            <Accordion.Item label={<Text>PRs 🌿 <Code>{user.score.prScore} pts</Code></Text>}>
+                                The account has made <Code>{user.prs}</Code> PRs
                             </Accordion.Item>
                             <Accordion.Item label={<Text>Followers 🧑‍💻 <Code>{user.score.followerScore} pts</Code></Text>}>
                                 The account has <Code>{user.followers}</Code> followers
@@ -64,20 +70,17 @@ export function ShowPopup(modals, theme, data) {
                             <Accordion.Item label={<Text>Issues 🚨 <Code>{user.score.issueScore} pts</Code></Text>}>
                                 The account has participated in <Code>{user.score.issueScore}</Code> issues
                             </Accordion.Item>
-                            <Accordion.Item label={<Text>PRs 🌿 <Code>{user.score.prScore} pts</Code></Text>}>
-                                The account has made <Code>{user.prs}</Code> PRs
+                            <Accordion.Item label={<Text>Recent commits 📨 <Code>{user.score.commitsYearScore} pts</Code></Text>}>
+                                The account has made <Code>{user.commitsYear}</Code> commits in the previous year
                             </Accordion.Item>
-                            <Accordion.Item label={<Text>Repos 📙 <Code>{user.score.repoScore} pts</Code></Text>}>
-                                The account has contributed to <Code>{user.repos}</Code> repos
+                            <Accordion.Item label={<Text>Years active ⏲️ <Code>{user.score.ageScore} pts</Code></Text>}>
+                                This account was created in <Code>{(new Date().getFullYear()) - user.accountAge}</Code>
                             </Accordion.Item>
                             <Accordion.Item label={<Text>Sponsoring 💸 <Code>{user.score.sponsorScore} pts</Code></Text>}>
                                 The account is sponsoring <Code>{user.sponsors}</Code> others or orgs
                             </Accordion.Item>
                             <Accordion.Item label={<Text>Discussion comments 💭 <Code>{user.score.commentScore} pts</Code></Text>}>
                                 The account has made <Code>{user.discussionComments}</Code> discussion comments
-                            </Accordion.Item>
-                            <Accordion.Item label={<Text>Stars earned 🌟 <Code>{user.score.repoStarsScore} pts</Code></Text>}>
-                                The account has earned <Code>{user.repoStars}</Code> stars in their top 3 repos
                             </Accordion.Item>
                         </Accordion>
                     </Grid.Col>

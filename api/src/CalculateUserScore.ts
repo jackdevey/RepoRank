@@ -35,6 +35,10 @@ export async function CalculateUserScore(username: string): Promise<any> {
           sponsoring {
             totalCount
           }
+          contributionsCollection {
+            totalCommitContributions
+            restrictedContributionsCount
+          }
           # Each worth 1 point
           repositoryDiscussionComments {
             totalCount
@@ -80,7 +84,8 @@ export async function CalculateUserScore(username: string): Promise<any> {
     let commentScore = response.user.repositoryDiscussionComments.totalCount * 1;
     let repoStars = response.user.repositories.edges.map(e => e.node.stargazerCount).reduce((a, b) => a + b, 0);
     let repoStarsScore = repoStars * 2;
-    let totalScore = ageScore + bountyScore + campusScore + starScore + followerScore + issueScore + prScore + repoScore + sponsorScore + commentScore + repoStarsScore;
+    let commitScore = Math.round(response.user.contributionsCollection.totalCommitContributions / 10);
+    let totalScore = commitScore + ageScore + bountyScore + campusScore + starScore + followerScore + issueScore + prScore + repoScore + sponsorScore + commentScore + repoStarsScore;
     let level = Math.round(totalScore / 100);
     return {
         username: response.user.username,
@@ -97,6 +102,7 @@ export async function CalculateUserScore(username: string): Promise<any> {
         isGitHubStar: response.user.isGitHubStar,
         repoStars,
         followers: response.user.followers.totalCount,
+        commitsYear: response.user.contributionsCollection.totalCommitContributions,
         totalScore,
         ghLink: `https://github.com/${username}`,
         score: {
@@ -108,8 +114,8 @@ export async function CalculateUserScore(username: string): Promise<any> {
             repoScore,
             sponsorScore,
             commentScore,
-            repoStarsScore
-            
+            repoStarsScore,
+            commitsYearScore: commitScore,
         },
         topRepos: [
             response.user.repositories.edges[0].node,

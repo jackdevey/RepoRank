@@ -84,8 +84,8 @@ export async function CalculateUserScore(username: string): Promise<any> {
     let commentScore = response.user.repositoryDiscussionComments.totalCount * 1;
     let repoStars = response.user.repositories.edges.map(e => e.node.stargazerCount).reduce((a, b) => a + b, 0);
     let repoStarsScore = repoStars * 2;
-    let commitScore = Math.round(response.user.contributionsCollection.totalCommitContributions / 10);
-    let totalScore = commitScore + ageScore + bountyScore + campusScore + starScore + followerScore + issueScore + prScore + repoScore + sponsorScore + commentScore + repoStarsScore;
+    let commitScore = yearCommitScore();
+    let totalScore = yearCommitScore() + ageScore + bountyScore + campusScore + starScore + followerScore + issueScore + prScore + repoScore + sponsorScore + commentScore + repoStarsScore;
     let level = Math.round(totalScore / 100);
     return {
         username: response.user.username,
@@ -123,7 +123,20 @@ export async function CalculateUserScore(username: string): Promise<any> {
             response.user.repositories.edges[2].node
         ]
     }
+
+    function yearCommitScore() {
+      let x = response.user.contributionsCollection.totalCommitContributions;
+      // Translated arctan function, stretch of 
+      // 100 in y direction and 1000 in x direction, 
+      // capped at y=100 
+      let y = 100 * Math.atan(x/1000);
+      // If y exceeds 100, cap the score at 100
+      if (y >= 100) return 100;
+      return Math.round(y);
+    }
 };
+
+
 
 export interface BaseScore {
     stars: number,

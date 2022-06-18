@@ -24,9 +24,12 @@ api.get("/", (req: Request, res: Response) => {
 
 // Dynamic user route
 api.get("/:user", (req, res) => {
+    if(req.params.user == "favicon.ico") return;
     CalculateUserScore(req.params.user).then(response => {
         Reply(res, 200, response);
-    })
+    }).catch(e => {
+        Reply(res, 404, e);
+    });
 });
 
 // Dynamic owner/repo route

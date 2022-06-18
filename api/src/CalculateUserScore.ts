@@ -47,6 +47,7 @@ export async function CalculateUserScore(username: string): Promise<any> {
                 name
                 stargazerCount
                 forkCount
+                description
                    
                 primaryLanguage {
                   color
@@ -61,7 +62,13 @@ export async function CalculateUserScore(username: string): Promise<any> {
         }
       }`,{ headers: { authorization: `token ${process.env.GITHUB_TOKEN}` }});
 
-    let ageScore = (new Date().getFullYear() - new Date(response.user.createdAt).getFullYear()) * 5;
+
+    if(response.errors) { 
+       return Error("Unknown user")
+    }
+  
+    let age = (new Date().getFullYear() - new Date(response.user.createdAt).getFullYear());
+    let ageScore = age * 5;
     let bountyScore = response.user.isBountyHunter ? 500 : 0;
     let campusScore = response.user.isCampusExpert ? 500 : 0;
     let starScore = response.user.isGitHubStar ? 1000 : 0;
@@ -71,18 +78,27 @@ export async function CalculateUserScore(username: string): Promise<any> {
     let repoScore = response.user.repositoriesContributedTo.totalCount * 2;
     let sponsorScore = response.user.sponsoring.totalCount * 1;
     let commentScore = response.user.repositoryDiscussionComments.totalCount * 1;
-    let repoStarsScore = response.user.repositories.edges.map(e => e.node.stargazerCount).reduce((a, b) => a + (b * 2), 0);
+    let repoStars = response.user.repositories.edges.map(e => e.node.stargazerCount).reduce((a, b) => a + b, 0);
+    let repoStarsScore = repoStars * 2;
     let totalScore = ageScore + bountyScore + campusScore + starScore + followerScore + issueScore + prScore + repoScore + sponsorScore + commentScore + repoStarsScore;
-
+    let level = Math.round(totalScore / 100);
     return {
         username: response.user.username,
         avatarUrl: response.user.avatarUrl,
         bio: response.user.bio,
-        createdAt: response.user.createdAt,
+        accountAge: age,
+        level,
+        prs: response.user.pullRequests.totalCount,
+        repos:  response.user.repositoriesContributedTo.totalCount,
+        sponsors: response.user.sponsoring.totalCount,
+        discussionComments: response.user.repositoryDiscussionComments.totalCount,
         isBountyHunter: response.user.isBountyHunter,
         isCampusExpert: response.user.isCampusExpert,
         isGitHubStar: response.user.isGitHubStar,
+        repoStars,
         followers: response.user.followers.totalCount,
+        totalScore,
+        ghLink: `https://github.com/${username}`,
         score: {
             ageScore,
             awardsScore: bountyScore + campusScore + starScore,
@@ -92,8 +108,8 @@ export async function CalculateUserScore(username: string): Promise<any> {
             repoScore,
             sponsorScore,
             commentScore,
-            repoStarsScore,
-            totalScore
+            repoStarsScore
+            
         },
         topRepos: [
             response.user.repositories.edges[0].node,

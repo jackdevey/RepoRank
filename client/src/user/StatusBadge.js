@@ -1,18 +1,14 @@
 import { Badge } from "@mantine/core";
 
 export const StatusBadge = (level) => {
+  // Ultimate status
+  if (level === 8) return (<Badge variant="gradient" gradient={{ from: '#c5b358', to: '#d4af37', deg: 35 }}>Ultimate</Badge>)
   // Legendary status
-  if (level >= 100) {
-    return (<Badge variant="gradient" gradient={{ from: 'yellow', to: 'orange', deg: 35 }}>Legendary</Badge>)
-  }
+  if (level >= 6) return (<Badge variant="gradient" gradient={{ from: 'yellow', to: 'orange', deg: 35 }}>Legendary</Badge>)
   // Pro status
-  if (level >= 10) {
-    return (<Badge variant="gradient" gradient={{ from: 'teal', to: 'blue', deg: 60 }}>Pro</Badge>)
-  }
+  if (level >= 4) return (<Badge variant="gradient" gradient={{ from: 'teal', to: 'blue', deg: 60 }}>Pro</Badge>)
   // Intermediate status
-  if (level >= 5) {
-    return (<Badge variant="gradient" gradient={{ from: 'teal', to: 'lime', deg: 105 }}>Intermediate</Badge>)
-  }
+  if (level >= 2) return (<Badge variant="gradient" gradient={{ from: 'teal', to: 'lime', deg: 105 }}>Intermediate</Badge>)
   // Beginner status as fallback
   return (<Badge>Beginner</Badge>)
 }

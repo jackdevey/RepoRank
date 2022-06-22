@@ -41,6 +41,7 @@ function App() {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [popUpOpen, setpopUpOpen] = useState(false);
 
   let endpoint = "https://api.reporank.dev";
 
@@ -180,7 +181,7 @@ function App() {
   };
 
   function FetchUserReport() {
-    User(modals, theme, username, (bool) => setLoading(bool))
+    User(React, modals, username, (bool) => setLoading(bool))
   }
 
 }

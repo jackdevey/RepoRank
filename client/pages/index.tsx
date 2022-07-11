@@ -29,6 +29,7 @@ export default function IndexPage() {
   const theme = useMantineTheme();
 
   const [title, setTitle] = useState('RepoRank');
+  document.title = title;
 
   const [username, setUsername] = useState('');
   const modals = useModals();

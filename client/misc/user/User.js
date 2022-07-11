@@ -2,7 +2,7 @@ import { ShowErrorPopup } from "../ShowErrorPopup";
 import { ShowPopup } from "./ShowPopup";
 import { endpoint } from "../endpoint";
 
-export function User(modals, theme, username, animations) {
+export function User(react, modals, username, animations) {
     // If nothing was entered, show error now
     if (username === '') {
         ShowErrorPopup(modals, {
@@ -20,7 +20,7 @@ export function User(modals, theme, username, animations) {
             // Run after function
             animations(false);
             // Show the result
-            ShowPopup(modals, theme, data);
+            ShowPopup(react, modals, data);
         }).catch((e) => {
             // Log errors
             console.log(e);

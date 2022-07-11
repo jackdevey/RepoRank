@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
-import RepoRank from './algorithm/RepoRank.js';
 import { Button, Card, Container, TextInput, AppShell, LoadingOverlay, useMantineTheme, Modal, Accordion, Text, Code, Anchor } from '@mantine/core';
 import { PersonIcon, RepoIcon } from '@primer/octicons-react';
-import { BackgroundStyle, CompactLineStyle } from './style/Style.js'
-import { Tabs, Avatar, Center, Group, Title, Divider, Grid, Badge } from '@mantine/core';
+import { BackgroundStyle, CompactLineStyle } from '../misc/style/Style'
+import { Tabs } from '@mantine/core';
 import { useModals } from '@mantine/modals';
-import { ShowPopup } from './user/ShowPopup.js';
-import { ShowErrorPopup } from './ShowErrorPopup.js';
-import { User } from './user/User.js';
+import { ShowErrorPopup } from '../misc/ShowErrorPopup.js';
+import { User } from '../misc/user/User.js';
 
 
-function App() {
+export default function IndexPage() {
 
   const empty = {
     score: "Unknown",
@@ -41,6 +39,7 @@ function App() {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [popUpOpen, setpopUpOpen] = useState(false);
 
   let endpoint = "https://api.reporank.dev";
 
@@ -48,7 +47,6 @@ function App() {
     endpoint = "http://api.localhost:8080";
   }
 
-  document.title = title;
 
   return (
     <AppShell
@@ -180,9 +178,7 @@ function App() {
   };
 
   function FetchUserReport() {
-    User(modals, theme, username, (bool) => setLoading(bool))
+    User(React, modals, username, (bool) => setLoading(bool))
   }
 
 }
-
-export default App;

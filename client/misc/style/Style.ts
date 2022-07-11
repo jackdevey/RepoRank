@@ -3,8 +3,8 @@ export function BackgroundStyle(theme) {
         backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[0],
         minHeight: "100vh",
         display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
+        flexDirection: 'column' as 'column',
+        alignItems: "center", 
         justifyContent: "center",
     }
 }

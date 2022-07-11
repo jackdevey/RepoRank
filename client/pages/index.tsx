@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Card, Container, TextInput, AppShell, LoadingOverlay, useMantineTheme, Modal, Accordion, Text, Code, Anchor } from '@mantine/core';
 import { PersonIcon, RepoIcon } from '@primer/octicons-react';
-import { BackgroundStyle, CompactLineStyle } from '../misc/style/Style.js'
+import { BackgroundStyle, CompactLineStyle } from '../misc/style/Style'
 import { Tabs } from '@mantine/core';
 import { useModals } from '@mantine/modals';
 import { ShowErrorPopup } from '../misc/ShowErrorPopup.js';

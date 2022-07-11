@@ -1,7 +1,7 @@
 import { Accordion, Text, Code, Anchor, Avatar, Center, Group, Title, Grid, Timeline, Badge, Popover, ActionIcon } from '@mantine/core';
 import { StatusBadge } from './StatusBadge';
 import { ShowErrorPopup } from '../ShowErrorPopup';
-import { CompactLineStyle } from '../style/Style.js';
+import { CompactLineStyle } from '../style/Style';
 import CountUp from 'react-countup';
 import { useState } from 'react';
 import { Number1, Number2, Number3, Help } from 'tabler-icons-react';

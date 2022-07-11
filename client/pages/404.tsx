@@ -2,6 +2,10 @@ import React from 'react';
 import Link from 'next/link';
 import { createStyles, Container, Title, Text, Button, Group, useMantineTheme } from '@mantine/core';
 
+/**
+ * RepoRank 404 page
+ * jackdevey
+ */
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -73,12 +77,14 @@ export default function NothingFoundBackground() {
         <div className={classes.content}>
           <Title className={classes.title}>Nothing to see here</Title>
           <Text color="dimmed" size="lg" align="center" className={classes.description}>
-            Page you are trying to open does not exist. You may have mistyped the address, or the
-            page has been moved to another URL. If you think this is an error contact support.
+            This aint it. Sorry
           </Text>
           <Group position="center">
             <Link href="/" passHref>
-                <Button size="md" component="a">🔥 Back home</Button>
+                <Button size="md" component="a">🏠 Home</Button>
+            </Link>
+            <Link href="https://github.com/jackdevey/reporank/issues/new" passHref>
+                <Button size="md" component="a" variant="default">🐛 Report bug</Button>
             </Link>
           </Group>
         </div>

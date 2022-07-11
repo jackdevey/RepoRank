@@ -18,10 +18,10 @@ export async function CalculateUserScore(username: string): Promise<any> {
           isCampusExpert: true,
           isGitHubStar: true,
           followers: {
-            totalCount: 100000000000000
+            totalCount: 3000
           },
           issues: {
-            totalCount: 100000000000000
+            totalCount: 300
           },
           pullRequests: {
             totalCount: 100000000000000
@@ -36,7 +36,7 @@ export async function CalculateUserScore(username: string): Promise<any> {
             totalCommitContributions: 100000000000000
           },
           repositoryDiscussionComments: {
-            totalCount: 100000000000000
+            totalCount: 100
           },
           repositories: {
             edges: [
@@ -160,7 +160,7 @@ export async function CalculateUserScore(username: string): Promise<any> {
       }`,{ headers: { authorization: `token ${process.env.GITHUB_TOKEN}` }});
 
     if(response.errors) { 
-      return Error("Unknown user")
+        return Error("Unknown user")
       }
     }
   
@@ -229,21 +229,23 @@ export async function CalculateUserScore(username: string): Promise<any> {
 
     function issuesScore() {
       let x = response.user.issues.totalCount;
-      // Not too sure how to model this with a curve,
-      // so for now im just gonna assume its linear,
-      // and worry about it later ig
-      let y = x;
+      // Translated base 10 logarithm, stretch of
+      // 114 in y direction and 46 in x direction with
+      // an adjustement of 1 in the positive x direction,
+      // capped at 100
+      let y = 114 * Math.log10((1/46) * x + 1);
       if (y >= 100) return 100;
       return Math.round(y);
     }
 
     function discussionCommentsScore() {
       let x = response.user.repositoryDiscussionComments.totalCount;
-      // Not too sure how to model this with a curve,
-      // so for now im just gonna assume its linear,
-      // and worry about it later ig
-      let y = x;
-      if (y >= 100) return 100;
+      // Translated base 10 logarithm, stretch of
+      // 20 in y direction and 6 in x direction with
+      // an adjustement of 1 in the positive x direction,
+      // capped at 25
+      let y = 20 * Math.log10((1/6) * x + 1);
+      if (y >= 25) return 25;
       return Math.round(y);
     }
 

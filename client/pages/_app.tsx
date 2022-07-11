@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { useState } from 'react';
 import { MantineProvider, ColorSchemeProvider, ColorScheme } from '@mantine/core';
 import { useHotkeys, useLocalStorage } from '@mantine/hooks';
+import { ModalsProvider } from '@mantine/modals';
 
 
 export default function App(props: AppProps) {
@@ -26,7 +27,9 @@ export default function App(props: AppProps) {
             withGlobalStyles
             withNormalizeCSS
             theme={{ colorScheme }}>
-            <Component {...pageProps} />
+              <ModalsProvider>
+                <Component {...pageProps} />
+              </ModalsProvider>
         </MantineProvider>
       </ColorSchemeProvider>
     </>

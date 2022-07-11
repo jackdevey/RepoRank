@@ -1,124 +1,184 @@
-import React from "react";
-import { useRouter } from 'next/router';
-import {
-  AppShell,
-  Container,
-  Title,
-  ActionIcon,
-  Card,
-  Text,
-  SimpleGrid,
-  UnstyledButton,
-  Group,
-} from "@mantine/core";
-import { createStyles, useMantineColorScheme, useMantineTheme } from "@mantine/core";
-import { Sun, MoonStars } from "tabler-icons-react";
+import React, { useState } from 'react';
+import { Button, Card, Container, TextInput, AppShell, LoadingOverlay, useMantineTheme, Modal, Accordion, Text, Code, Anchor } from '@mantine/core';
+import { PersonIcon, RepoIcon } from '@primer/octicons-react';
+import { BackgroundStyle, CompactLineStyle } from '../misc/style/Style.js'
+import { Tabs } from '@mantine/core';
+import { useModals } from '@mantine/modals';
+import { ShowErrorPopup } from '../misc/ShowErrorPopup.js';
+import { User } from '../misc/user/User.js';
 
-// Shows a list of services offered & a button 
-// to toggle the colour scheme
-function IndexPage() {
-  const { classes } = useStyles();
-  const router = useRouter();
+
+export default function IndexPage() {
+
+  const empty = {
+    score: "Unknown",
+    level: "Unknown",
+    status: {
+      title: "Unknown",
+      color: "grey"
+    },
+    breakdown: {
+      stars: "Unknown",
+      forks: "Unknown",
+      openIssues: "Unknown",
+      codeChange: "Unknown",
+      community: "Unknown"
+    }
+  }
+
   const theme = useMantineTheme();
 
-  const items = services.map((item) => (
-    <UnstyledButton key={item.title} className={classes.item} onClick={() => router.push(item.path)}>
-      <Title order={2}>{item.emoji}</Title>
-      <Text size="sm" weight="bolder" mt={7}>
-        {item.title}
-      </Text>
-    </UnstyledButton>
-  ));
+  const [title, setTitle] = useState('RepoRank');
+
+  const [username, setUsername] = useState('');
+  const modals = useModals();
+
+  const [owner, setOwner] = useState('');
+  const [repo, setRepo] = useState('');
+  const [result, setResult] = useState(empty);
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [popUpOpen, setpopUpOpen] = useState(false);
+
+  let endpoint = "https://api.reporank.dev";
+
+  if (process.env.NODE_ENV !== 'production') {
+    endpoint = "http://api.localhost:8080";
+  }
+
 
   return (
-    <AppShell style={BackgroundStyle(theme)}>
-      <Container size="xs">
-        <Card withBorder radius="md" shadow="md">
-          <Group position="apart">
-            <Text weight="bold">🔥RepoRank</Text>
-            <ColorSchemeToggle />
-          </Group>
-          <SimpleGrid cols={3} mt="md">
-            {items}
-          </SimpleGrid>
+    <AppShell
+      className="background"
+      style={BackgroundStyle(theme)}>
+      <Container size="sm">
+        <Card shadow="md">
+          <LoadingOverlay visible={loading} />
+          <h2>🔥 {title}</h2>
+          <Tabs grow onTabChange={i => { if (i == 0) setTitle("RepoRank"); else setTitle("UserRank") }}>
+            <Tabs.Tab label="Repositories">
+              <TextInput
+                placeholder="Owner"
+                size="xl"
+                value={owner}
+                onChange={e => setOwner(e.target.value)}
+                icon={<PersonIcon size={24} />}
+                style={{ paddingBottom: "20px", paddingTop: "10px" }}
+                variant="filled"
+                required
+              />
+              <TextInput
+                placeholder="Repository"
+                size="xl"
+                value={repo}
+                onChange={e => setRepo(e.target.value)}
+                icon={<RepoIcon size={24} />}
+                style={{ paddingBottom: "20px" }}
+                variant="filled"
+                required
+              />
+              <Button
+                variant="light"
+                size="xl"
+                onClick={Click}>
+                Calculate
+              </Button>
+            </Tabs.Tab>
+            <Tabs.Tab label="Users" >
+              <TextInput
+                placeholder="Username"
+                size="xl"
+                value={username}
+                onChange={e => setUsername(e.target.value)}
+                icon={<PersonIcon size={24} />}
+                style={{ paddingBottom: "20px", paddingTop: "10px" }}
+                variant="filled"
+                required
+              />
+              <Button
+                variant="light"
+                size="xl"
+                onClick={FetchUserReport}>
+                Calculate
+              </Button>
+            </Tabs.Tab>
+          </Tabs>
+
         </Card>
+
+        <Text color="dimmed" style={{ marginTop: "10px" }}>Created by <Anchor href="https://github.com/jackdevey">jack devey</Anchor>, <Anchor href="https://github.com/jackdevey/reporank">contribute</Anchor></Text>
       </Container>
+
+      <Modal
+        centered
+        opened={result.score !== "Unknown"}
+        onClose={() => setResult(empty)}
+        title={`${owner}/${repo}`}>
+
+        <h1
+          style={CompactLineStyle()}>
+          ✨ {result.score} <small>pts</small>
+        </h1>
+
+        <h3 style={CompactLineStyle()}>🏅 Level {result.level}</h3>
+
+        <Text style={{ marginTop: "20px", marginBottom: "20px" }}>
+          This means <Anchor href={`https://github.com/${owner}/${repo}`} target="_blank">{owner}/{repo}</Anchor> has recieved the <Code color={result.status.color}>{result.status.title}</Code> status from RepoRate
+        </Text >
+
+        <h3 style={CompactLineStyle()}>Score breakdown</h3>
+
+        <Accordion iconPosition="right" offsetIcon={false}>
+          <Accordion.Item label="Community 💞">
+            The repo has a community percentage of <Code>{result.breakdown.community}%</Code>
+          </Accordion.Item>
+
+          <Accordion.Item label="Activity 👩‍💻">
+            The repo has a code change value of <Code>{result.breakdown.codeChange}</Code>
+          </Accordion.Item>
+
+          <Accordion.Item label="Stars 🌟">
+            The repo has <Code>{result.breakdown.stars}</Code> stars
+          </Accordion.Item>
+
+          <Accordion.Item label="Forks 🍴">
+            The repo has <Code>{result.breakdown.forks}</Code> forks
+          </Accordion.Item>
+
+          <Accordion.Item label="Open issues 🚨">
+            The repo has <Code>{result.breakdown.openIssues}</Code> open issues
+          </Accordion.Item>
+        </Accordion>
+
+      </Modal>
+
     </AppShell>
   );
-}
 
-// Color scheme toggle button to change from
-// dark mode to light mode, dark by default as
-// defined in _document.tsx
-export function ColorSchemeToggle() {
-  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  function Click() {
 
-  return (
-    <ActionIcon
-      onClick={() => toggleColorScheme()}
-      size="lg"
-      sx={(theme) => ({
-        backgroundColor:
-          theme.colorScheme === "dark"
-            ? theme.colors.dark[7]
-            : theme.colors.gray[1],
-        color:
-          theme.colorScheme === "dark"
-            ? theme.colors.yellow[4]
-            : theme.colors.blue[6],
-      })}
-    >
-      {colorScheme === "dark" ? <Sun size={18} /> : <MoonStars size={18} />}
-    </ActionIcon>
-  );
-}
-
-function BackgroundStyle(theme) { 
-    return {
-        backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[0],
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
+    if (owner === '' || repo === '') {
+      ShowErrorPopup(modals, {
+        code: 400,
+        message: "You didn't even enter anything!"
+      }, "repo");
+      return;
     }
+
+    setLoading(true);
+
+    fetch(`${endpoint}/${owner}/${repo}`)
+      .then(res => res.json())
+      .then((data) => {
+        setLoading(false);
+        setResult(data.body);
+      })
+
+  };
+
+  function FetchUserReport() {
+    User(React, modals, username, (bool) => setLoading(bool))
+  }
+
 }
-
-
-// List of all services to appear on the page, their
-// affiliated path and emoji
-const services = [
-    { title: "Repositories", emoji: "📕", path: "/repos" },
-    { title: "Compare", emoji: "🆚", path: "/repos/compare" },
-    { title: "Tables", emoji: "📑", path: "/repos/tables" },
-    { title: "Reports", emoji: "📃", path: "/repos/reports" },
-    { title: "Users", emoji: "🧑‍💻", path: "/users" },
-    { title: "How it works", emoji: "🤖", path: "/how" },
-    { title: "Tips", emoji: "💁", path: "/tips" },
-    { title: "Shields", emoji: "🛡️", path: "/shields" },
-    { title: "Contribute", emoji: "💭", path: "https://github.com/jackdevey/reporank" },
-  ];
-
-// Special styles for the items in the index
-const useStyles = createStyles((theme) => ({
-  item: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    textAlign: "center",
-    borderRadius: theme.radius.md,
-    height: 90,
-    backgroundColor:
-      theme.colorScheme === "dark"
-        ? theme.colors.dark[7]
-        : theme.colors.gray[1],
-    transition: "box-shadow 150ms ease, transform 100ms ease",
-
-    "&:hover": {
-      boxShadow: `${theme.shadows.md} !important`,
-      transform: "scale(1.05)",
-    },
-  },
-}));
-
-export default IndexPage;

@@ -6,7 +6,7 @@ import { Tabs } from '@mantine/core';
 import { useModals } from '@mantine/modals';
 import { ShowErrorPopup } from '../misc/ShowErrorPopup.js';
 import { User } from '../misc/user/User.js';
-
+import Head from 'next/head';
 
 export default function IndexPage() {
 
@@ -29,7 +29,6 @@ export default function IndexPage() {
   const theme = useMantineTheme();
 
   const [title, setTitle] = useState('RepoRank');
-  document.title = title;
 
   const [username, setUsername] = useState('');
   const modals = useModals();
@@ -53,6 +52,9 @@ export default function IndexPage() {
     <AppShell
       className="background"
       style={BackgroundStyle(theme)}>
+      <Head>
+        <title>{title}</title>
+      </Head>
       <Container size="sm">
         <Card shadow="md">
           <LoadingOverlay visible={loading} />

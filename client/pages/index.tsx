@@ -38,8 +38,6 @@ export default function IndexPage() {
   const [result, setResult] = useState(empty);
 
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [popUpOpen, setpopUpOpen] = useState(false);
 
   let endpoint = "https://api.reporank.dev";
 

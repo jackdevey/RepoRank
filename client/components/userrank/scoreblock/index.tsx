@@ -1,6 +1,9 @@
 import React from 'react';
-import { createStyles, Title, Text, Button, Container, useMantineTheme } from '@mantine/core';
+import { createStyles, Title, Badge, Button, Container, useMantineTheme, Text } from '@mantine/core';
+import { useViewportSize } from '@mantine/hooks';
 import { Dots } from './Dots';
+import CountUp from 'react-countup';
+import getRating from '../ratingblock/RatingAssigner';
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -35,15 +38,28 @@ const useStyles = createStyles((theme) => ({
 
   title: {
     textAlign: 'center',
-    fontWeight: 800,
     fontSize: 40,
+    letterSpacing: -1,
+    marginBottom: theme.spacing.xs,
+    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
+
+    '@media (max-width: 520px)': {
+      fontSize: 28,
+      textAlign: 'left',
+    },
+  },
+
+  points: {
+    textAlign: 'center',
+    fontWeight: 800,
+    fontSize: 100,
     letterSpacing: -1,
     color: theme.colorScheme === 'dark' ? theme.white : theme.black,
     marginBottom: theme.spacing.xs,
     fontFamily: `Greycliff CF, ${theme.fontFamily}`,
 
     '@media (max-width: 520px)': {
-      fontSize: 28,
+      fontSize: 50,
       textAlign: 'left',
     },
   },
@@ -84,33 +100,33 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export function ScoreBlock() {
+export function ScoreBlock({ level }) {
   const { classes } = useStyles();
+  const rating = getRating(level);
   const theme = useMantineTheme();
 
   return (
-    <Container className={classes.wrapper} size={1400}>
-      <Dots className={classes.dots} style={{ left: 0, top: 0 }} />
-      <Dots className={classes.dots} style={{ left: 60, top: 0 }} />
-      <Dots className={classes.dots} style={{ left: 0, top: 140 }} />
-      <Dots className={classes.dots} style={{ right: 0, top: 60 }} />
+    <>
+      <Container className={classes.wrapper} size={1400}>
+        <Dots className={classes.dots} style={{ left: 0, top: 0 }} />
+        <Dots className={classes.dots} style={{ left: 60, top: 0 }} />
+        <Dots className={classes.dots} style={{ left: 0, top: 140 }} />
+        <Dots className={classes.dots} style={{ right: 0, top: 60 }} />
 
-      <div className={classes.inner}>
-        <Title className={classes.title}>
-          Automated AI{' '}
-          <Text component="span" color={theme.primaryColor} inherit>
-            code reviews
-          </Text>{' '}
-          for any stack
-        </Title>
+        <div className={classes.inner}>
+          <Title className={classes.title} color="dimmed">
+            We've crunched the numbers <br/>and you deserve
+          </Title>
 
-        <Container p={0} size={600}>
-          <Text size="lg" color="dimmed" className={classes.description}>
-            Build more reliable software with AI companion. AI is also trained to detect lazy
-            developers who do nothing and just complain on Twitter.
-          </Text>
-        </Container>
-      </div>
-    </Container>
+          <Container p={0} size={600}>
+            <Title order={1} className={classes.points}>✨<CountUp end={1000}/> pts</Title>
+            <Text size="lg" style={{textAlign: 'center', marginTop: 30}}>
+              <Badge color="gray" size="xl">🏅 Level {level}</Badge>{' '}
+              <Badge style={{background: theme.fn.rgba(rating.color, 0.55), color: 'white'}} size="xl">{rating.title}</Badge>
+            </Text>
+          </Container>
+        </div>
+      </Container>
+    </>
   );
 }

@@ -11,8 +11,60 @@ import {
   ThemeIcon,
   useMantineTheme
 } from '@mantine/core';
-import { Check } from 'tabler-icons-react';
+import { Award, Badge, Check, Code, CodePlus, Point, Trophy } from 'tabler-icons-react';
 import image from './image.svg';
+import getRating from './RatingAssigner';
+import { CodeIcon } from '@primer/octicons-react';
+import { ButtonTableList, CircleBadge } from '@primer/react';
+import CountUp from 'react-countup';
+
+const ranking = (level) => {
+  // Beginner status as fallback
+  let obj = {
+    title: 'Beginner',
+    description: 'You have not yet achieved any rank.',
+    color: 'blue'
+  }
+
+  // Ultimate status
+  if (level === 7) {
+    obj = {
+      title: 'Ultimate',
+      description: 'You have achieved the highest rank.',
+      color: 'gold'
+    }
+  }
+
+  // Legendary status
+  if (level >= 6) {
+    obj = {
+      title: 'Legendary',
+      description: 'Legend',
+      color: 'yellow'
+    }
+  }
+
+  // Pro status
+  if (level >= 4) {
+    obj = {
+      title: 'Legendary',
+      description: 'Legend',
+      color: 'green'
+    }
+  }
+
+
+  // Intermediate status
+  if (level >= 2) {
+    obj = {
+      title: 'Intermediate',
+      description: 'Legend',
+      color: '#38D9A9'
+    }
+  }
+
+  return obj;
+}
 
 const useStyles = createStyles((theme) => ({
     inner: {
@@ -69,19 +121,19 @@ const useStyles = createStyles((theme) => ({
     },
   }));
 
-export function RatingBlock() {
+export function RatingBlock({ level }) {
     const { classes } = useStyles();
     const theme = useMantineTheme();
+    const rating = getRating(level);
     return (
         <div style={{background:  theme.colors.dark[6]}}>
- <Container className={classes.inner}>
+          <Container className={classes.inner}>
             <div className={classes.content}>
               <Title className={classes.title}>
-                A <span className={classes.highlight}>beginner</span> rated <br /> GitHub user
+                {rating.before} <span className={classes.highlight} style={{background: theme.fn.rgba(rating.color, 0.5)}}>{rating.title.toLowerCase()}</span> <br /> {rating.after}
               </Title>
               <Text color="dimmed" mt="md">
-                They're just getting started, but that doesn't mean they havent already
-                achieved some great things
+                {rating.description}
               </Text>
   
               <List
@@ -95,16 +147,13 @@ export function RatingBlock() {
                 }
               >
                 <List.Item>
-                  <b>TypeScript based</b> – build type safe applications, all components and hooks
-                  export types
+                  <b>Over <CountUp end={1000}></CountUp> commits this year</b> – you've clearly been busy and are motivated to keep coding
                 </List.Item>
                 <List.Item>
-                  <b>Free and open source</b> – all packages have MIT license, you can use Mantine in
-                  any project
+                  <b>Over <CountUp end={10000}></CountUp> stars earned</b> – your work is well-received and you have some great projects
                 </List.Item>
                 <List.Item>
-                  <b>No annoying focus ring</b> – focus ring will appear only when user navigates with
-                  keyboard
+                  <b>Over <CountUp end={5}></CountUp> followers</b> – you're starting to grow a following and are gaining traction
                 </List.Item>
               </List>
   

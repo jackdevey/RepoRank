@@ -1,6 +1,7 @@
 import React from 'react';
-import { Title, createStyles, Text, Container, ActionIcon, Group } from '@mantine/core';
-import { BrandTwitter, BrandYoutube, BrandInstagram } from 'tabler-icons-react';
+import { Title, createStyles, Text, Container, ActionIcon, Group, Anchor } from '@mantine/core';
+import { BrandTwitter, BrandYoutube, BrandInstagram, BrandGithub } from 'tabler-icons-react';
+import { LogoGithubIcon, MarkGithubIcon } from '@primer/octicons-react';
 
 const useStyles = createStyles((theme) => ({
   footer: {
@@ -97,26 +98,52 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-interface FooterLinksProps {
+interface FooterLinks {
   data: {
     title: string;
     links: { label: string; link: string }[];
   }[];
 }
 
-export function Footer({ data }: FooterLinksProps) {
+const data = [
+  {
+    "title": "About",
+    "links": [
+      { "label": "Features", "link": "#" },
+      { "label": "Pricing", "link": "#" },
+      { "label": "Support", "link": "#" },
+      { "label": "Forums", "link": "#" }
+    ]
+  },
+  {
+    "title": "Project",
+    "links": [
+      { "label": "Contribute", "link": "#" },
+      { "label": "Media assets", "link": "#" },
+      { "label": "Changelog", "link": "#" },
+      { "label": "Releases", "link": "#" }
+    ]
+  },
+  {
+    "title": "Community",
+    "links": [
+      { "label": "GitHub discussions", "link": "https://github.com/jackdevey/reporank/discussions" }
+    ]
+  }
+]
+
+export function Footer() {
   const { classes } = useStyles();
   const groups = data.map((group) => {
     const links = group.links.map((link, index) => (
-      <Text<'a'>
+      <Anchor
         key={index}
         className={classes.link}
         component="a"
         href={link.link}
-        onClick={(event) => event.preventDefault()}
       >
         {link.label}
-      </Text>
+      </Anchor>
     ));
 
     return (
@@ -130,28 +157,23 @@ export function Footer({ data }: FooterLinksProps) {
     <footer className={classes.footer}>
       <Container className={classes.inner}>
         <div className={classes.logo}>
-            <Title order={3}>🔥UserRank</Title>
+            <Title order={3}>🔥RepoRank</Title>
           <Text size="xs" color="dimmed" className={classes.description}>
-            Build fully functional accessible web applications faster than ever
+            Calculating scores for the performance of GitHub repositories
           </Text>
         </div>
         <div className={classes.groups}>{groups}</div>
       </Container>
       <Container className={classes.afterFooter}>
-        <Text color="dimmed" size="sm">
-          © 2020 mantine.dev. All rights reserved.
-        </Text>
+
+        <Text color="dimmed" size="sm">Created by <Anchor size="sm" href="https://github.com/jackdevey">jack devey</Anchor></Text>
 
         <Group spacing={0} className={classes.social} position="right" noWrap>
-          <ActionIcon size="lg">
-            <BrandTwitter size={18} />
-          </ActionIcon>
-          <ActionIcon size="lg">
-            <BrandYoutube size={18} />
-          </ActionIcon>
-          <ActionIcon size="lg">
-            <BrandInstagram size={18} />
-          </ActionIcon>
+          <Anchor href="https://github.com/jackdevey/reporank">
+            <ActionIcon size="lg">
+              <BrandGithub size={18} />
+            </ActionIcon>
+          </Anchor>
         </Group>
       </Container>
     </footer>

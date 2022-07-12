@@ -12,7 +12,7 @@ const useStyles = createStyles((theme) => ({
           paddingTop: 80,
           paddingBottom: 60,
         },
-        position: 'relative',
+        
         zIndex: 1,
       },
       

@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useMantineTheme, createStyles, Header, Group, ActionIcon, Container, Dots, Title, Button, Text, List, ThemeIcon } from '@mantine/core';
+import { useMantineTheme, createStyles, Header, Group, ActionIcon, Container, Title, Button, Text, List, ThemeIcon } from '@mantine/core';
 import { Check } from 'tabler-icons-react';
 import { ShareIcon } from '@primer/octicons-react';
 import { ScoreBlock } from '../../components/userrank/scoreblock';

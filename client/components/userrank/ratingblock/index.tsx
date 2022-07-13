@@ -126,7 +126,7 @@ export function RatingBlock({ level }) {
     const theme = useMantineTheme();
     const rating = getRating(level);
     return (
-        <div style={{background:  theme.colors.dark[6]}}>
+        <div style={{background:  theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0]}}>
           <Container className={classes.inner}>
             <div className={classes.content}>
               <Title className={classes.title}>

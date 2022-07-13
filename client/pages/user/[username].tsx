@@ -21,9 +21,6 @@ export async function getServerSideProps(context) {
 }
 
 export default function UserPage({ data }) {
-
-    
-
     // Loading state
     const [loading, setLoading] = useState(false);
 

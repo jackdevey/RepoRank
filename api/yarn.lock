@@ -92,10 +92,46 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^18.0.4":
+"@reporank/api@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@reporank/api@workspace:."
+  dependencies:
+    "@octokit/core": ^4.0.4
+    "@octokit/graphql": ^5.0.0
+    "@types/express-serve-static-core": 4.16.2
+    "@types/node": ^18.0.4
+    async: ^3.2.4
+    badge-maker: ^3.3.1
+    cors: ^2.8.5
+    dotenv: ^16.0.1
+    express: ^4.18.1
+    express-serve-static-core: ^0.1.1
+    typescript: ^4.7.4
+    vhost: ^3.0.2
+  languageName: unknown
+  linkType: soft
+
+"@types/express-serve-static-core@npm:4.16.2":
+  version: 4.16.2
+  resolution: "@types/express-serve-static-core@npm:4.16.2"
+  dependencies:
+    "@types/node": "*"
+    "@types/range-parser": "*"
+  checksum: 1cfceaa15988d3eb3c354fbc473faf8747b7841de39c4ce16d91b130e2ba2255970af19c7171896cd59a5ce9876ddca3ceec399e53668f4c2a9829767ded335b
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:*, @types/node@npm:^18.0.4":
   version: 18.0.4
   resolution: "@types/node@npm:18.0.4"
   checksum: 981284fd57941f233f0e77038087c122f56e3c2b4fc4e090dfc7f0a93abfc526d5ccdd59eb3ef551d713245cf3943e37c7b957f12ba699209341a447c39fab59
+  languageName: node
+  linkType: hard
+
+"@types/range-parser@npm:*":
+  version: 1.2.4
+  resolution: "@types/range-parser@npm:1.2.4"
+  checksum: b7c0dfd5080a989d6c8bb0b6750fc0933d9acabeb476da6fe71d8bdf1ab65e37c136169d84148034802f48378ab94e3c37bb4ef7656b2bec2cb9c0f8d4146a95
   languageName: node
   linkType: hard
 
@@ -117,24 +153,6 @@ __metadata:
   checksum: c166fc5920ca83c321ecfecdaf7b8b6e09553ad8c6214da39cd82e77decb4b06da440bdcb978ba567c4ed34746e048d61901ff9ddedf52555aeba82642115ac8
   languageName: node
   linkType: hard
-
-"api@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "api@workspace:."
-  dependencies:
-    "@octokit/core": ^4.0.4
-    "@octokit/graphql": ^5.0.0
-    "@types/node": ^18.0.4
-    async: ^3.2.4
-    badge-maker: ^3.3.1
-    cors: ^2.8.5
-    dotenv: ^16.0.1
-    express: ^4.18.1
-    express-serve-static-core: ^0.1.1
-    typescript: ^4.7.4
-    vhost: ^3.0.2
-  languageName: unknown
-  linkType: soft
 
 "array-flatten@npm:1.1.1":
   version: 1.1.1

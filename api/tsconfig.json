@@ -5,6 +5,7 @@
         "lib": ["ESNext"],
         "outDir": "./build/",
         "moduleResolution": "node",
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "skipLibCheck": true
     }
 }

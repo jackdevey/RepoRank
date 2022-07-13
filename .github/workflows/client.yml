@@ -20,6 +20,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'yarn'
         cache-dependency-path: './client/yarn.lock'
-    - run: cd client
-    - run: yarn install
-    - run: yarn run build
+    - run: |
+        cd client
+        yarn install
+        yarn run build

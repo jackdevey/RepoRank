@@ -1,9 +1,5 @@
 name: Client CI
 
-defaults:
-  run:
-    working-directory: ./client
-
 on:
   push:
     branches: [ main ]
@@ -23,5 +19,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'yarn'
-        cache-dependency-path: 'yarn.lock'
-    - run: yarn run build
+        cache-dependency-path: './client/yarn.lock'
+    - run: |
+        cd client
+        yarn run build

@@ -8,8 +8,8 @@ import { makeBadge, ValidationError } from 'badge-maker'
 
 // Import functions
 import Reply from "./Reply";
-import { CalculateScore } from "./CalculateScore";
-import { CalculateUserScore } from "./CalculateUserScore";
+import { CalculateScore } from "./repos/CalculateScore";
+import { CalculateUserScore } from "./users/CalculateUserScore";
 
 // Serve api root page
 api.get("/", (req: Request, res: Response) => {

@@ -1,5 +1,6 @@
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { useMantineTheme, createStyles, Header, Group, ActionIcon, Container, Title, Anchor, Text, List, ThemeIcon, Button } from '@mantine/core';
+import { useMantineTheme, createStyles, Header, Group, ActionIcon, Container, Title, LoadingOverlay, Text, List, Button } from '@mantine/core';
 import { Check } from 'tabler-icons-react';
 import { ShareIcon } from '@primer/octicons-react';
 import { ScoreBlock } from '../../components/userrank/scoreblock';
@@ -7,24 +8,41 @@ import { RatingBlock } from '../../components/userrank/ratingblock';
 import { SummaryBlock } from '../../components/userrank/summaryblock';
 import { MoreSummaryBlock } from '../../components/userrank/moresummaryblock';
 import { Footer } from '../../components/userrank/footer';
+import { endpoint } from '../../misc/endpoint';
 
-export default function UserPage() {
+export async function getServerSideProps(context) {
+  // Get username from user query
+  const { username } = context.params;
+  // Fetch data from API
+  const res = await fetch(`${endpoint()}/${username}`)
+  const data = (await res.json()).body;
+  // Pass data to the page via props
+  return { props: { data } }
+}
 
-    // Get username from user query
-    const router = useRouter();
-    const { username } = router.query;
+export default function UserPage({ data }) {
+
+    
+
+    // Loading state
+    const [loading, setLoading] = useState(false);
 
     // Get custom classes
     const { classes } = useStyles();
-
+      
     return (
         <>
-            <HeaderBar classes={classes} username={username}/>
-            <RatingBlock level={5}/>
-            <ScoreBlock level={5}/>
-            <SummaryBlock />
-            <MoreSummaryBlock title={"Woahj"} description={"d"} />
-            <Footer />
+            <LoadingOverlay visible={loading} />
+            {
+              !loading && (<>
+                <HeaderBar classes={classes} username={data.username}/>
+                <RatingBlock level={data.level}/>
+                <ScoreBlock level={data.level} points={data.totalScore}/>
+                <SummaryBlock />
+                <MoreSummaryBlock title={"Woahj"} description={"d"} />
+                <Footer />
+              </>)
+            }
         </>
     );
 }

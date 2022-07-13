@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStyles, Title, Badge, Button, Container, useMantineTheme, Text } from '@mantine/core';
+import { createStyles, Title, Badge, Button, Container, useMantineTheme, Text, Group } from '@mantine/core';
 import { useViewportSize } from '@mantine/hooks';
 import { Dots } from './Dots';
 import CountUp from 'react-countup';
@@ -66,6 +66,8 @@ const useStyles = createStyles((theme) => ({
 
   description: {
     textAlign: 'center',
+    marginTop: 30,
+    justifyContent: 'center',
 
     '@media (max-width: 520px)': {
       textAlign: 'left',
@@ -100,7 +102,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export function ScoreBlock({ level }) {
+export function ScoreBlock({ level, points }) {
   const { classes } = useStyles();
   const rating = getRating(level);
   const theme = useMantineTheme();
@@ -115,15 +117,15 @@ export function ScoreBlock({ level }) {
 
         <div className={classes.inner}>
           <Title className={classes.title} color="dimmed">
-            We've crunched the numbers <br/>and you deserve
+            We've crunched the numbers <br/>and you have
           </Title>
 
           <Container p={0} size={600}>
-            <Title order={1} className={classes.points}>✨<CountUp end={1000}/> pts</Title>
-            <Text size="lg" style={{textAlign: 'center', marginTop: 30}}>
+            <Title order={1} className={classes.points}>✨<CountUp end={points}/> pts</Title>
+            <div className={classes.description}>
               <Badge color="gray" size="xl">🏅 Level {level}</Badge>{' '}
               <Badge style={{background: theme.fn.rgba(rating.color, 0.55), color: 'white'}} size="xl">{rating.title}</Badge>
-            </Text>
+            </div>
           </Container>
         </div>
       </Container>

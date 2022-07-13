@@ -428,6 +428,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@primer/octicons-react@npm:^17.3.0":
+  version: 17.3.0
+  resolution: "@primer/octicons-react@npm:17.3.0"
+  peerDependencies:
+    react: ">=15"
+  checksum: 9e594461ed87a4c0abf94aa846e263b0279ec3a494f676881afc4710187189320ac06d19fd98e75c5bc0f584b040567a463a1ac2c24fd34b4f55c7b098d1386a
+  languageName: node
+  linkType: hard
+
 "@radix-ui/number@npm:0.1.0":
   version: 0.1.0
   resolution: "@radix-ui/number@npm:0.1.0"
@@ -566,6 +575,7 @@ __metadata:
     "@mantine/hooks": ^4.2.9
     "@mantine/modals": ^4.2.9
     "@mantine/next": ^4.2.10
+    "@primer/octicons-react": ^17.3.0
     "@types/node": ^18.0.0
     "@types/react": ^18.0.15
     eslint: 8.19.0

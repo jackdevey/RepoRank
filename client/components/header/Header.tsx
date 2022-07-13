@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { createStyles, Header as MTHeader, Group, ActionIcon, Container, Burger, Title } from '@mantine/core';
-import { ShareIcon } from '@primer/octicons-react';
-import { hover } from '@testing-library/user-event/dist/hover';
 
 const useStyles = createStyles((theme) => ({
   inner: {

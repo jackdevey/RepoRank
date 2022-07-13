@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useMantineTheme, createStyles, Header, Group, ActionIcon, Container, Title, LoadingOverlay, Text, List, Button } from '@mantine/core';
-import { Check } from 'tabler-icons-react';
 import { ShareIcon } from '@primer/octicons-react';
 import { ScoreBlock } from '../../components/userrank/scoreblock';
 import { RatingBlock } from '../../components/userrank/ratingblock';

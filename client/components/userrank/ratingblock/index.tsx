@@ -11,11 +11,8 @@ import {
   ThemeIcon,
   useMantineTheme
 } from '@mantine/core';
-import { Award, Badge, Flame, Code, CodePlus, Point, Trophy } from 'tabler-icons-react';
 import image from './image.svg';
 import getRating from './RatingAssigner';
-import { CodeIcon } from '@primer/octicons-react';
-import { ButtonTableList, CircleBadge } from '@primer/react';
 import CountUp from 'react-countup';
 import { commitStatSentence, followersStatSentence, starsStatSentence } from './StatSentences';
 
@@ -154,7 +151,7 @@ export function RatingBlock({ level, commits, followers, stars }) {
               </List>
   
             </div>
-            <Image src={image.src} className={classes.image} />
+            <Image src={image.src} className={classes.image} alt=""/>
         </Container>
         </div>
     );

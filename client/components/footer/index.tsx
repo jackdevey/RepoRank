@@ -1,7 +1,6 @@
 import React from 'react';
 import { Title, createStyles, Text, Container, ActionIcon, Group, Anchor } from '@mantine/core';
-import { BrandTwitter, BrandYoutube, BrandInstagram, BrandGithub } from 'tabler-icons-react';
-import { LogoGithubIcon, MarkGithubIcon } from '@primer/octicons-react';
+import { BrandGithub } from 'tabler-icons-react';
 import ColorThemeToggle from './ColorThemeToggle';
 
 const useStyles = createStyles((theme) => ({

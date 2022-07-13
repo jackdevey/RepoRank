@@ -1,5 +1,9 @@
 name: Client CI
 
+defaults:
+  run:
+    working-directory: ./client
+
 on:
   push:
     branches: [ main ]
@@ -12,12 +16,9 @@ jobs:
     strategy:
       matrix:
         node-version: [ 16.x ]
-
     steps:
-    - working-directory: ./client
     - uses: actions/checkout@v2
     - name: Build with Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'yarn'

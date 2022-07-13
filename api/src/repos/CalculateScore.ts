@@ -1,5 +1,5 @@
 import { Octokit } from "@octokit/core";
-import { StatusGenerator, Status } from "./StatusGenerator";
+import { StatusGenerator, Status } from "../users/StatusGenerator";
 import parallel from 'async/parallel';
 import { CalculateBaseScore, BaseScore } from "./CalculateBaseScore";
 import { CalculateCodeChange } from "./CalculateCodeChange";

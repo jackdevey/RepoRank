@@ -8,12 +8,13 @@ import { makeBadge, ValidationError } from 'badge-maker'
 
 // Import functions
 import Reply from "./Reply";
-import { CalculateScore } from "./CalculateScore";
-import { CalculateUserScore } from "./CalculateUserScore";
+import { CalculateScore } from "./repos/CalculateScore";
+import { CalculateUserScore } from "./users/CalculateUserScore";
+import { Repo404Error, User404Error } from './ErrorResponses';
 
 // Serve api root page
 api.get("/", (req: Request, res: Response) => {
-    Reply(res, 200, {
+    Reply(req, res, 200, {
         title: "🔥RepoRank Public API",
         version: process.env.VERSION,
         github: "https://github.com/jackdevey/reporank",
@@ -26,9 +27,9 @@ api.get("/", (req: Request, res: Response) => {
 api.get("/:user", (req, res) => {
     if(req.params.user == "favicon.ico") return;
     CalculateUserScore(req.params.user).then(response => {
-        Reply(res, 200, response);
+        Reply(req, res, 200, response);
     }).catch(e => {
-        Reply(res, 404, e);
+        Reply(req, res, 404, User404Error());
     });
 });
 
@@ -36,8 +37,8 @@ api.get("/:user", (req, res) => {
 api.get("/:owner/:repo", (req, res) => {
     CalculateScore(req.params.owner, req.params.repo, (err, response) => {
         // If error, reply with error
-        if(err) Reply(res, err.status, err);
-        else Reply(res, 200, response);
+        if(err) Reply(req, res, err.status, Repo404Error());
+        else Reply(req, res, 200, response);
     });
 });
 

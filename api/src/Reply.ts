@@ -1,7 +1,8 @@
-import { Response } from "express-serve-static-core";
+import { Request, Response } from "express-serve-static-core";
 
 // Wrap a json reply with a code and message
-function Reply(res: Response, code: number, body: object) {
+function Reply(req: Request, res: Response, code: number, body: object) {
+    // Return json with cors headers
     res.header("Access-Control-Allow-Origin", "*");
     res.status(code).json({
         header: {
@@ -10,6 +11,8 @@ function Reply(res: Response, code: number, body: object) {
         },
         body: body
     });
+    // Log the request
+    console.log(`[${req.method}] ${req.path} ${code}`)
 }
 
 // Get a message regarding a http code

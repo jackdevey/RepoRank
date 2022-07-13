@@ -26,5 +26,9 @@ app.use(cors());
 
 // Listen on port
 app.listen(process.env.PORT, () => {
-    console.log(`reporank server running on port ${process.env.PORT}`);
+    console.log("RepoRank API");
+    console.log("version: " + process.env.VERSION);
+    console.log("domain: " + process.env.DOMAIN);
+    console.log("port: " + process.env.PORT);
+    console.log("==/>");
 });

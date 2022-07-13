@@ -22,4 +22,5 @@ jobs:
         cache-dependency-path: './client/yarn.lock'
     - run: |
         cd client
+        yarn install
         yarn run build

@@ -4,3 +4,7 @@
 !.yarn/releases
 .pnp.cjs
 .pnp.loader.mjs
+
+# Vscode stuff
+.vscode/
+.editorconfig

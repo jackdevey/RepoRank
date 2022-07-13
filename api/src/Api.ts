@@ -4,7 +4,7 @@ import express, { Request, Response } from 'express';
 const api = express();
 
 // Import badge api
-import { makeBadge, ValidationError } from 'badge-maker'
+import { makeBadge } from 'badge-maker'
 
 // Import functions
 import Reply from "./Reply";

@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import { useMantineTheme, createStyles, Header, Group, ActionIcon, Container, Title, LoadingOverlay, Text, List, Button } from '@mantine/core';
+import { useState } from 'react';
+import { createStyles, Header, Group, ActionIcon, Container, Title, LoadingOverlay, Button } from '@mantine/core';
 import { ShareIcon } from '@primer/octicons-react';
 import { ScoreBlock } from '../../components/userrank/scoreblock';
 import { RatingBlock } from '../../components/userrank/ratingblock';

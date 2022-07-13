@@ -2,6 +2,7 @@ import React from 'react';
 import { Title, createStyles, Text, Container, ActionIcon, Group, Anchor } from '@mantine/core';
 import { BrandTwitter, BrandYoutube, BrandInstagram, BrandGithub } from 'tabler-icons-react';
 import { LogoGithubIcon, MarkGithubIcon } from '@primer/octicons-react';
+import ColorThemeToggle from './ColorThemeToggle';
 
 const useStyles = createStyles((theme) => ({
   footer: {
@@ -106,28 +107,22 @@ interface FooterLinks {
 }
 
 const data = [
-  {
-    "title": "About",
-    "links": [
-      { "label": "Features", "link": "#" },
-      { "label": "Pricing", "link": "#" },
-      { "label": "Support", "link": "#" },
-      { "label": "Forums", "link": "#" }
-    ]
-  },
+
   {
     "title": "Project",
     "links": [
-      { "label": "Contribute", "link": "#" },
-      { "label": "Media assets", "link": "#" },
-      { "label": "Changelog", "link": "#" },
-      { "label": "Releases", "link": "#" }
+      { "label": "Roadmap", "link": "https://github.com/jackdevey/reporank/issues/12" },
+      { "label": "Contribute", "link": "https://github.com/jackdevey/reporank" },
+      { "label": "Changelog", "link": "https://github.com/jackdevey/reporank/releases" },
+      { "label": "Releases", "link": "https://github.com/jackdevey/reporank/releases" }
     ]
   },
   {
     "title": "Community",
     "links": [
-      { "label": "GitHub discussions", "link": "https://github.com/jackdevey/reporank/discussions" }
+      { "label": "GitHub discussions", "link": "https://github.com/jackdevey/reporank/discussions" },
+      { "label": "Badges", "link": "/badges" },
+      { "label": "API docs", "link": "https://github.com/jackdevey/RepoRank/wiki/RepoRank-API" }
     ]
   }
 ]
@@ -157,17 +152,18 @@ export function Footer() {
     <footer className={classes.footer}>
       <Container className={classes.inner}>
         <div className={classes.logo}>
-            <Title order={3}>🔥RepoRank</Title>
+          <Title order={3}>🔥RepoRank</Title>
           <Text size="xs" color="dimmed" className={classes.description}>
             Calculating scores for the performance of GitHub repositories
           </Text>
+          <ColorThemeToggle style={{paddingTop: 20}}/>
         </div>
         <div className={classes.groups}>{groups}</div>
       </Container>
       <Container className={classes.afterFooter}>
 
-        <Text color="dimmed" size="sm">Created by <Anchor size="sm" href="https://github.com/jackdevey">jack devey</Anchor></Text>
-
+        <Text color="dimmed" size="sm">Created by <Anchor size="sm" href="https://github.com/jackdevey">jack devey</Anchor>, licensed under apache 2.0 {new Date().getFullYear()}</Text>
+      
         <Group spacing={0} className={classes.social} position="right" noWrap>
           <Anchor href="https://github.com/jackdevey/reporank">
             <ActionIcon size="lg">

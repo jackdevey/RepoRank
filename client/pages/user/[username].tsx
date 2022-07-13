@@ -7,7 +7,7 @@ import { ScoreBlock } from '../../components/userrank/scoreblock';
 import { RatingBlock } from '../../components/userrank/ratingblock';
 import { SummaryBlock } from '../../components/userrank/summaryblock';
 import { MoreSummaryBlock } from '../../components/userrank/moresummaryblock';
-import { Footer } from '../../components/userrank/footer';
+import { Footer } from '../../components/footer';
 import { endpoint } from '../../misc/endpoint';
 
 export async function getServerSideProps(context) {
@@ -21,9 +21,6 @@ export async function getServerSideProps(context) {
 }
 
 export default function UserPage({ data }) {
-
-    
-
     // Loading state
     const [loading, setLoading] = useState(false);
 

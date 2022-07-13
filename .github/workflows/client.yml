@@ -1,4 +1,4 @@
-name: RepoRank Client CI
+name: Client CI
 
 on:
   push:
@@ -11,14 +11,15 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x]
-
+        node-version: [ 16.x ]
     steps:
     - uses: actions/checkout@v2
     - name: Build with Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-        cache-dependency-path: 'client/package-lock.json'
-    - run: npm --prefix client run build
+        cache: 'yarn'
+        cache-dependency-path: './client/yarn.lock'
+    - run: |
+        cd client
+        yarn run build

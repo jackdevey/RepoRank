@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStyles, Header, Group, ActionIcon, Container, Burger, Title } from '@mantine/core';
+import { createStyles, Header as MTHeader, Group, ActionIcon, Container, Burger, Title } from '@mantine/core';
 import { ShareIcon } from '@primer/octicons-react';
 
 const useStyles = createStyles((theme) => ({
@@ -24,26 +24,22 @@ const useStyles = createStyles((theme) => ({
   }
 }));
 
-interface HeaderMiddleProps {
-  links: { link: string; label: string }[];
-}
-
-export function HeaderMiddle({ }: HeaderMiddleProps) {
+export function Header({ title = "RepoRank" }) {
   const { classes } = useStyles();
 
   return (
-    <Header height={56} mb={120}>
+    <MTHeader height={56}>
       <Container className={classes.inner}>
 
-        <Title order={3}>🔥UserRank</Title>
+        <Title order={3}>🔥{title}</Title>
 
-        <Group spacing={0} className={classes.social} position="right" noWrap>
+        {/**<Group spacing={0} className={classes.social} position="right" noWrap>
           <ActionIcon size="lg">
             <ShareIcon size={18} />
           </ActionIcon>
-        </Group>
+  </Group>*/}
         
       </Container>
-    </Header>
+    </MTHeader>
   );
 }

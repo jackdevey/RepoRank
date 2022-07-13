@@ -1,1 +1,1 @@
-worker: yarn run dev
+worker: yarn run build

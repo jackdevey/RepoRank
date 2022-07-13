@@ -11,12 +11,13 @@ import {
   ThemeIcon,
   useMantineTheme
 } from '@mantine/core';
-import { Award, Badge, Check, Code, CodePlus, Point, Trophy } from 'tabler-icons-react';
+import { Award, Badge, Flame, Code, CodePlus, Point, Trophy } from 'tabler-icons-react';
 import image from './image.svg';
 import getRating from './RatingAssigner';
 import { CodeIcon } from '@primer/octicons-react';
 import { ButtonTableList, CircleBadge } from '@primer/react';
 import CountUp from 'react-countup';
+import { commitStatSentence, followersStatSentence, starsStatSentence } from './StatSentences';
 
 const ranking = (level) => {
   // Beginner status as fallback
@@ -121,7 +122,7 @@ const useStyles = createStyles((theme) => ({
     },
   }));
 
-export function RatingBlock({ level }) {
+export function RatingBlock({ level, commits, followers, stars }) {
     const { classes } = useStyles();
     const theme = useMantineTheme();
     const rating = getRating(level);
@@ -140,20 +141,15 @@ export function RatingBlock({ level }) {
                 mt={30}
                 spacing="sm"
                 size="sm"
-                icon={
-                  <ThemeIcon size={20} radius="xl">
-                    <Check size={12} />
-                  </ThemeIcon>
-                }
               >
-                <List.Item>
-                  <b>Over <CountUp end={1000}></CountUp> commits this year</b> – you've clearly been busy and are motivated to keep coding
+                <List.Item icon="📨">
+                  <b><CountUp end={commits}></CountUp> commits this year</b> – {commitStatSentence(commits)}
                 </List.Item>
-                <List.Item>
-                  <b>Over <CountUp end={10000}></CountUp> stars earned</b> – your work is well-received and you have some great projects
+                <List.Item icon="⭐">
+                  <b><CountUp end={stars}></CountUp> stars earned</b> – {starsStatSentence(stars)}
                 </List.Item>
-                <List.Item>
-                  <b>Over <CountUp end={5}></CountUp> followers</b> – you're starting to grow a following and are gaining traction
+                <List.Item icon="👩‍💻"> 
+                  <b><CountUp end={followers}></CountUp> followers</b> – {followersStatSentence(followers)}
                 </List.Item>
               </List>
   

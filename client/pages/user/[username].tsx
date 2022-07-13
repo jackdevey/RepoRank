@@ -33,7 +33,7 @@ export default function UserPage({ data }) {
             {
               !loading && (<>
                 <HeaderBar classes={classes} username={data.username}/>
-                <RatingBlock level={data.level}/>
+                <RatingBlock level={data.level} commits={data.commitsYear} stars={data.repoStars} followers={data.followers}/>
                 <ScoreBlock level={data.level} points={data.totalScore}/>
                 <SummaryBlock />
                 <MoreSummaryBlock title={"Woahj"} description={"d"} />

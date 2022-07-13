@@ -107,6 +107,11 @@ export function ScoreBlock({ level, points }) {
   const rating = getRating(level);
   const theme = useMantineTheme();
 
+  // Work out rating badge color based
+  // on theme
+  let ratingBadgeColor = theme.fn.rgba(rating.color, 0.55);
+  if(theme.colorScheme === 'light') ratingBadgeColor = rating.color;
+
   return (
     <>
       <Container className={classes.wrapper} size={1400}>
@@ -117,14 +122,14 @@ export function ScoreBlock({ level, points }) {
 
         <div className={classes.inner}>
           <Title className={classes.title} color="dimmed">
-            We've crunched the numbers <br/>and you have
+            We crunched the numbers <br/>and you have
           </Title>
 
           <Container p={0} size={600}>
             <Title order={1} className={classes.points}>✨<CountUp end={points}/> pts</Title>
             <div className={classes.description}>
               <Badge color="gray" size="xl">🏅 Level {level}</Badge>{' '}
-              <Badge style={{background: theme.fn.rgba(rating.color, 0.55), color: 'white'}} size="xl">{rating.title}</Badge>
+              <Badge style={{background: ratingBadgeColor, color: 'white'}} size="xl">{rating.title}</Badge>
             </div>
           </Container>
         </div>

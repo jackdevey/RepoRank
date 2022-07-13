@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { createStyles, Header as MTHeader, Group, ActionIcon, Container, Burger, Title } from '@mantine/core';
 import { ShareIcon } from '@primer/octicons-react';
+import { hover } from '@testing-library/user-event/dist/hover';
 
 const useStyles = createStyles((theme) => ({
   inner: {
@@ -13,7 +14,6 @@ const useStyles = createStyles((theme) => ({
       justifyContent: 'flex-start',
     },
   },
-
   social: {
     width: 260,
 
@@ -26,12 +26,13 @@ const useStyles = createStyles((theme) => ({
 
 export function Header({ title = "RepoRank" }) {
   const { classes } = useStyles();
+  const [_title, setTitle] = useState(title);
 
   return (
     <MTHeader height={56}>
       <Container className={classes.inner}>
 
-        <Title order={3}>🔥{title}</Title>
+        <Title order={3} onMouseEnter={() => setTitle("RepoRank")} onMouseLeave={() => setTitle(title)}>🔥{_title}</Title>
 
         {/**<Group spacing={0} className={classes.social} position="right" noWrap>
           <ActionIcon size="lg">

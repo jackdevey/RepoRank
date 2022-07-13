@@ -2,7 +2,7 @@
   "name": "@reporank/api",
   "version": "1.0.0",
   "private": true,
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "start": "node ./build/index.js",
     "dev": "nodemon index.ts",

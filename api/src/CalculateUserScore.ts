@@ -4,8 +4,6 @@ export async function CalculateUserScore(username: string): Promise<any> {
 
   let response = null;
 
-  console.log(username === "username");
-
     if(username === "username") {
 
       response = {

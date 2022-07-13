@@ -1,0 +1,6 @@
+# Yarn stuff
+.yarn/
+!.yarn/plugins
+!.yarn/releases
+.pnp.cjs
+.pnp.loader.mjs

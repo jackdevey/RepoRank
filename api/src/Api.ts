@@ -10,6 +10,7 @@ import { makeBadge, ValidationError } from 'badge-maker'
 import Reply from "./Reply";
 import { CalculateScore } from "./repos/CalculateScore";
 import { CalculateUserScore } from "./users/CalculateUserScore";
+import { Repo404Error, User404Error } from './ErrorResponses';
 
 // Serve api root page
 api.get("/", (req: Request, res: Response) => {
@@ -28,7 +29,7 @@ api.get("/:user", (req, res) => {
     CalculateUserScore(req.params.user).then(response => {
         Reply(req, res, 200, response);
     }).catch(e => {
-        Reply(req, res, 404, e);
+        Reply(req, res, 404, User404Error());
     });
 });
 
@@ -36,7 +37,7 @@ api.get("/:user", (req, res) => {
 api.get("/:owner/:repo", (req, res) => {
     CalculateScore(req.params.owner, req.params.repo, (err, response) => {
         // If error, reply with error
-        if(err) Reply(req, res, err.status, err);
+        if(err) Reply(req, res, err.status, Repo404Error());
         else Reply(req, res, 200, response);
     });
 });

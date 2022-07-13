@@ -21,6 +21,6 @@ jobs:
         cache: 'yarn'
         cache-dependency-path: './client/yarn.lock'
     - run: |
-        cd client
+        cd api
         yarn install
         yarn run dev

@@ -1,5 +1,2 @@
 # Env stuff
 .env
-
-# Ignore for heroku
-package-lock.json

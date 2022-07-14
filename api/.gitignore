@@ -1,13 +1,2 @@
-# Yarn stuff
-.yarn/
-!.yarn/plugins
-!.yarn/releases
-.pnp.cjs
-.pnp.loader.mjs
-
-# Vscode stuff
-.vscode/
-.editorconfig
-
 # Env stuff
 .env

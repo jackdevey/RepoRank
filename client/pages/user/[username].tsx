@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import { createStyles, Header, Group, ActionIcon, Container, Title, LoadingOverlay, Button } from '@mantine/core';
+import useSWR from 'swr';
+import { useRouter } from 'next/router';
+import { createStyles, Header, Group, ActionIcon, Container, Title, LoadingOverlay, Button, Tuple, Text } from '@mantine/core';
 import { ShareIcon } from '@primer/octicons-react';
 import { ScoreBlock } from '../../components/userrank/scoreblock';
 import { RatingBlock } from '../../components/userrank/ratingblock';
@@ -7,38 +8,37 @@ import { SummaryBlock } from '../../components/userrank/summaryblock';
 import { MoreSummaryBlock } from '../../components/userrank/moresummaryblock';
 import { Footer } from '../../components/footer';
 import { endpoint } from '../../misc/endpoint';
+import NothingFoundBackground from '../404'
 
-export async function getServerSideProps(context) {
-  // Get username from user query
-  const { username } = context.params;
-  // Fetch data from API
-  const res = await fetch(`${endpoint()}/${username}`)
-  const data = (await res.json()).body;
-  // Pass data to the page via props
-  return { props: { data } }
-}
+// Not too sure how this works tbh, but is swr
+const fetcher = (resource, init) => fetch(resource, init).then(res => res.json());
 
-export default function UserPage({ data }) {
+export default function UserPage() {
+    // Get username from router
+    const router = useRouter();
+    const { username } = router.query;
+
     // Loading state
-    const [loading, setLoading] = useState(false);
+    const { data } = useSWR(`${endpoint()}/${username}`, fetcher);
 
     // Get custom classes
     const { classes } = useStyles();
-      
+
+    // If loading, show loading overlay
+    if (!data) return <LoadingOverlay visible={!data} />;
+
+    // I can't work out how to check for error, but this works too
+    if (data.body.username === undefined) return <NothingFoundBackground></NothingFoundBackground>;
+    
     return (
-        <>
-            <LoadingOverlay visible={loading} />
-            {
-              !loading && (<>
-                <HeaderBar classes={classes} username={data.username}/>
-                <RatingBlock level={data.level} commits={data.commitsYear} stars={data.repoStars} followers={data.followers}/>
-                <ScoreBlock level={data.level} points={data.totalScore}/>
-                <SummaryBlock />
-                <MoreSummaryBlock title={"Woahj"} description={"d"} />
-                <Footer />
-              </>)
-            }
-        </>
+      <>
+        <HeaderBar classes={classes} username={data.body.username}/>
+        <RatingBlock level={data.body.level} commits={data.body.commitsYear} stars={data.body.repoStars} followers={data.body.followers}/>
+        <ScoreBlock level={data.body.level} points={data.body.totalScore}/>
+        <SummaryBlock />
+        <MoreSummaryBlock title={"Woahj"} description={"d"} />
+        <Footer />
+      </>
     );
 }
 

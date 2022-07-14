@@ -1,2 +1,6 @@
+# Vscode stuff
+.vscode/
+.editorconfig
+
 # Env stuff
 .env

@@ -38,7 +38,7 @@ export default function UserPage() {
         <RatingBlock level={data.body.level} commits={data.body.commitsYear} stars={data.body.repoStars} followers={data.body.followers}/>
         <ScoreBlock level={data.body.level} points={data.body.totalScore}/>
         <MoreSummaryBlock userData={data} />
-        <SummaryBlock />
+        <SummaryBlock userData={data}/>
         <Footer />
       </>
     );

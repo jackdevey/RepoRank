@@ -166,6 +166,90 @@ export async function CalculateUserScore(username: string): Promise<any> {
     let repoStars = response.user.repositories.edges.map(e => e.node.stargazerCount).reduce((a, b) => a + b, 0);
     let totalScore = yearCommitScore() + accountAgeScore() + awardsScore() + followersScore() + issuesScore() + pullRequestsScore() + reposScore() + sponsoringScore() + discussionCommentsScore() + repoStarsScore();
     let level = Math.round(totalScore / 100);
+
+
+    return {
+      user: {
+        username: response.user.username,
+        avatarUrl: response.user.avatarUrl,
+        bio: response.user.bio,
+        url: `https://github.com/${username}`
+      },
+      summary: {
+        score: totalScore,
+        level: level,
+        rating: "d"
+      },
+      categories: [
+        {
+          name: "Stars earned",
+          value: repoStars,
+          score: repoStarsScore(),
+          max: 100
+        },
+        {
+          name: "Recent commits",
+          value: response.user.contributionsCollection.totalCommitContributions,
+          score: yearCommitScore(),
+          max: 100
+        },
+        {
+          name: "Followers",
+          value: response.user.followers.totalCount,
+          score: followersScore(),
+          max: 100
+        },
+        {
+          name: "Pull requests",
+          value: response.user.pullRequests.totalCount,
+          score: pullRequestsScore(),
+          max: 100
+        },
+        {
+          name: "Participated issues",
+          value: response.user.issues.totalCount,
+          score: issuesScore(),
+          max: 100
+        },
+        {
+          name: "Repositories",
+          value: response.user.repositoriesContributedTo.totalCount,
+          score: reposScore(),
+          max: 50
+        },
+        {
+          name: "Years active",
+          value: age,
+          score: accountAgeScore(),
+          max: 25
+        },
+        {
+          name: "Others sponsoring",
+          value: response.user.sponsoring.totalCount,
+          score: sponsoringScore(),
+          max: 25
+        },
+        {
+          name: "Discussion comments",
+          value: response.user.repositoryDiscussionComments.totalCount,
+          score: discussionCommentsScore(),
+          max: 25
+        }
+      ],
+      awards: {
+        ghStar: response.user.isGitHubStar,
+        bugBounty: response.user.isBountyHunter,
+        campusExpert: response.user.isCampusExpert
+      },
+      topRepos: [
+        response.user.repositories.edges[0].node,
+        response.user.repositories.edges[1].node,
+        response.user.repositories.edges[2].node
+      ]
+    }
+
+
+
     return {
         username: response.user.username,
         avatarUrl: response.user.avatarUrl,

@@ -1,5 +1,6 @@
 import React from 'react';
 import { createStyles, Title, SimpleGrid, Text, Button, ThemeIcon, Grid, Col, Container } from '@mantine/core';
+import { ClockIcon, CommentDiscussionIcon, CommitIcon, GitPullRequestIcon, HeartIcon, IssueOpenedIcon, PeopleIcon, RepoIcon, StarIcon } from '@primer/octicons-react';
 import { ReceiptOff, Flame, CircleDotted, FileCode } from 'tabler-icons-react';
 
 const useStyles = createStyles((theme) => ({
@@ -27,65 +28,59 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const features = [
-  {
-    icon: ReceiptOff,
-    title: 'Free and open source',
-    description: 'All packages are published under MIT license, you can use Mantine in any project',
-  },
-  {
-    icon: FileCode,
-    title: 'TypeScript based',
-    description: 'Build type safe applications, all components and hooks export types',
-  },
-  {
-    icon: CircleDotted,
-    title: 'No annoying focus ring',
-    description:
-      'With new :focus-visible selector focus ring will appear only when user navigates with keyboard',
-  },
-  {
-    icon: Flame,
-    title: 'Flexible',
-    description:
-      'Customize colors, spacing, shadows, fonts and many other settings with global theme object',
-  },
-];
+function findBestCategories(categories) {
+  categories.sort((a,b)=> ((a.score) < (b.score) ? 1 : -1));
+  return categories.slice(0, 4);
+}
 
-function findBestCategories(userData) {
-  let percs = [
-    userData.score.accountAge / 25, 
-    userData.score.followersScore / 100,
-    userData.score.issues / 100,
-    userData.score.prs / 100,
-    userData.score.repos / 50,
-    userData.score.sponsoring / 25,
-    userData.score.discussionComments / 25,
-    userData.score.repoStarsScore / 100,
-    userData.score.commitsYearScore / 100
-  ];
+function getIcon(name) {
+  switch (name) {
+    case "Recent commits": return <CommitIcon size={26} />;
+    case "Followers": return <PeopleIcon size={26} />;
+    case "Pull Requests": return <GitPullRequestIcon size={26} />;
+    case "Participated issues": return <IssueOpenedIcon size={26} />;
+    case "Repositories": return <RepoIcon size={26} />;
+    case "Years active": return <ClockIcon size={26} />;
+    case "Others sponsoring": return <HeartIcon size={26} />;
+    case "Discussion comments": return <CommentDiscussionIcon size={26} />;
+    default: return <StarIcon size={26} />;
+  }
+}
 
-  
+function getDescription(name) {
+  switch (name) {
+    case "Recent commits": return "You've clearly been busy lately";
+    case "Followers": return "You're really popular, aren't you?";
+    case "Pull Requests": return "You're making loads of new features";
+    case "Participated issues": return "You're working on a lot of issues";
+    case "Repositories": return "You've got lots going on!";
+    case "Years active": return "You're a long time GitHub user";
+    case "Others sponsoring": return "You're very charitable";
+    case "Discussion comments": return "You're good at making conversation";
+    default: return <StarIcon size={26} />;
+  }
 }
 
 export function SummaryBlock({ userData }) {
   const { classes } = useStyles();
 
-  const items = features.map((feature) => (
-    <div key={feature.title}>
+  let topCategories = findBestCategories(userData.categories);
+
+  const items = topCategories.map((category) => (
+    <div key={category.name}>
       <ThemeIcon
         size={44}
         radius="md"
         variant="gradient"
         gradient={{ deg: 133, from: 'teal', to: 'green' }}
       >
-        <feature.icon size={26} />
+        {getIcon(category.name)}
       </ThemeIcon>
       <Text size="lg" mt="sm" weight={500}>
-        {feature.title}
+        {category.name}
       </Text>
       <Text color="dimmed" size="sm">
-        {feature.description}
+        {getDescription(category.name)}
       </Text>
     </div>
   ));

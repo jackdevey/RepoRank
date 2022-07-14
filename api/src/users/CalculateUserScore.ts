@@ -177,8 +177,7 @@ export async function CalculateUserScore(username: string): Promise<any> {
       },
       summary: {
         score: totalScore,
-        level: level,
-        rating: "d"
+        level: level
       },
       categories: [
         {
@@ -246,48 +245,6 @@ export async function CalculateUserScore(username: string): Promise<any> {
         response.user.repositories.edges[1].node,
         response.user.repositories.edges[2].node
       ]
-    }
-
-
-
-    return {
-        username: response.user.username,
-        avatarUrl: response.user.avatarUrl,
-        bio: response.user.bio,
-        accountAge: age,
-        level,
-        prs: response.user.pullRequests.totalCount,
-        repos:  response.user.repositoriesContributedTo.totalCount,
-        sponsors: response.user.sponsoring.totalCount,
-        issues: response.user.issues.totalCount,
-        discussionComments: response.user.repositoryDiscussionComments.totalCount,
-        awards: {
-          ghStar: response.user.isGitHubStar,
-          bugBounty: response.user.isBountyHunter,
-          campusExpert: response.user.isCampusExpert,
-        },
-        repoStars,
-        followers: response.user.followers.totalCount,
-        commitsYear: response.user.contributionsCollection.totalCommitContributions,
-        totalScore,
-        ghLink: `https://github.com/${username}`,
-        score: {
-            accountAge: accountAgeScore(),
-            awardsScore: awardsScore(),
-            followerScore: followersScore(),
-            issues: issuesScore(),
-            prs: pullRequestsScore(),
-            repos: reposScore(),
-            sponsoring: sponsoringScore(),
-            discussionComments: discussionCommentsScore(),
-            repoStarsScore: repoStarsScore(),
-            commitsYearScore: yearCommitScore()
-        },
-        topRepos: [
-            response.user.repositories.edges[0].node,
-            response.user.repositories.edges[1].node,
-            response.user.repositories.edges[2].node
-        ]
     }
 
     function yearCommitScore() {

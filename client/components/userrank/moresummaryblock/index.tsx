@@ -13,7 +13,6 @@ import {
 import { Icon as TablerIcon } from 'tabler-icons-react';
 import { Data } from './data';
 import CountUp from 'react-countup';
-import { Dots } from '../../Dots';
 
 interface FeatureProps {
   icon: TablerIcon;

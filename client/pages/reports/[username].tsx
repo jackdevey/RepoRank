@@ -29,16 +29,19 @@ export default function UserPage() {
     if (!data) return loading();
 
     // I can't work out how to check for error, but this works too
-    if (data.body.username === undefined) return <Error404></Error404>;
+    if (data.body === undefined) return <Error404></Error404>;
+
+    // Update data 
+    let body = data.body;
     
     return (
       <>
-        <Head><title>@{data.body.username} | UserRank</title></Head>
-        <HeaderBar classes={classes} username={data.body.username}/>
-        <RatingBlock level={data.body.level} commits={data.body.commitsYear} stars={data.body.repoStars} followers={data.body.followers}/>
-        <ScoreBlock level={data.body.level} points={data.body.totalScore}/>
-        <MoreSummaryBlock userData={data} />
-        <SummaryBlock userData={data}/>
+        <Head><title>@{body.user.username} | UserRank</title></Head>
+        <HeaderBar classes={classes} username={body.user.username}/>
+        <RatingBlock level={body.summary.level} commits={body.categories[1].value} stars={body.categories[0].value} followers={body.categories[2].value}/>
+        <ScoreBlock level={body.summary.level} points={body.summary.score}/>
+        <MoreSummaryBlock userData={body} />
+        <SummaryBlock userData={body}/>
         <Footer />
       </>
     );

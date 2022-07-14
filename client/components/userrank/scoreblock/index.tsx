@@ -1,7 +1,6 @@
 import React from 'react';
 import { createStyles, Title, Badge, Button, Container, useMantineTheme, Text, Group } from '@mantine/core';
-import { useViewportSize } from '@mantine/hooks';
-import { Dots } from './Dots';
+import { Dots } from '../../Dots';
 import CountUp from 'react-countup';
 import getRating from '../ratingblock/RatingAssigner';
 

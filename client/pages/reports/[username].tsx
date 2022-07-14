@@ -37,8 +37,8 @@ export default function UserPage() {
         <HeaderBar classes={classes} username={data.body.username}/>
         <RatingBlock level={data.body.level} commits={data.body.commitsYear} stars={data.body.repoStars} followers={data.body.followers}/>
         <ScoreBlock level={data.body.level} points={data.body.totalScore}/>
+        <MoreSummaryBlock userData={data} />
         <SummaryBlock />
-        <MoreSummaryBlock title={"Woahj"} description={"d"} />
         <Footer />
       </>
     );

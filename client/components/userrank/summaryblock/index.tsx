@@ -52,7 +52,23 @@ const features = [
   },
 ];
 
-export function SummaryBlock() {
+function findBestCategories(userData) {
+  let percs = [
+    userData.score.accountAge / 25, 
+    userData.score.followersScore / 100,
+    userData.score.issues / 100,
+    userData.score.prs / 100,
+    userData.score.repos / 50,
+    userData.score.sponsoring / 25,
+    userData.score.discussionComments / 25,
+    userData.score.repoStarsScore / 100,
+    userData.score.commitsYearScore / 100
+  ];
+
+  
+}
+
+export function SummaryBlock({ userData }) {
   const { classes } = useStyles();
 
   const items = features.map((feature) => (
@@ -61,7 +77,7 @@ export function SummaryBlock() {
         size={44}
         radius="md"
         variant="gradient"
-        gradient={{ deg: 133, from: 'blue', to: 'cyan' }}
+        gradient={{ deg: 133, from: 'teal', to: 'green' }}
       >
         <feature.icon size={26} />
       </ThemeIcon>
@@ -79,22 +95,11 @@ export function SummaryBlock() {
       <Grid gutter={80}>
         <Col span={12} md={5}>
           <Title className={classes.title} order={2}>
-            A fully featured React components library for your next project
+            What you're doing well based on your top categories
           </Title>
           <Text color="dimmed">
-            Build fully functional accessible web applications faster than ever – Mantine includes
-            more than 120 customizable components and hooks to cover you in any situation
+            You're up to some pretty great stuff, but here is what your best at, based off your top categories
           </Text>
-
-          <Button
-            variant="gradient"
-            gradient={{ deg: 133, from: 'blue', to: 'cyan' }}
-            size="lg"
-            radius="md"
-            mt="xl"
-          >
-            Get started
-          </Button>
         </Col>
         <Col span={12} md={7}>
           <SimpleGrid cols={2} spacing={30} breakpoints={[{ maxWidth: 'md', cols: 1 }]}>

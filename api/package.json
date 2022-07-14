@@ -2,7 +2,7 @@
   "name": "@reporank/api",
   "packageManager": "yarn@3.2.1",
   "scripts": {
-    "start": "ts-node .",
+    "start": "node ./build/index.js",
     "build": "tsc",
     "build-prod": "npm install && npm run build"
   },

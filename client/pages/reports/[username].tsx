@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { createStyles, Header, Group, ActionIcon, Container, Title, LoadingOverlay, Button } from '@mantine/core';
+import { createStyles, Header, Group, ActionIcon, Container, Title, LoadingOverlay, Button, Anchor } from '@mantine/core';
 import { ShareIcon } from '@primer/octicons-react';
 import { ScoreBlock } from '../../components/userrank/scoreblock';
 import { RatingBlock } from '../../components/userrank/ratingblock';
@@ -65,7 +65,9 @@ function HeaderBar({ classes, username }) {
           </Group>
   
           <Group spacing={0} className={classes.social} position="right" noWrap>
-            <Button variant="subtle" mr={5}>@{username}</Button>
+            <Anchor href={"https://github.com/"+username} target="_blank">
+              <Button variant="subtle" mr={5}>@{username}</Button>
+            </Anchor>
             <ActionIcon size="lg">
               <ShareIcon size={18} />
             </ActionIcon>

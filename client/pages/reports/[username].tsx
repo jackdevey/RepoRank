@@ -1,6 +1,7 @@
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
-import { createStyles, Header, Group, ActionIcon, Container, Title, LoadingOverlay, Button, Tuple, Text } from '@mantine/core';
+import Head from 'next/head';
+import { createStyles, Header, Group, ActionIcon, Container, Title, LoadingOverlay, Button } from '@mantine/core';
 import { ShareIcon } from '@primer/octicons-react';
 import { ScoreBlock } from '../../components/userrank/scoreblock';
 import { RatingBlock } from '../../components/userrank/ratingblock';
@@ -8,7 +9,7 @@ import { SummaryBlock } from '../../components/userrank/summaryblock';
 import { MoreSummaryBlock } from '../../components/userrank/moresummaryblock';
 import { Footer } from '../../components/footer';
 import { endpoint } from '../../misc/endpoint';
-import NothingFoundBackground from '../404'
+import Error404 from '../404';
 
 // Not too sure how this works tbh, but is swr
 const fetcher = (resource, init) => fetch(resource, init).then(res => res.json());
@@ -25,13 +26,14 @@ export default function UserPage() {
     const { classes } = useStyles();
 
     // If loading, show loading overlay
-    if (!data) return <LoadingOverlay visible={!data} />;
+    if (!data) return loading();
 
     // I can't work out how to check for error, but this works too
-    if (data.body.username === undefined) return <NothingFoundBackground></NothingFoundBackground>;
+    if (data.body.username === undefined) return <Error404></Error404>;
     
     return (
       <>
+        <Head><title>@{data.body.username} | UserRank</title></Head>
         <HeaderBar classes={classes} username={data.body.username}/>
         <RatingBlock level={data.body.level} commits={data.body.commitsYear} stars={data.body.repoStars} followers={data.body.followers}/>
         <ScoreBlock level={data.body.level} points={data.body.totalScore}/>
@@ -42,8 +44,17 @@ export default function UserPage() {
     );
 }
 
-// UserRank individual headerbar
+function loading() {
+  return (
+    <>
+      <Head><title>Loading | UserRank</title></Head>
+      <LoadingOverlay visible={true} />
+    </>
+  )
+}
 
+
+// UserRank individual headerbar
 function HeaderBar({ classes, username }) {
     return (
         <Header height={56}>

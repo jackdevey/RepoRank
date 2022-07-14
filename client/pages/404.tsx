@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Head from 'next/head';
 import { createStyles, Container, Title, Text, Button, Group, useMantineTheme } from '@mantine/core';
 import { Footer } from '../components/footer';
 import { Header } from '../components/header/Header';
@@ -69,12 +70,13 @@ function Illustration(props: React.ComponentPropsWithoutRef<'svg'>) {
     );
   }
 
-export default function NothingFoundBackground() {
+export default function Error404() {
   const theme = useMantineTheme();
   const { classes } = useStyles();
 
   return (
     <>
+      <Head><title>Error 404 | RepoRank</title></Head>
       <Header title={"ErrorRank"}/>
       <div style={{backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0]}}>
         <Container className={classes.root}>

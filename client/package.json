@@ -1,6 +1,7 @@
 {
   "name": "@reporank/client",
   "packageManager": "yarn@3.2.1",
+  "version": "1.0.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

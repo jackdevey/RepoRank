@@ -18,6 +18,9 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
+    - name: Install dependencies
+      run: yarn install
+
     - name: Build client
       run: yarn workspace @reporank/api run build
 

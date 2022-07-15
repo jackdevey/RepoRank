@@ -1,14 +1,18 @@
-name: Test All
+name: Test Client
 
 on:
   push:
     branches: [ main ]
+    paths:
+     - 'client/**'
   pull_request:
     branches: [ main ]
+    paths:
+     - 'client/**'
 
 jobs:
 
-  test:
+  Test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -23,6 +27,3 @@ jobs:
 
     - name: Test client
       run: yarn workspace @reporank/client run test
-
-    - name: Build API
-      run: yarn workspace @reporank/api run build

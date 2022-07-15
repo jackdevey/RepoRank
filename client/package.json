@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "cypress:headless": "cypress run",
-    "test": "build && start && cypress:headless"
+    "test": "next build && next start && cypress run"
   },
   "dependencies": {
     "@mantine/core": "^4.2.9",

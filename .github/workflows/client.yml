@@ -15,7 +15,7 @@ defaults:
    working-directory: client
 
 jobs:
- Tests:
+ build:
    runs-on: ubuntu-latest
 
    steps:

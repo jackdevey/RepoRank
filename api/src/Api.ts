@@ -13,7 +13,7 @@ import { CalculateUserScore } from "./users/CalculateUserScore";
 import { Repo404Error, User404Error } from './ErrorResponses';
 
 // Serve api root page
-api.get("/", (req: Request, res: Response) => {
+api.get("/", (req, res) => {
     Reply(req, res, 200, {
         title: "🔥RepoRank Public API",
         version: process.env.VERSION,

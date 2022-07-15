@@ -1,4 +1,4 @@
-name: API CI
+name: Build All
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-        cache-dependency-path: 'api/package-lock.json'
-    - run: npm --prefix api ci
-    - run: npm --prefix api run build-prod
+        cache: 'yarn'
+        cache-dependency-path: 'yarn.lock'
+    - run: yarn workspace @reporank/client run build
+    - run: yarn workspace @reporank/api run build

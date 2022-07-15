@@ -31,3 +31,5 @@ jobs:
           project: ./client
           build: yarn workspace @reporank/client run build
           start: yarn workspace @reporank/client run start
+          wait-on: http://localhost:3000
+

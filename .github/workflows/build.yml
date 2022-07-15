@@ -22,7 +22,7 @@ jobs:
       run: yarn install
 
     - name: Build client
-      run: yarn workspace @reporank/api run build
+      run: yarn workspace @reporank/client run build
 
     - name: Build API
       run: yarn workspace @reporank/api run build

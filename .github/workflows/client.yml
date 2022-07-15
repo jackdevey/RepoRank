@@ -28,5 +28,6 @@ jobs:
     - name: Test client
         uses: cypress-io/github-action@v4
         with:
-          build: yarn run build
-          start: yarn run start
+          project: ./client
+          build: yarn workspace @reporank/client run build
+          start: yarn workspace @reporank/client run start

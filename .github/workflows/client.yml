@@ -19,13 +19,13 @@ jobs:
         node-version: [16.x]
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    - name: Install dependencies
-      run: yarn install
+      - name: Install dependencies
+        run: yarn install
 
-    - name: Test client
+      - name: Test client
         uses: cypress-io/github-action@v4
         with:
           project: ./client

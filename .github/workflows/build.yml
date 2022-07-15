@@ -7,6 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
+
   build:
     runs-on: ubuntu-latest
     strategy:
@@ -14,12 +15,11 @@ jobs:
         node-version: [16.x]
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Build with Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'yarn'
-        cache-dependency-path: 'yarn.lock'
-    - run: yarn workspace @reporank/client run build
-    - run: yarn workspace @reporank/api run build
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Build client
+      run: yarn workspace @reporank/api run build
+
+    - name: Build API
+      run: yarn workspace @reporank/api run build

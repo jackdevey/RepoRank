@@ -10,6 +10,7 @@ import { MoreSummaryBlock } from '../../components/userrank/moresummaryblock';
 import { Footer } from '../../components/footer';
 import { endpoint } from '../../misc/endpoint';
 import Error404 from '../404';
+import { LowCategoriesBlock } from '../../components/userrank/summaryblockbad';
 
 // Not too sure how this works tbh, but is swr
 const fetcher = (resource, init) => fetch(resource, init).then(res => res.json());
@@ -42,6 +43,7 @@ export default function UserPage() {
         <ScoreBlock level={body.summary.level} points={body.summary.score}/>
         <MoreSummaryBlock userData={body} />
         <SummaryBlock userData={body}/>
+        <LowCategoriesBlock userData={body}/>
         <Footer />
       </>
     );

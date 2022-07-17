@@ -57,7 +57,7 @@ function getDescription(name) {
     case "Years active": return "You're a long time GitHub user";
     case "Others sponsoring": return "You're very charitable";
     case "Discussion comments": return "You're good at making conversation";
-    default: return <StarIcon size={26} />;
+    default: return "Stars good";
   }
 }
 
@@ -90,7 +90,7 @@ export function SummaryBlock({ userData }) {
       <Grid gutter={80}>
         <Col span={12} md={5}>
           <Title className={classes.title} order={2}>
-            What you're doing well based on your top categories
+            What you're doing great
           </Title>
           <Text color="dimmed">
             You're up to some pretty great stuff, but here is what your best at, based off your top categories

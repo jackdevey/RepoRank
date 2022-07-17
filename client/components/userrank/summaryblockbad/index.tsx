@@ -36,7 +36,7 @@ function getIcon(name) {
   switch (name) {
     case "Recent commits": return <CommitIcon size={26} />;
     case "Followers": return <PeopleIcon size={26} />;
-    case "Pull Requests": return <GitPullRequestIcon size={26} />;
+    case "Pull requests": return <GitPullRequestIcon size={26} />;
     case "Participated issues": return <IssueOpenedIcon size={26} />;
     case "Repositories": return <RepoIcon size={26} />;
     case "Years active": return <ClockIcon size={26} />;
@@ -71,7 +71,7 @@ export function LowCategoriesBlock({ userData }) {
         size={44}
         radius="md"
         variant="gradient"
-        gradient={{ deg: 230, from: 'orange', to: 'red' }}
+        gradient={{ deg: 230, from: 'crimson', to: 'red' }}
       >
         {getIcon(category.name)}
       </ThemeIcon>
@@ -87,18 +87,18 @@ export function LowCategoriesBlock({ userData }) {
   return (
     <Container className={classes.wrapper}>
       <Grid gutter={80}>
+        <Col span={12} md={5}>
+          <Title className={classes.title} order={2}>
+            What you're not doing so well
+          </Title>
+          <Text color="dimmed">
+            There's always ways to improve, so here's what your not so great at from your lowest categories
+          </Text>
+        </Col>
         <Col span={12} md={7}>
           <SimpleGrid cols={2} spacing={30} breakpoints={[{ maxWidth: 'md', cols: 1 }]}>
             {items}
           </SimpleGrid>
-        </Col>
-        <Col span={12} md={5}>
-          <Title className={classes.title} order={2}>
-            What you're doing bad based on your top categories
-          </Title>
-          <Text color="dimmed">
-            Get betta - need fix
-          </Text>
         </Col>
       </Grid>
     </Container>

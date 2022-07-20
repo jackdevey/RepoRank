@@ -1,3 +1,6 @@
 # Vscode stuff
 .vscode/
 .editorconfig
+
+# Config files
+.env.local

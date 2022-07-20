@@ -22,22 +22,17 @@ const useStyles = createStyles((theme) => ({
   }
 }));
 
-export function Header({ title = "RepoRank" }) {
+export function Header({ title = "RepoRank", children }) {
   const { classes } = useStyles();
   const [_title, setTitle] = useState(title);
 
   return (
     <MTHeader height={56}>
       <Container className={classes.inner}>
-
         <Title order={3} onMouseEnter={() => setTitle("RepoRank")} onMouseLeave={() => setTitle(title)}>🔥{_title}</Title>
-
-        {/**<Group spacing={0} className={classes.social} position="right" noWrap>
-          <ActionIcon size="lg">
-            <ShareIcon size={18} />
-          </ActionIcon>
-  </Group>*/}
-        
+        <Group spacing={0} className={classes.social} position="right" noWrap>
+          {children}
+        </Group>
       </Container>
     </MTHeader>
   );

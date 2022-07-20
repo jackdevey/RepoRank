@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Card, Container, TextInput, AppShell, LoadingOverlay, useMantineTheme, Modal, Accordion, Text, Code, Anchor } from '@mantine/core';
+import { Badge, Card, Container, TextInput, AppShell, LoadingOverlay, useMantineTheme, Modal, Accordion, Text, Code, Anchor } from '@mantine/core';
 import { PersonIcon, RepoIcon } from '@primer/octicons-react';
 import { BackgroundStyle, CompactLineStyle } from '../misc/style/Style'
 import { Tabs } from '@mantine/core';
@@ -51,7 +51,8 @@ export default function IndexPage() {
 
   return (
     <>
-      <Header/>
+      <Header><Badge style={{textTransform: "lowercase"}}>{process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA}</Badge></Header>
+      Content will go here!
       <Footer/>
     </>
   );

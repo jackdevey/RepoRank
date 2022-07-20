@@ -25,8 +25,8 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-function findBestCategories(categories) {
-  categories.sort((a,b)=> ((a.score) > (b.score) ? 1 : -1));
+function findLowestCategories(categories) {
+  categories.sort((a,b)=> ((a.score / a.max) > (b.score / b.max) ? 1 : -1));
   return categories.slice(0, 4);
 }
 
@@ -46,22 +46,22 @@ function getIcon(name) {
 
 function getDescription(name) {
   switch (name) {
-    case "Recent commits": return "You've clearly not been busy lately";
-    case "Followers": return "You're really not popular, aren't you?";
-    case "Pull Requests": return "You're not making loads of new features";
-    case "Participated issues": return "You're not working on a lot of issues";
-    case "Repositories": return "You've not got lots going on!";
-    case "Years active": return "You're not a long time GitHub user";
-    case "Others sponsoring": return "You're not very charitable";
-    case "Discussion comments": return "You're not good at making conversation";
-    default: return "idk";
+    case "Recent commits": return "You dont commit very often";
+    case "Followers": return "You dont have much of a following";
+    case "Pull requests": return "You havent made many contributions";
+    case "Participated issues": return "You're not getting involved in issues";
+    case "Repositories": return "You could make some more projects";
+    case "Years active": return "You're a GitHub newbie";
+    case "Others sponsoring": return "You dont sponsor anyone on GitHub";
+    case "Discussion comments": return "You don't join in with discussions";
+    default: return "You havent recieved many stars, yet";
   }
 }
 
 export function LowCategoriesBlock({ userData }) {
   const { classes } = useStyles();
 
-  let topCategories = findBestCategories(userData.categories);
+  let topCategories = findLowestCategories(userData.categories);
 
   const items = topCategories.map((category) => (
     <div key={category.name}>

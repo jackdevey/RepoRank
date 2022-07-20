@@ -5,13 +5,27 @@ export function Data(userData) {
   userData.categories.forEach((category, index) => {
     data.push({
       icon: getIcon(index),
-      category: category.name,
+      category: getEmoji(index) + " " + category.name,
       score: category.score,
       max: category.max,
       description: getDescription(index, category.value)
     })
   });
   return data;
+}
+
+function getEmoji(index) {
+  switch (index) {
+    case 1: return `📨`;
+    case 2: return `👩‍💻`;
+    case 3: return `🌿`;
+    case 4: return `🚨`;
+    case 5: return `📙`;
+    case 6: return `⏲️`;
+    case 7: return `💸`;
+    case 8: return `💭`;
+    default: return `🌟`;
+  }
 }
 
 function getDescription(index, value) {

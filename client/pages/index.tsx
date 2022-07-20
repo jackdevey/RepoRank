@@ -51,7 +51,7 @@ export default function IndexPage() {
 
   return (
     <>
-      <Header><Badge style={{textTransform: "lowercase"}}>{process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA}</Badge></Header>
+      <Header><Badge style={{textTransform: "lowercase"}}>{process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA.substring(0,6)}</Badge></Header>
       Content will go here!
       <Footer/>
     </>

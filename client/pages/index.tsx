@@ -7,6 +7,7 @@ import { useModals } from '@mantine/modals';
 import { ShowErrorPopup } from '../misc/ShowErrorPopup.js';
 import { User } from '../misc/user/User.js';
 import Head from 'next/head';
+import { ReportAnalytics } from 'tabler-icons-react';
 
 export default function IndexPage() {
 
@@ -99,10 +100,17 @@ export default function IndexPage() {
               />
               <Button
                 variant="light"
-                size="xl"
                 onClick={FetchUserReport}>
                 Calculate
               </Button>
+
+              <Button
+                ml="md"
+                onClick={ForwardToReport}
+                >
+                *NEW* Make Report
+              </Button>
+
             </Tabs.Tab>
           </Tabs>
 
@@ -180,6 +188,18 @@ export default function IndexPage() {
 
   function FetchUserReport() {
     User(React, modals, username, (bool) => setLoading(bool))
+  }
+
+  function ForwardToReport() {
+    if (username === '') {
+      ShowErrorPopup(modals, {
+        code: 400,
+        message: "You didn't even enter anything!"
+      }, "repo");
+      return;
+    }
+
+    window.location.href = `/reports/${username}`;
   }
 
 }

@@ -122,7 +122,7 @@ export function ScoreBlock({ level, points }) {
           </Title>
 
           <Container p={0} size={600}>
-            <Title order={1} className={classes.points}>✨<CountUp end={points}/>pts</Title>
+            <Title order={1} className={classes.points}>✨<CountUp end={points}/> pts</Title>
             <div className={classes.description}>
               <Badge color="gray" size="xl">🏅 Level {level}</Badge>{' '}
               <Badge style={{background: ratingBadgeColor, color: 'white'}} size="xl">{rating.title}</Badge>

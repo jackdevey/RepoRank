@@ -239,7 +239,9 @@ export async function CalculateUserScore(username: string): Promise<any> {
       awards: {
         ghStar: response.user.isGitHubStar,
         bugBounty: response.user.isBountyHunter,
-        campusExpert: response.user.isCampusExpert
+        campusExpert: response.user.isCampusExpert,
+        score: awardsScore(),
+        max: 100
       },
       topRepos: [
         response.user.repositories.edges[0].node,

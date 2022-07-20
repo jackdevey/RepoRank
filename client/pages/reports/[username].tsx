@@ -31,7 +31,7 @@ export default function UserPage() {
     if (!data) return loading();
 
     // I can't work out how to check for error, but this works too
-    if (data.body.user.username === undefined) return <Error404></Error404>;
+    if (data.header.code === 404) return <Error404></Error404>;
 
     // Update data 
     let body = data.body;

@@ -1,6 +1,12 @@
 import { createStyles, Grid, Paper, Text, Container, Badge, Title, Anchor } from "@mantine/core";
 
 function RepoCard({ repo } ) {
+
+    const getColor = (theme) => {
+        let color = (repo.primaryLanguage && repo.primaryLanguage.color || theme.colors.blue[8])
+        return theme.colorScheme === 'dark' ? theme.fn.rgba(color, 0.55) : color
+    };
+
     const useStyles = createStyles((theme) => ({
         card: {
           position: 'relative',
@@ -15,7 +21,7 @@ function RepoCard({ repo } ) {
             bottom: 0,
             left: 0,
             width: 6,
-            backgroundColor: repo.primaryLanguage && repo.primaryLanguage.color || theme.colors.blue[8],
+            backgroundColor: getColor(theme),
           },
         },
         title: {

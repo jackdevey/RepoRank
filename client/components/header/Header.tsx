@@ -22,7 +22,7 @@ const useStyles = createStyles((theme) => ({
   }
 }));
 
-export function Header({ title = "RepoRank", children }) {
+export function Header({ title = "RepoRank", children = null }) {
   const { classes } = useStyles();
   const [_title, setTitle] = useState(title);
 

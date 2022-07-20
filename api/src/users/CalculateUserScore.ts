@@ -143,6 +143,7 @@ export async function CalculateUserScore(username: string): Promise<any> {
                 stargazerCount
                 forkCount
                 description
+                url
                   
                 primaryLanguage {
                   color

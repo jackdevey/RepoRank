@@ -28,7 +28,10 @@ export default function App(props: AppProps) {
         <MantineProvider
             withGlobalStyles
             withNormalizeCSS
-            theme={{ colorScheme }}>
+            theme={{
+              loader: "oval",
+              colorScheme
+            }}>
               <ModalsProvider>
                 {process.env.NODE_ENV !== 'production' && <DevMode/>}
                 <Component {...pageProps} />

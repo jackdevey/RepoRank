@@ -19,9 +19,7 @@ const useStyles = createStyles((theme) => ({
       
 
   title: {
-    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
     fontSize: 36,
-    fontWeight: 900,
     lineHeight: 1.1,
     marginBottom: theme.spacing.md,
     color: theme.colorScheme === 'dark' ? theme.white : theme.black,
@@ -57,7 +55,7 @@ function getDescription(name) {
     case "Years active": return "You're a long time GitHub user";
     case "Others sponsoring": return "You're very charitable";
     case "Discussion comments": return "You're good at making conversation";
-    default: return "Stars good";
+    default: return "You've got lots of stars, good work!";
   }
 }
 

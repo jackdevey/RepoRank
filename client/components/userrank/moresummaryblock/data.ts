@@ -3,7 +3,6 @@ import { ClockIcon, CommentDiscussionIcon, CommitIcon, GitPullRequestIcon, Heart
 export function Data(userData) {
   let data = [];
   userData.categories.forEach((category, index) => {
-    console.log(category.name, index);
     data.push({
       icon: getIcon(index),
       category: category.name,

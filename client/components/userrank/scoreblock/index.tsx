@@ -40,7 +40,6 @@ const useStyles = createStyles((theme) => ({
     fontSize: 40,
     letterSpacing: -1,
     marginBottom: theme.spacing.xs,
-    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
 
     '@media (max-width: 520px)': {
       fontSize: 28,
@@ -50,12 +49,10 @@ const useStyles = createStyles((theme) => ({
 
   points: {
     textAlign: 'center',
-    fontWeight: 800,
     fontSize: 100,
     letterSpacing: -1,
     color: theme.colorScheme === 'dark' ? theme.white : theme.black,
     marginBottom: theme.spacing.xs,
-    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
 
     '@media (max-width: 520px)': {
       fontSize: 50,
@@ -125,7 +122,7 @@ export function ScoreBlock({ level, points }) {
           </Title>
 
           <Container p={0} size={600}>
-            <Title order={1} className={classes.points}>✨<CountUp end={points}/> pts</Title>
+            <Title order={1} className={classes.points}>✨<CountUp end={points}/>pts</Title>
             <div className={classes.description}>
               <Badge color="gray" size="xl">🏅 Level {level}</Badge>{' '}
               <Badge style={{background: ratingBadgeColor, color: 'white'}} size="xl">{rating.title}</Badge>

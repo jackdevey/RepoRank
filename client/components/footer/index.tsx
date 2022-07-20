@@ -69,8 +69,6 @@ const useStyles = createStyles((theme) => ({
 
   title: {
     fontSize: theme.fontSizes.lg,
-    fontWeight: 700,
-    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
     marginBottom: theme.spacing.xs / 2,
     color: theme.colorScheme === 'dark' ? theme.white : theme.black,
   },
@@ -142,7 +140,7 @@ export function Footer() {
 
     return (
       <div className={classes.wrapper} key={group.title}>
-        <Text className={classes.title}>{group.title}</Text>
+        <Title order={4} className={classes.title}>{group.title}</Title>
         {links}
       </div>
     );

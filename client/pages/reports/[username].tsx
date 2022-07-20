@@ -11,6 +11,7 @@ import { Footer } from '../../components/footer';
 import { endpoint } from '../../misc/endpoint';
 import Error404 from '../404';
 import { LowCategoriesBlock } from '../../components/userrank/summaryblockbad';
+import { ReposBlock } from '../../components/userrank/ReposBlock';
 
 // Not too sure how this works tbh, but is swr
 const fetcher = (resource, init) => fetch(resource, init).then(res => res.json());
@@ -30,7 +31,7 @@ export default function UserPage() {
     if (!data) return loading();
 
     // I can't work out how to check for error, but this works too
-    if (data.body === undefined) return <Error404></Error404>;
+    if (data.body.user.username === undefined) return <Error404></Error404>;
 
     // Update data 
     let body = data.body;
@@ -44,6 +45,7 @@ export default function UserPage() {
         <MoreSummaryBlock userData={body} />
         <SummaryBlock userData={body}/>
         <LowCategoriesBlock userData={body}/>
+        <ReposBlock repos={body.topRepos}/>
         <Footer />
       </>
     );

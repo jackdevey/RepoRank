@@ -32,7 +32,6 @@ export default function App(props: AppProps) {
             withGlobalStyles
             withNormalizeCSS
             theme={{
-              headings: { fontFamily: "'IBM Plex Mono', monospace" },
               loader: "oval",
               colorScheme
             }}>

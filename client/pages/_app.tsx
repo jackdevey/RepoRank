@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { MantineProvider, ColorSchemeProvider, ColorScheme } from '@mantine/core';
 import { useHotkeys, useLocalStorage } from '@mantine/hooks';
 import { ModalsProvider } from '@mantine/modals';
-import DevMode from '../components/devmode/DevMode';
 
 
 export default function App(props: AppProps) {
@@ -33,7 +32,6 @@ export default function App(props: AppProps) {
               colorScheme
             }}>
               <ModalsProvider>
-                {process.env.NODE_ENV !== 'production' && <DevMode/>}
                 <Component {...pageProps} />
               </ModalsProvider>
         </MantineProvider>

@@ -140,7 +140,7 @@ export function RatingBlock({ level, commits, followers, stars }) {
                 <List.Item icon="📨">
                   <b><CountUp end={commits}></CountUp> commits this year</b> – {commitStatSentence(commits)}
                 </List.Item>
-                <List.Item icon="⭐">
+                <List.Item icon="🌟">
                   <b><CountUp end={stars}></CountUp> stars earned</b> – {starsStatSentence(stars)}
                 </List.Item>
                 <List.Item icon="👩‍💻"> 

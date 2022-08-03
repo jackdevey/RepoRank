@@ -46,7 +46,7 @@ export default function getRating(level: number): Rating {
 
     const Experienced: Rating = {
         title: 'Experienced',
-        description: "You're starting to make, test & ship quality code - definately on the right track",
+        description: "You're starting to make, test & ship quality code - definitely on the right track",
         color: '#20C997',
         before: 'An',
         after: 'GitHub user'

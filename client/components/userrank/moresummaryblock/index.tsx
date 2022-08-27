@@ -13,6 +13,7 @@ import {
 import { Icon as TablerIcon } from 'tabler-icons-react';
 import { Data } from './data';
 import CountUp from 'react-countup';
+import { useDisclosure } from '@mantine/hooks';
 
 interface FeatureProps {
   icon: TablerIcon;
@@ -41,25 +42,19 @@ export function Feature({ icon: Icon, score, max, category, description }: Featu
 }
 
 function MaxPointsPopup() {
-  const [opened, setOpened] = useState(false);
+  const [opened, { close, open }] = useDisclosure(false);
 
   return (
-      <>
-          <Popover
-              opened={opened}
-              onClose={() => setOpened(false)}
-              position="bottom"
-              placement="center"
-              spacing="xs"
-              shadow="xs"
-              styles={{ body: { pointerEvents: 'none' } }}
-              target={<Code color="blue" ml={5} onMouseEnter={() => setOpened(true)} onMouseLeave={() => setOpened(false)}>🎉 Max</Code>}
-          >
-              <div style={{ display: 'flex' }}>
-                <Text size="sm" color="dimmed">🎉 Maximum points awarded</Text>
-              </div>
-          </Popover>
-      </>
+      <Popover position="bottom" withArrow shadow="md" opened={opened}>
+        <Popover.Target>
+          <Code color="blue" ml={5} onMouseEnter={open} onMouseLeave={close}>🎉 Max</Code>
+        </Popover.Target>
+        <Popover.Dropdown sx={{ pointerEvents: 'none' }}>
+          <div style={{ display: 'flex' }}>
+            <Text size="sm" color="dimmed">🎉 Maximum points awarded</Text>
+          </div>
+        </Popover.Dropdown>
+      </Popover>
   );
 }
 

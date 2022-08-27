@@ -9,7 +9,6 @@ import { User } from '../misc/user/User.js';
 import Head from 'next/head';
 import { ReportAnalytics } from 'tabler-icons-react';
 import useSWR from 'swr';
-import RepoCard from '../components/RepoCard';
 
 // Not too sure how this works tbh, but is swr
 const fetcher = (resource, init) => fetch(resource, init).then(res => res.json());
@@ -51,10 +50,6 @@ export default function IndexPage() {
     endpoint = "http://localhost:8080";
   }
 
-  const { data } = useSWR(`${endpoint}/trending`, fetcher);
-  // If loading, show loading overlay
-  if (!data) return pageLoading();
-
   return (
     <AppShell
       className="background"
@@ -66,8 +61,14 @@ export default function IndexPage() {
         <Card shadow="md">
           <LoadingOverlay visible={loading} />
           <h2>🔥 {title}</h2>
-          <Tabs grow onTabChange={i => { if (i == 0) setTitle("RepoRank"); else setTitle("UserRank") }}>
-            <Tabs.Tab label="Repositories">
+
+          <Tabs defaultValue='repos'>
+            <Tabs.List>
+              <Tabs.Tab value='repos'>Repositories</Tabs.Tab>
+              <Tabs.Tab value='users'>Users</Tabs.Tab>
+            </Tabs.List>
+
+            <Tabs.Panel value='repos'>
               <TextInput
                 placeholder="Owner"
                 size="xl"
@@ -94,8 +95,9 @@ export default function IndexPage() {
                 onClick={Click}>
                 Calculate
               </Button>
-            </Tabs.Tab>
-            <Tabs.Tab label="Users" >
+            </Tabs.Panel>
+
+            <Tabs.Panel value='users'>
               <TextInput
                 placeholder="Username"
                 size="xl"
@@ -118,10 +120,8 @@ export default function IndexPage() {
                 >
                 *NEW* Make Report
               </Button>
-
-            </Tabs.Tab>
+            </Tabs.Panel>
           </Tabs>
-
         </Card>
 
         <Text color="dimmed" style={{ marginTop: "10px" }}>Created by <Anchor href="https://github.com/jackdevey">jack devey</Anchor>, <Anchor href="https://github.com/jackdevey/reporank">contribute</Anchor></Text> 
@@ -147,25 +147,30 @@ export default function IndexPage() {
 
         <h3 style={CompactLineStyle()}>Score breakdown</h3>
 
-        <Accordion iconPosition="right" offsetIcon={false}>
-          <Accordion.Item label="Community 💞">
-            The repo has a community percentage of <Code>{result.breakdown.community}%</Code>
+        <Accordion variant="separated">
+          <Accordion.Item value="community">
+            <Accordion.Control>Community 💞</Accordion.Control>
+            <Accordion.Panel>The repo has a community percentage of <Code>{result.breakdown.community}%</Code></Accordion.Panel>
           </Accordion.Item>
 
-          <Accordion.Item label="Activity 👩‍💻">
-            The repo has a code change value of <Code>{result.breakdown.codeChange}</Code>
+          <Accordion.Item value="activity">
+            <Accordion.Control>Activity 👩‍💻</Accordion.Control>
+            <Accordion.Panel>The repo has a code change value of <Code>{result.breakdown.codeChange}</Code></Accordion.Panel>
           </Accordion.Item>
 
-          <Accordion.Item label="Stars 🌟">
-            The repo has <Code>{result.breakdown.stars}</Code> stars
+          <Accordion.Item value="stars">
+            <Accordion.Control>Stars 🌟</Accordion.Control>
+            <Accordion.Panel>The repo has <Code>{result.breakdown.stars}</Code> stars</Accordion.Panel>
           </Accordion.Item>
 
-          <Accordion.Item label="Forks 🍴">
-            The repo has <Code>{result.breakdown.forks}</Code> forks
+          <Accordion.Item value="forks">
+            <Accordion.Control>Forks 🍴</Accordion.Control>
+            <Accordion.Panel>The repo has <Code>{result.breakdown.forks}</Code> forks</Accordion.Panel>
           </Accordion.Item>
 
-          <Accordion.Item label="Open issues 🚨">
-            The repo has <Code>{result.breakdown.openIssues}</Code> open issues
+          <Accordion.Item value="oissues">
+            <Accordion.Control>Open issues 🚨</Accordion.Control>
+            <Accordion.Panel>The repo has <Code>{result.breakdown.openIssues}</Code> open issues</Accordion.Panel>
           </Accordion.Item>
         </Accordion>
 

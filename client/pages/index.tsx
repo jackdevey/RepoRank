@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Card, Container, TextInput, AppShell, LoadingOverlay, useMantineTheme, Modal, Accordion, Text, Code, Anchor } from '@mantine/core';
+import { Button, Card, Container, TextInput, AppShell, LoadingOverlay, useMantineTheme, Modal, Accordion, Text, Code, Anchor, Grid, GroupedTransition } from '@mantine/core';
 import { PersonIcon, RepoIcon } from '@primer/octicons-react';
 import { BackgroundStyle, CompactLineStyle } from '../misc/style/Style'
 import { Tabs } from '@mantine/core';
@@ -8,6 +8,11 @@ import { ShowErrorPopup } from '../misc/ShowErrorPopup.js';
 import { User } from '../misc/user/User.js';
 import Head from 'next/head';
 import { ReportAnalytics } from 'tabler-icons-react';
+import useSWR from 'swr';
+import RepoCard from '../components/RepoCard';
+
+// Not too sure how this works tbh, but is swr
+const fetcher = (resource, init) => fetch(resource, init).then(res => res.json());
 
 export default function IndexPage() {
 
@@ -43,9 +48,12 @@ export default function IndexPage() {
   let endpoint = "https://api.reporank.dev";
 
   if (process.env.NODE_ENV !== 'production') {
-    endpoint = "http://api.localhost:8080";
+    endpoint = "http://localhost:8080";
   }
 
+  const { data } = useSWR(`${endpoint}/trending`, fetcher);
+  // If loading, show loading overlay
+  if (!data) return pageLoading();
 
   return (
     <AppShell
@@ -116,7 +124,8 @@ export default function IndexPage() {
 
         </Card>
 
-        <Text color="dimmed" style={{ marginTop: "10px" }}>Created by <Anchor href="https://github.com/jackdevey">jack devey</Anchor>, <Anchor href="https://github.com/jackdevey/reporank">contribute</Anchor></Text>
+        <Text color="dimmed" style={{ marginTop: "10px" }}>Created by <Anchor href="https://github.com/jackdevey">jack devey</Anchor>, <Anchor href="https://github.com/jackdevey/reporank">contribute</Anchor></Text> 
+      
       </Container>
 
       <Modal
@@ -202,4 +211,13 @@ export default function IndexPage() {
     window.location.href = `/reports/${username}`;
   }
 
+}
+
+function pageLoading() {
+  return (
+    <>
+      <Head><title>RepoRank</title></Head>
+      <LoadingOverlay visible={true} />
+    </>
+  )
 }

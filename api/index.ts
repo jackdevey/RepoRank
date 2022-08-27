@@ -26,6 +26,10 @@ import { CalculateUserScore } from "./src/users/CalculateUserScore";
 import { Repo404Error, User404Error } from './src/ErrorResponses';
 import Trending from './src/trending/Index';
 
+// Use cors to allow cross origin resource
+// sharing
+app.use(cors());
+
 // Serve api root page
 app.get("/", (req, res) => {
     Reply(req, res, 200, {
@@ -41,13 +45,13 @@ app.get("/", (req, res) => {
 app.get("/trending", (req, res) => {
     // Is the response cached?
     let cachedResp = cache.get(req.url);
-    if (cachedResp) { res.json(cachedResp); }
+    if (cachedResp) { Reply(req, res, 200, cachedResp); }
     // Otherwise, get the data again
     else {
         Trending()
         .then(response => {
             cache.put(req.url, response, 60 * 60 * 24 * 1000);
-            res.json(response);
+            Reply(req, res, 200, response);
         })
     }
 });
@@ -100,10 +104,6 @@ app.get("/:owner/:repo/badge", async (req, res) => {
     //     }
     // })
 });
-
-// Use cors to allow cross origin resource
-// sharing
-app.use(cors());
 
 // Listen on port
 app.listen(process.env.PORT, () => {

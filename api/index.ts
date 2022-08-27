@@ -9,16 +9,97 @@ import cors from 'cors';
 
 // Import express and vhost
 // & create express app
-import express from 'express';
-import vhost from 'vhost';
+import express, { response } from 'express';
 const app = express();
 
-// Import submodules
-import api from './src/Api';
+// Manage server cache
+import Cache from 'cache';
+const cache = new Cache();
 
-// Use vhost to create subdomains 
-// that map to submodules
-app.use(vhost(`api.${process.env.DOMAIN}`, api));
+// Import badge api
+import { makeBadge } from 'badge-maker'
+
+// Import functions
+import Reply from "./src/Reply";
+import { CalculateScore } from "./src/repos/CalculateScore";
+import { CalculateUserScore } from "./src/users/CalculateUserScore";
+import { Repo404Error, User404Error } from './src/ErrorResponses';
+import Trending from './src/trending/Index';
+
+// Serve api root page
+app.get("/", (req, res) => {
+    Reply(req, res, 200, {
+        title: "🔥RepoRank Public API",
+        version: process.env.VERSION,
+        github: "https://github.com/jackdevey/reporank",
+        docs: "https://github.com/jackdevey/reporank/wiki/RepoRank-API",
+        frontend: "https://" + process.env.DOMAIN + "/"
+    });
+});
+
+// Trending repos route
+app.get("/trending", (req, res) => {
+    // Is the response cached?
+    let cachedResp = cache.get(req.url);
+    if (cachedResp) { res.json(cachedResp); }
+    // Otherwise, get the data again
+    else {
+        Trending()
+        .then(response => {
+            cache.put(req.url, response, 60 * 60 * 24 * 1000);
+            res.json(response);
+        })
+    }
+});
+
+// Dynamic user route
+app.get("/:user", (req, res) => {
+    if(req.params.user == "favicon.ico") return;
+    CalculateUserScore(req.params.user).then(response => {
+        Reply(req, res, 200, response);
+    }).catch(e => {
+        Reply(req, res, 404, User404Error());
+    });
+});
+
+// Dynamic owner/repo route
+app.get("/:owner/:repo", (req, res) => {
+    CalculateScore(req.params.owner, req.params.repo)
+        .then(response => {
+            Reply(req, res, 200, response);
+        })
+        .catch(err => {
+            Reply(req, res, err.status, Repo404Error());
+        })
+});
+
+// Badge for owner/repo route
+app.get("/:owner/:repo/badge", async (req, res) => {
+    //CalculateScore(req.params.owner, req.params.repo, (err, response) => {
+    //     // If error, reply with error
+    //     if(err) {
+    //         // Reply with error badge
+    //         var svg = makeBadge({
+    //             label: '🔥RepoRank',
+    //             message: 'Error',
+    //             color: 'inactive',
+    //         });
+    //         // Set headers
+    //         res.setHeader('Content-Type', 'image/svg+xml');
+    //         res.send(svg);
+    //     } else {
+    //         // Reply with reporank badge
+    //         var svg = makeBadge({
+    //             label: '🔥RepoRank',
+    //             message: response.score.toString() + "pts",
+    //             color: 'orange',
+    //         });
+    //         // Set headers
+    //         res.setHeader('Content-Type', 'image/svg+xml');
+    //         res.send(svg);
+    //     }
+    // })
+});
 
 // Use cors to allow cross origin resource
 // sharing

@@ -13,7 +13,8 @@ import {
   Tooltip,
   Avatar,
   Badge, 
-  Button
+  Button,
+  Center
 } from "@mantine/core";
 import { createStyles, useMantineTheme } from "@mantine/core";
 import { ExternalLink } from "tabler-icons-react";
@@ -41,7 +42,7 @@ export default function TrendingPage() {
   
   return (
     <>
-      <Head><title>Error 404 | RepoRank</title></Head>
+      <Head><title>Trending | RepoRank</title></Head>
       <Header title={"RepoRank"}/>
       <Container mt={15} mb={15}>
         <Title order={2}>Trending</Title>
@@ -60,6 +61,14 @@ export default function TrendingPage() {
             </Grid.Col>
           )}
         </Grid>
+        <Center style={{width: "100%"}}>
+          <Link href="https://github.com/trending">
+            <Button variant="subtle" color="dark" size="md" mt={20} mb={5} compact>
+              See more on GitHub
+            </Button>
+          </Link>
+        </Center>
+        
       </Container>
       <Footer/>
     </>
@@ -75,16 +84,9 @@ const useStyles = createStyles((theme) => ({
   },
 
   section: {
-    borderTop: `1px solid ${
-      theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[3]
-    }`,
     paddingLeft: theme.spacing.md,
     paddingRight: theme.spacing.md,
     paddingBottom: theme.spacing.md,
-  },
-
-  like: {
-    color: theme.colors.red[6],
   },
 
   label: {
@@ -117,8 +119,7 @@ export function RepoCard({ name, owner, language, description, badges, contribut
 
   return (
     <Card withBorder radius="md" className={classes.card} style={{height: "100%"}}>
-      
-
+    
       <Card.Section className={classes.section}>
         <Group position="apart" mt="md">
           <Text size="lg" weight={500} lineClamp={1}>
@@ -137,7 +138,7 @@ export function RepoCard({ name, owner, language, description, badges, contribut
           RepoRank Analysis
         </Text>
         <Box mt={5}>
-          <Title order={3}>✨ {analysis.score}pts</Title>
+          <Title order={3}>✨ {numberWithCommas(analysis.score)} pts</Title>
           <Text>🏅 Level {analysis.level}</Text>
         </Box>
       </Card.Section>
@@ -150,10 +151,12 @@ export function RepoCard({ name, owner, language, description, badges, contribut
         <Group spacing={7} mt={5}>
           <Tooltip.Group openDelay={300} closeDelay={100}>
             <Avatar.Group spacing="sm">
-              {contributors.map((contributor, index) => 
-                <Tooltip label={contributor.username} withArrow>
-                  <Avatar src={contributor.avatar} radius="xl" />
-                </Tooltip>
+              {contributors.map((contributor) => 
+                <Link href={contributor.url}>
+                  <Tooltip label={contributor.username} withArrow>
+                    <Avatar src={contributor.avatar} radius="xl" />
+                  </Tooltip>
+                </Link>
               )}
             </Avatar.Group>
           </Tooltip.Group>
@@ -176,4 +179,8 @@ export function RepoCard({ name, owner, language, description, badges, contribut
       </div>
     </Card>
   );
+}
+
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }

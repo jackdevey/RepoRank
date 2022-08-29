@@ -11,7 +11,7 @@ export default function Skeleton({
     return (
         <>
             <Head><title>{title} | RepoRank</title></Head>
-            <Header title={headerTitleEasterEgg} page={title.toLowerCase()}/>
+            <Header title={headerTitleEasterEgg} page={title}/>
             <Container mt={15} mb={15}>{children}</Container>
             <Footer/>
         </>

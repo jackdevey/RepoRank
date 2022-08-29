@@ -64,7 +64,7 @@ export function Header({ title = "RepoRank", page = "null" }) {
           <a
             key={"trending"}
             href={"/trending"}
-            className={cx(classes.link, { [classes.linkActive]: page === "trending" })}
+            className={cx(classes.link, { [classes.linkActive]: page === "Trending" })}
           >
             {"Trending"}
           </a>
@@ -72,7 +72,7 @@ export function Header({ title = "RepoRank", page = "null" }) {
           <a
             key={"shields"}
             href={"/shields"}
-            className={cx(classes.link, { [classes.linkActive]: page === "shields" })}
+            className={cx(classes.link, { [classes.linkActive]: page === "Shields" })}
           >
             {"Shields"}
           </a>

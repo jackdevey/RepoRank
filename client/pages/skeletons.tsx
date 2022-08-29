@@ -3,7 +3,7 @@ import Head from "next/head";
 import { Footer } from "../components/footer";
 import { Header } from "../components/header/Header";
 
-export function Skeleton({
+export default function Skeleton({
     title,
     children,
     headerTitleEasterEgg = "RepoRank"

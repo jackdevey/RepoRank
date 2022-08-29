@@ -83,7 +83,6 @@ export default function TrendingPage() {
 
 const useStyles = createStyles((theme) => ({
   card: {
-    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
     height: '100%',
     display: 'flex',
     flexDirection: 'column'

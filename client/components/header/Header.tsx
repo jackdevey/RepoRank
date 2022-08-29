@@ -50,7 +50,6 @@ const useStyles = createStyles((theme) => ({
 export function Header({ title = "RepoRank", page = "null" }) {
   const { classes, cx } = useStyles();
   const [_title, setTitle] = useState(title);
-  const [active, setActive] = useState(page);
 
   return (
     <MTHeader height={56}>
@@ -63,10 +62,7 @@ export function Header({ title = "RepoRank", page = "null" }) {
           <a
             key={"home"}
             href={"/"}
-            className={cx(classes.link, { [classes.linkActive]: active === "home" })}
-            onClick={() => {
-              setActive("home");
-            }}
+            className={cx(classes.link, { [classes.linkActive]: page === "home" })}
           >
             {"Home"}
           </a>
@@ -74,10 +70,7 @@ export function Header({ title = "RepoRank", page = "null" }) {
           <a
             key={"trending"}
             href={"/trending"}
-            className={cx(classes.link, { [classes.linkActive]: active === "trending" })}
-            onClick={() => {
-              setActive("trending");
-            }}
+            className={cx(classes.link, { [classes.linkActive]: page === "trending" })}
           >
             {"Trending"}
           </a>

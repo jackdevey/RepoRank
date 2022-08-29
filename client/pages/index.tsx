@@ -61,7 +61,7 @@ export default function IndexPage() {
           </div>
         </Group>
 
-        <Card mt={10} mb={10} withBorder radius="md">
+        <Card mt={10} mb={10} withBorder radius="md"> 
           <LoadingOverlay visible={loading} />
 
           <Tabs defaultValue='repos'>

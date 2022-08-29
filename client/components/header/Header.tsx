@@ -55,17 +55,11 @@ export function Header({ title = "RepoRank", page = "null" }) {
     <MTHeader height={56}>
       <Container className={classes.inner}>
 
+        <a href="/" style={{textDecoration: 'none', color: 'inherit'}}>
         <Title order={3} onMouseEnter={() => setTitle("RepoRank")} onMouseLeave={() => setTitle(title)}>🔥{_title}</Title>
+        </a>
 
         <Group spacing={0} className={classes.social} position="right" noWrap>
-
-          <a
-            key={"home"}
-            href={"/"}
-            className={cx(classes.link, { [classes.linkActive]: page === "home" })}
-          >
-            {"Home"}
-          </a>
 
           <a
             key={"trending"}
@@ -73,6 +67,14 @@ export function Header({ title = "RepoRank", page = "null" }) {
             className={cx(classes.link, { [classes.linkActive]: page === "trending" })}
           >
             {"Trending"}
+          </a>
+
+          <a
+            key={"shields"}
+            href={"/shields"}
+            className={cx(classes.link, { [classes.linkActive]: page === "shields" })}
+          >
+            {"Shields"}
           </a>
  
         </Group>

@@ -24,6 +24,7 @@ import { Footer } from '../components/footer';
 import { Header } from '../components/header/Header';
 import { endpoint } from "../misc/endpoint";
 import Link from "next/link";
+import { SkeletonWithTitle } from "./skeletons";
 
 const fetcher = (resource, init) => fetch(resource, init).then(res => res.json());
 
@@ -41,18 +42,11 @@ export default function TrendingPage() {
   const theme = useMantineTheme();
   
   return (
-    <>
-      <Head><title>Trending | RepoRank</title></Head>
-      <Header title={"RepoRank"} page={"trending"}/>
-      <Container mt={15} mb={15}>
-        <Group spacing={15}>
-        <Title order={1}>📈</Title>
-          <div>
-            <Title order={2}>Trending</Title>
-            <Text>See what the GitHub community is most excited about today</Text>
-          </div>
-        </Group>
-        <Grid mt={10}>
+    <SkeletonWithTitle
+        title={"Trending"}
+        description={"See what the GitHub community is most excited about today"}
+        emoji={"📈"}>
+        <Grid>
           {repos.map((repo) => 
             <Grid.Col sm={12} md={6} lg={4}>
               <RepoCard
@@ -67,17 +61,7 @@ export default function TrendingPage() {
             </Grid.Col>
           )}
         </Grid>
-        <Center style={{width: "100%"}}>
-          <Link href="https://github.com/trending">
-            <Button variant="subtle" color="dark" size="md" mt={20} mb={5} compact>
-              See more on GitHub
-            </Button>
-          </Link>
-        </Center>
-        
-      </Container>
-      <Footer/>
-    </>
+    </SkeletonWithTitle>
   );
 }
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Card, Container, TextInput, AppShell, LoadingOverlay, useMantineTheme, Modal, Accordion, Text, Code, Anchor, Grid, GroupedTransition } from '@mantine/core';
+import { Button, Card, Container, TextInput, AppShell, LoadingOverlay, useMantineTheme, Modal, Accordion, Text, Code, Anchor, Grid, GroupedTransition, Group, Title } from '@mantine/core';
 import { PersonIcon, RepoIcon } from '@primer/octicons-react';
 import { BackgroundStyle, CompactLineStyle } from '../misc/style/Style'
 import { Tabs } from '@mantine/core';
@@ -51,7 +51,16 @@ export default function IndexPage() {
     <>
       <Head><title>{title}</title></Head>
       <Header title={"RepoRank"} page={"home"}/>
-      <Container size="sm">
+      <Container mt={15} mb={15}>
+
+      <Group spacing={15}>
+        <Title order={1}>🔥</Title>
+          <div>
+            <Title order={2}>RepoRank</Title>
+            <Text>Calculating scores for the performance of GitHub repositories</Text>
+          </div>
+        </Group>
+
         <Card mt={10} mb={10}>
           <LoadingOverlay visible={loading} />
 

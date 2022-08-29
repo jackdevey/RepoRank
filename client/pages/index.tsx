@@ -7,11 +7,8 @@ import { useModals } from '@mantine/modals';
 import { ShowErrorPopup } from '../misc/ShowErrorPopup.js';
 import { User } from '../misc/user/User.js';
 import Head from 'next/head';
-import { ReportAnalytics } from 'tabler-icons-react';
-import useSWR from 'swr';
-
-// Not too sure how this works tbh, but is swr
-const fetcher = (resource, init) => fetch(resource, init).then(res => res.json());
+import { Header } from '../components/header/Header';
+import { Footer } from '../components/footer';
 
 export default function IndexPage() {
 
@@ -51,16 +48,12 @@ export default function IndexPage() {
   }
 
   return (
-    <AppShell
-      className="background"
-      style={BackgroundStyle(theme)}>
-      <Head>
-        <title>{title}</title>
-      </Head>
+    <>
+      <Head><title>{title}</title></Head>
+      <Header title={"RepoRank"} page={"home"}/>
       <Container size="sm">
-        <Card shadow="md">
+        <Card mt={10} mb={10}>
           <LoadingOverlay visible={loading} />
-          <h2>🔥 {title}</h2>
 
           <Tabs defaultValue='repos'>
             <Tabs.List>
@@ -122,11 +115,9 @@ export default function IndexPage() {
               </Button>
             </Tabs.Panel>
           </Tabs>
-        </Card>
-
-        <Text color="dimmed" style={{ marginTop: "10px" }}>Created by <Anchor href="https://github.com/jackdevey">jack devey</Anchor>, <Anchor href="https://github.com/jackdevey/reporank">contribute</Anchor></Text> 
-      
+        </Card>      
       </Container>
+      <Footer/>
 
       <Modal
         centered
@@ -175,8 +166,7 @@ export default function IndexPage() {
         </Accordion>
 
       </Modal>
-
-    </AppShell>
+    </>
   );
 
   function Click() {

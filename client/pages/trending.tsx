@@ -43,12 +43,18 @@ export default function TrendingPage() {
   return (
     <>
       <Head><title>Trending | RepoRank</title></Head>
-      <Header title={"RepoRank"}/>
+      <Header title={"RepoRank"} page={"trending"}/>
       <Container mt={15} mb={15}>
-        <Title order={2}>Trending</Title>
-        <Grid mt={15}>
+        <Group spacing={15}>
+        <Title order={1}>📈</Title>
+          <div>
+            <Title order={2}>Trending</Title>
+            <Text>See what the GitHub community is most excited about today</Text>
+          </div>
+        </Group>
+        <Grid mt={10}>
           {repos.map((repo) => 
-            <Grid.Col span={4}>
+            <Grid.Col sm={12} md={6} lg={4}>
               <RepoCard
                 name={repo.reponame}
                 owner={repo.author}
@@ -125,7 +131,7 @@ export function RepoCard({ name, owner, language, description, badges, contribut
           <Text size="lg" weight={500} lineClamp={1}>
             {name}
           </Text>
-          <Badge size="sm">{language}</Badge>
+          {language && <Badge size="sm">{language}</Badge>}
         </Group>
         <Text size="sm" mt="xs" lineClamp={2}>
           {description}

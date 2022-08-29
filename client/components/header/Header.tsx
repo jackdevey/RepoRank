@@ -19,12 +19,38 @@ const useStyles = createStyles((theme) => ({
       width: 'auto',
       marginLeft: 'auto',
     },
+  },
+  links: {
+    [theme.fn.smallerThan('xs')]: {
+      display: 'none',
+    },
+  },
+  link: {
+    display: 'block',
+    lineHeight: 1,
+    padding: '8px 12px',
+    borderRadius: theme.radius.sm,
+    textDecoration: 'none',
+    color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[7],
+    fontSize: theme.fontSizes.sm,
+    fontWeight: 500,
+
+    '&:hover': {
+      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+    },
+  },
+  linkActive: {
+    '&, &:hover': {
+      backgroundColor: theme.fn.variant({ variant: 'light', color: theme.primaryColor }).background,
+      color: theme.fn.variant({ variant: 'light', color: theme.primaryColor }).color,
+    },
   }
 }));
 
-export function Header({ title = "RepoRank" }) {
-  const { classes } = useStyles();
+export function Header({ title = "RepoRank", page = "null" }) {
+  const { classes, cx } = useStyles();
   const [_title, setTitle] = useState(title);
+  const [active, setActive] = useState(page);
 
   return (
     <MTHeader height={56}>
@@ -32,11 +58,31 @@ export function Header({ title = "RepoRank" }) {
 
         <Title order={3} onMouseEnter={() => setTitle("RepoRank")} onMouseLeave={() => setTitle(title)}>🔥{_title}</Title>
 
-        {/**<Group spacing={0} className={classes.social} position="right" noWrap>
-          <ActionIcon size="lg">
-            <ShareIcon size={18} />
-          </ActionIcon>
-  </Group>*/}
+        <Group spacing={0} className={classes.social} position="right" noWrap>
+
+          <a
+            key={"home"}
+            href={"/"}
+            className={cx(classes.link, { [classes.linkActive]: active === "home" })}
+            onClick={() => {
+              setActive("home");
+            }}
+          >
+            {"Home"}
+          </a>
+
+          <a
+            key={"trending"}
+            href={"/trending"}
+            className={cx(classes.link, { [classes.linkActive]: active === "trending" })}
+            onClick={() => {
+              setActive("trending");
+            }}
+          >
+            {"Trending"}
+          </a>
+ 
+        </Group>
         
       </Container>
     </MTHeader>

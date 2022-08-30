@@ -3,13 +3,9 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-// Import cors for cross origin resource 
-// sharing
-import cors from 'cors';
-
 // Import express and vhost
 // & create express app
-import express, { response } from 'express';
+import express from 'express';
 const app = express();
 
 // Manage server cache
@@ -25,10 +21,6 @@ import { CalculateScore } from "./src/repos/CalculateScore";
 import { CalculateUserScore } from "./src/users/CalculateUserScore";
 import { Repo404Error, User404Error } from './src/ErrorResponses';
 import Trending from './src/trending/Index';
-
-// Use cors to allow cross origin resource
-// sharing
-app.use(cors());
 
 // Serve api root page
 app.get("/", (req, res) => {

@@ -14,7 +14,6 @@ export function User404Error(): ErrorResponse {
     }
 }
 
-
 interface ErrorResponse {
     errorCode: number,
     reason: string,

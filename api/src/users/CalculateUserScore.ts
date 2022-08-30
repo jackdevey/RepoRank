@@ -349,8 +349,6 @@ export async function CalculateUserScore(username: string): Promise<any> {
     }
 };
 
-
-
 export interface BaseScore {
     stars: number,
     forks: number,

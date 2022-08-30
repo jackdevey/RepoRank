@@ -24,7 +24,7 @@ import { Footer } from '../components/footer';
 import { Header } from '../components/header/Header';
 import { endpoint } from "../misc/endpoint";
 import Link from "next/link";
-import { SkeletonWithTitle } from "./skeletons";
+import Skeleton, { SkeletonWithTitle } from "./skeletons";
 
 const fetcher = (resource, init) => fetch(resource, init).then(res => res.json());
 
@@ -33,13 +33,14 @@ export default function TrendingPage() {
   // Fetch data from api (/trending)
   const { data } = useSWR(`${endpoint()}/trending`, fetcher);
   // If loading, show loading overlay
-  if (!data) return <LoadingOverlay visible={true}/>;
+  if (!data) return (
+    <Skeleton title="Trending">
+      <LoadingOverlay visible={true}/>
+    </Skeleton>
+  )
 
   // When data is loaded extract repo list
   const repos = data.body;
-
-  // Get theme from mantine
-  const theme = useMantineTheme();
   
   return (
     <SkeletonWithTitle

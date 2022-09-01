@@ -17,6 +17,8 @@
         "@types/connect": "^3.4.35",
         "@types/express": "^4.17.13",
         "@types/node": "^17.0.21",
+        "@upstash/ratelimit": "^0.1.5",
+        "@upstash/redis": "^1.13.0",
         "async": "^3.2.3",
         "badge-maker": "^3.3.1",
         "cache": "^3.0.0",

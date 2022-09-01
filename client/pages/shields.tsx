@@ -1,4 +1,4 @@
-import { Card } from "@mantine/core";
+import { Card, Title } from "@mantine/core";
 import { SkeletonWithTitle } from "./skeletons";
 
 export default function ShieldsPage() {
@@ -7,7 +7,9 @@ export default function ShieldsPage() {
             title={"Shields"}
             description={"Generate shields to display scores in your readme"}
             emoji={"🛡️"}>
-            NO WORKINH COME BACK SOPON PPLS THANKA S
+            <Card withBorder radius="md" style={{height: "100%"}}>
+                <Title order={3}>Repositories</Title>
+            </Card>
         </SkeletonWithTitle>
     )
 }

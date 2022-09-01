@@ -23,6 +23,7 @@ function GetMessage(code: number) {
         case 401: return "Unauthorized";
         case 403: return "Forbidden";
         case 404: return "Not Found";
+        case 429: return "Too Many Requests";
         case 500: return "Internal Server Error";
         default: return "Unknown";
     }

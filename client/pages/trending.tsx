@@ -1,8 +1,5 @@
 import React from "react";
-import {
-  Container,
-  Title,
-  ActionIcon,
+import { Title, ActionIcon,
   Card,
   Text,
   Group,
@@ -13,15 +10,11 @@ import {
   Tooltip,
   Avatar,
   Badge, 
-  Button,
-  Center
+  Button
 } from "@mantine/core";
-import { createStyles, useMantineTheme } from "@mantine/core";
+import { createStyles } from "@mantine/core";
 import { ExternalLink } from "tabler-icons-react";
 import useSWR from "swr";
-import Head from "next/head";
-import { Footer } from '../components/footer';
-import { Header } from '../components/header/Header';
 import { endpoint } from "../misc/endpoint";
 import Link from "next/link";
 import Skeleton, { SkeletonWithTitle } from "./skeletons";

@@ -22,6 +22,10 @@ import { CalculateUserScore } from "./src/users/CalculateUserScore";
 import { Repo404Error, User404Error } from './src/ErrorResponses';
 import Trending from './src/trending/Index';
 
+// Import & use rateLimiter
+import { rateLimiter } from "./rateLimiter"
+app.use(rateLimiter);
+
 // Serve api root page
 app.get("/", (req, res) => {
     Reply(req, res, 200, {

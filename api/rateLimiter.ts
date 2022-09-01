@@ -5,6 +5,12 @@
  * uses: [upstash]
  */
 
+/**
+ * It would probably be better to move this
+ * to a seperate sever, can look into this in
+ * the future.
+ */
+
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis/with-fetch";
 import Reply from "./src/Reply";

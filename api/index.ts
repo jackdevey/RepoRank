@@ -55,9 +55,11 @@ app.get("/trending", (req, res) => {
 // Dynamic user route
 app.get("/:user", (req, res) => {
     if(req.params.user == "favicon.ico") return;
-    CalculateUserScore(req.params.user).then(response => {
+    CalculateUserScore(req.params.user)
+    .then(response => {
         Reply(req, res, 200, response);
-    }).catch(e => {
+    })
+    .catch(e => {
         Reply(req, res, 404, User404Error());
     });
 });
@@ -65,47 +67,45 @@ app.get("/:user", (req, res) => {
 // Dynamic owner/repo route
 app.get("/:owner/:repo", (req, res) => {
     CalculateScore(req.params.owner, req.params.repo)
-        .then(response => {
-            Reply(req, res, 200, response);
-        })
-        .catch(err => {
-            Reply(req, res, err.status, Repo404Error());
-        })
+    .then(response => {
+        Reply(req, res, 200, response);
+    })
+    .catch(err => {
+        Reply(req, res, err.status, Repo404Error());
+    })
 });
 
-// Badge for owner/repo route
-app.get("/:owner/:repo/badge", async (req, res) => {
-    //CalculateScore(req.params.owner, req.params.repo, (err, response) => {
-    //     // If error, reply with error
-    //     if(err) {
-    //         // Reply with error badge
-    //         var svg = makeBadge({
-    //             label: '🔥RepoRank',
-    //             message: 'Error',
-    //             color: 'inactive',
-    //         });
-    //         // Set headers
-    //         res.setHeader('Content-Type', 'image/svg+xml');
-    //         res.send(svg);
-    //     } else {
-    //         // Reply with reporank badge
-    //         var svg = makeBadge({
-    //             label: '🔥RepoRank',
-    //             message: response.score.toString() + "pts",
-    //             color: 'orange',
-    //         });
-    //         // Set headers
-    //         res.setHeader('Content-Type', 'image/svg+xml');
-    //         res.send(svg);
-    //     }
-    // })
+// Sheilds for owner/repo route
+app.get("/:owner/:repo/sheilds", async (req, res) => {
+    CalculateScore(req.params.owner, req.params.repo)
+    .then(response => {
+        // Reply with badge
+        var svg = makeBadge({
+            label: "🔥RepoRank",
+            message: response.score.toString() + " pts",
+            color: "blue"
+        });
+        // Send headers
+        res.setHeader("Content-Type", "image/svg+xml");
+        res.send(svg);
+    })
+    .catch(e => {
+        // Reply with error badge
+        var svg = makeBadge({
+            label: "🔥RepoRank",
+            message: "Error",
+            color: "inactive"
+        });
+        // Send headers
+        res.setHeader("Content-Type", "image/svg+xml");
+        res.send(svg);
+    });
 });
 
 // Listen on port
 app.listen(process.env.PORT, () => {
     console.log("RepoRank API");
-    console.log("version: " + process.env.VERSION);
-    console.log("domain: " + process.env.DOMAIN);
+    console.log("domain: " + "api." + process.env.DOMAIN);
     console.log("port: " + process.env.PORT);
     console.log("==/>");
 });

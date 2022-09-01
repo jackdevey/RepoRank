@@ -1,3 +1,10 @@
+/**
+ * Rate-limiter middleware
+ * user: jackdevey
+ * date: 01/09/2022
+ * uses: [upstash]
+ */
+
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis/with-fetch";
 import Reply from "./src/Reply";

@@ -7,6 +7,7 @@ export function ShowErrorPopup(modals, data, context) {
     const id = modals.openModal({
         centered: true,
         title: "😭 Whoops!",
+        radius: "md",
         children: (
             <>
                 <Title order={2}>Something went wrong</Title>

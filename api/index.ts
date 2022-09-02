@@ -12,8 +12,9 @@ const app = express();
 import Cache from 'cache';
 const cache = new Cache();
 
-// Import badge api
-import { makeBadge } from 'badge-maker'
+// Import & use rateLimiter
+import { rateLimiter } from "./rateLimiter"
+app.use(rateLimiter);
 
 // Import functions
 import Reply from "./src/Reply";
@@ -21,10 +22,7 @@ import { CalculateScore } from "./src/repos/CalculateScore";
 import { CalculateUserScore } from "./src/users/CalculateUserScore";
 import { Repo404Error, User404Error } from './src/ErrorResponses';
 import Trending from './src/trending/Index';
-
-// Import & use rateLimiter
-import { rateLimiter } from "./rateLimiter"
-app.use(rateLimiter);
+import { ReplyShield, ReplyShieldError } from './src/shields';
 
 // Serve api root page
 app.get("/", (req, res) => {
@@ -34,6 +32,28 @@ app.get("/", (req, res) => {
         github: "https://github.com/jackdevey/reporank",
         docs: "https://github.com/jackdevey/reporank/wiki/RepoRank-API",
         frontend: "https://" + process.env.DOMAIN + "/"
+    });
+});
+
+// Shields for users
+app.get("/shields/:user", async (req, res) => {
+    CalculateUserScore(req.params.user)
+    .then(response => {
+        ReplyShield(res, response.summary.score.toString() + " pts");
+    })
+    .catch(e => {
+        ReplyShieldError(res);
+    });
+});
+
+// Shields for repos
+app.get("/shields/:owner/:repo/", async (req, res) => {
+    CalculateScore(req.params.owner, req.params.repo)
+    .then(response => {
+        ReplyShield(res, response.score.toString() + " pts");
+    })
+    .catch(e => {
+        ReplyShieldError(res);
     });
 });
 
@@ -48,12 +68,12 @@ app.get("/trending", (req, res) => {
         .then(response => {
             cache.put(req.url, response, 60 * 60 * 24 * 1000);
             Reply(req, res, 200, response);
-        })
+        });
     }
 });
 
 // Dynamic user route
-app.get("/:user", (req, res) => {
+app.get("/calculate/:user", (req, res) => {
     if(req.params.user == "favicon.ico") return;
     CalculateUserScore(req.params.user)
     .then(response => {
@@ -65,40 +85,13 @@ app.get("/:user", (req, res) => {
 });
 
 // Dynamic owner/repo route
-app.get("/:owner/:repo", (req, res) => {
+app.get("/calculate/:owner/:repo", (req, res) => {
     CalculateScore(req.params.owner, req.params.repo)
     .then(response => {
         Reply(req, res, 200, response);
     })
     .catch(err => {
         Reply(req, res, err.status, Repo404Error());
-    })
-});
-
-// Sheilds for owner/repo route
-app.get("/:owner/:repo/sheilds", async (req, res) => {
-    CalculateScore(req.params.owner, req.params.repo)
-    .then(response => {
-        // Reply with badge
-        var svg = makeBadge({
-            label: "🔥RepoRank",
-            message: response.score.toString() + " pts",
-            color: "blue"
-        });
-        // Send headers
-        res.setHeader("Content-Type", "image/svg+xml");
-        res.send(svg);
-    })
-    .catch(e => {
-        // Reply with error badge
-        var svg = makeBadge({
-            label: "🔥RepoRank",
-            message: "Error",
-            color: "inactive"
-        });
-        // Send headers
-        res.setHeader("Content-Type", "image/svg+xml");
-        res.send(svg);
     });
 });
 

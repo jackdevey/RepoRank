@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Card, Container, TextInput, AppShell, LoadingOverlay, useMantineTheme, Modal, Accordion, Text, Code, Anchor, Grid, GroupedTransition, Group, Title } from '@mantine/core';
+import { Button, Card, Container, TextInput, AppShell, LoadingOverlay, useMantineTheme, Modal, Accordion, Text, Code, Anchor, Grid, GroupedTransition, Group, Title, Badge } from '@mantine/core';
 import { PersonIcon, RepoIcon } from '@primer/octicons-react';
 import { BackgroundStyle, CompactLineStyle } from '../misc/style/Style'
 import { Tabs } from '@mantine/core';
@@ -73,27 +73,27 @@ export default function IndexPage() {
             <Tabs.Panel value='repos'>
               <TextInput
                 placeholder="Owner"
-                size="xl"
                 value={owner}
                 onChange={e => setOwner(e.target.value)}
-                icon={<PersonIcon size={24} />}
-                style={{ paddingBottom: "20px", paddingTop: "10px" }}
-                variant="filled"
+                icon={<PersonIcon size={20} />}
+                radius="md"
+                size="lg"
+                style={{ paddingBottom: "10px", paddingTop: "10px" }}
                 required
               />
               <TextInput
                 placeholder="Repository"
-                size="xl"
                 value={repo}
                 onChange={e => setRepo(e.target.value)}
-                icon={<RepoIcon size={24} />}
-                style={{ paddingBottom: "20px" }}
-                variant="filled"
+                icon={<RepoIcon size={20} />}
+                radius="md"
+                size="lg"
+                style={{ paddingBottom: "10px" }}
                 required
               />
               <Button
-                variant="light"
-                size="xl"
+                radius="md"
+                size="lg"
                 onClick={Click}>
                 Calculate
               </Button>
@@ -102,25 +102,29 @@ export default function IndexPage() {
             <Tabs.Panel value='users'>
               <TextInput
                 placeholder="Username"
-                size="xl"
+                size="lg"
+                radius="md"
                 value={username}
                 onChange={e => setUsername(e.target.value)}
-                icon={<PersonIcon size={24} />}
-                style={{ paddingBottom: "20px", paddingTop: "10px" }}
-                variant="filled"
+                icon={<PersonIcon size={20} />}
+                style={{ paddingBottom: "10px", paddingTop: "10px" }}
                 required
               />
               <Button
-                variant="light"
-                onClick={FetchUserReport}>
+                onClick={FetchUserReport}
+                radius="md"
+                size="lg">
                 Calculate
               </Button>
 
               <Button
-                ml="md"
+                ml="sm"
+                variant="light"
                 onClick={ForwardToReport}
+                radius="md"
+                size="lg"
                 >
-                *NEW* Make Report
+                Make Report
               </Button>
             </Tabs.Panel>
           </Tabs>
@@ -132,7 +136,8 @@ export default function IndexPage() {
         centered
         opened={result.score !== "Unknown"}
         onClose={() => setResult(empty)}
-        title={`${owner}/${repo}`}>
+        title={`${owner}/${repo}`}
+        radius="md">
 
         <h1
           style={CompactLineStyle()}>
@@ -215,13 +220,4 @@ export default function IndexPage() {
     window.location.href = `/reports/${username}`;
   }
 
-}
-
-function pageLoading() {
-  return (
-    <>
-      <Head><title>RepoRank</title></Head>
-      <LoadingOverlay visible={true} />
-    </>
-  )
 }

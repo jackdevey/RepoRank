@@ -2,7 +2,6 @@
     "name": "@reporank/algs",
     "version": "0.0.0",
     "main": "./index.ts",
-    "types": "./index.tsx",
     "license": "MIT",
     "scripts": {
         "lint": "TIMING=1 eslint \"**/*.ts*\""

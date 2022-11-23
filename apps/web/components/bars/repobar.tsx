@@ -2,7 +2,7 @@ import { Box, Divider, Flex, ThemeIcon, Title, Text, Container } from "@mantine/
 
 export default function Repobar({ owner, repo, tier, points}: RepobarProps) {
     return <>
-        <div style={{position: "sticky", top: 0, backgroundColor: "#0A2232"}}>
+        <div style={{position: "sticky", top: 0, backgroundColor: "#0A2232", zIndex: 1000}}>
             <Box px="md">
                 <Container size="xl">
                     <Flex style={{ justifyContent: "space-between", alignItems: "center" }} pt="md" pb="sm">

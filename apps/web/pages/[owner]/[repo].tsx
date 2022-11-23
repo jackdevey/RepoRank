@@ -1,12 +1,60 @@
-import { ActionIcon, Card, Checkbox, CheckIcon, Container, Divider, Flex, Grid, Popover, Progress, SimpleGrid, Text, ThemeIcon, Title } from "@mantine/core";
+import { ActionIcon, Card, Checkbox, CheckIcon, Container, Divider, Flex, Grid, Popover, Progress, SimpleGrid, Space, Text, ThemeIcon, Title } from "@mantine/core";
 import { useRouter } from "next/router";
 import Navbar from "../../components/bars/navbar";
 import Repobar from "../../components/bars/repobar";
+import MetricGroupSection, { MetricGroup } from "../../components/metrics/metricGroupSection";
 
 export default function Repo() {
 
     const router = useRouter();
     const { owner, repo } = router.query;
+
+    const group: MetricGroup = {
+        title: "Overview",
+        metrics: [
+            {
+                name: "Stars",
+                count: 678000,
+                points: 678,
+                maxPoints: 1000,
+                system: "k"
+            },
+            {
+                name: "Forks",
+                count: 34600,
+                points: 346,
+                maxPoints: 1000,
+                system: "h"
+            },
+            {
+                name: "Watchers",
+                count: 2820,
+                points: 282,
+                maxPoints: 1000,
+                system: "da"
+            }
+        ]
+    }
+
+    const group2: MetricGroup = {
+        title: "Overview",
+        metrics: [
+            {
+                name: "Stars",
+                count: 678000,
+                points: 678,
+                maxPoints: 1000,
+                system: "k"
+            },
+            {
+                name: "Forks",
+                count: 34600,
+                points: 346,
+                maxPoints: 1000,
+                system: "h"
+            }
+        ]
+    }
 
     return (
         <>
@@ -14,47 +62,16 @@ export default function Repo() {
             <Navbar/>
             <Repobar owner={owner as string} repo={repo as string} tier="s" points={40000}/>
             {/* Main Content */}
-            <Container size="xl" mt="md">
-                <Flex style={{justifyContent: "space-between", alignItems: "center"}}>
-                    <Title order={2}>Overview</Title>
-                    <Text>1,306 / 3,000 pts</Text>
-                </Flex>
-                <Progress value={(1306 / 3000) * 100} size="sm" radius={0} mt={10}/>
-                <Grid mt="sm">
-                    <Grid.Col md={4} sm={12}>
-                        <Card withBorder>
-                            <Title order={3}>Stars</Title>
-                            <Title>678,000</Title>
-                            <Divider my="sm"/>
-                            <Flex style={{justifyContent: "space-between", alignItems: "center"}}>
-                                <Text color="dimmed">+ 678 pts</Text>
-                                <ThemeIcon variant="outline">k</ThemeIcon>
-                            </Flex>
-                        </Card>
-                    </Grid.Col>
-                    <Grid.Col md={4} sm={12}>
-                        <Card withBorder>
-                            <Title order={3}>Forks</Title>
-                            <Title>34,600</Title>
-                            <Divider my="sm"/>
-                            <Flex style={{justifyContent: "space-between", alignItems: "center"}}>
-                                <Text color="dimmed">+ 346 pts</Text>
-                                <ThemeIcon variant="outline">h</ThemeIcon>
-                            </Flex>
-                        </Card>
-                    </Grid.Col>
-                    <Grid.Col md={4} sm={12}>
-                        <Card withBorder>
-                            <Title order={3}>Watchers</Title>
-                            <Title>2,820</Title>
-                            <Divider my="sm"/>
-                            <Flex style={{justifyContent: "space-between", alignItems: "center"}}>
-                                <Text color="dimmed">+ 346 pts</Text>
-                                <ThemeIcon variant="outline"><Text size="sm">da</Text></ThemeIcon>
-                            </Flex>
-                        </Card>
-                    </Grid.Col>
-                </Grid>
+            <Container size="lg" mt="md">
+                <MetricGroupSection group={group}></MetricGroupSection>
+                <Space mt="xl" mb="md"/>
+                <MetricGroupSection group={group2}></MetricGroupSection>
+                <Space mt="xl" mb="md"/>
+                <MetricGroupSection group={group2}></MetricGroupSection>
+                <Space mt="xl" mb="md"/>
+                <MetricGroupSection group={group2}></MetricGroupSection>
+                <Space mt="xl" mb="md"/>
+                <MetricGroupSection group={group2}></MetricGroupSection>
             </Container>
         </>
     );

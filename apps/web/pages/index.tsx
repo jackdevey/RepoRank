@@ -1,10 +1,14 @@
 import { Button } from "ui";
+import { getRepository } from "@reporank/algs";
 
 export default function Web() {
+
+  const repo = getRepository();
+  let data = repo.analyse();
+
   return (
     <div>
-      <h1>Web</h1>
-      <Button />
+      {data.metrics.stars.count}
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { Box, Divider, Flex, ThemeIcon, Title, Text, Container } from "@mantine/core";
 import TierIcon from "../tiers/tierIcon";
 
-export default function Repobar({ owner, repo, tier, points}: RepobarProps) {
+export default function Userbar({ owner, tier, points}: UserbarProps) {
     return <>
         <div style={{position: "sticky", top: 0, backgroundColor: "#0A2232", zIndex: 1000}}>
             <Box px="md">
@@ -9,7 +9,7 @@ export default function Repobar({ owner, repo, tier, points}: RepobarProps) {
                     <Flex style={{ justifyContent: "space-between", alignItems: "center" }} pt="md" pb="sm">
                         <Flex>
                             <TierIcon tier={tier}/>
-                            <Title ml="sm" order={3}>{owner}/{repo}</Title>
+                            <Title ml="sm" order={3}>{owner}</Title>
                         </Flex>
                         <Text>{new Intl.NumberFormat("en-UK").format(points)} pts</Text>
                     </Flex>
@@ -20,9 +20,8 @@ export default function Repobar({ owner, repo, tier, points}: RepobarProps) {
     </>
 }
 
-export type RepobarProps = {
+export type UserbarProps = {
     owner: string,
-    repo: string,
     tier: string,
     points: number
 }

@@ -2,18 +2,19 @@ import { ActionIcon, Card, Checkbox, CheckIcon, Container, Divider, Flex, Grid, 
 import { useRouter } from "next/router";
 import Navbar from "../../components/bars/navbar";
 import Repobar from "../../components/bars/repobar";
+import Userbar from "../../components/bars/userbar";
 import MetricGroupSection, { MetricGroup } from "../../components/metrics/metricGroupSection";
 
 export default function Repo() {
 
     const router = useRouter();
-    const { owner, repo } = router.query;
+    const { owner } = router.query;
 
     return (
         <>
             {/* Header */}
             <Navbar/>
-            <Repobar owner={owner as string} repo={repo as string} tier="B" points={40000}/>
+            <Userbar owner={owner as string} tier="C" points={40000}/>
             {/* Main Content */}
             <Container size="lg" mt="md">
                 <MetricGroupSection group={{
@@ -39,66 +40,6 @@ export default function Repo() {
                             points: 282,
                             maxPoints: 1000,
                             system: "da"
-                        }
-                    ]
-                }}/>
-                <Space mt="xl" mb="md"/>
-                <MetricGroupSection group={{
-                    title: "Activity",
-                    metrics: [
-                        {
-                            name: "Commits this year",
-                            value: 789,
-                            points: 789,
-                            maxPoints: 1000,
-                            system: "-"
-                        },
-                        {
-                            name: "Last commit",
-                            value: "2 days ago",
-                            points: 600,
-                            maxPoints: 1000,
-                            system: "dt"
-                        }
-                    ]
-                }}/>
-                <Space mt="xl" mb="md"/>
-                <MetricGroupSection group={{
-                    title: "Activity",
-                    metrics: [
-                        {
-                            name: "Commits this year",
-                            value: 789,
-                            points: 789,
-                            maxPoints: 1000,
-                            system: "-"
-                        },
-                        {
-                            name: "Last commit",
-                            value: "2 days ago",
-                            points: 600,
-                            maxPoints: 1000,
-                            system: "dt"
-                        }
-                    ]
-                }}/>
-                <Space mt="xl" mb="md"/>
-                <MetricGroupSection group={{
-                    title: "Activity",
-                    metrics: [
-                        {
-                            name: "Commits this year",
-                            value: 789,
-                            points: 789,
-                            maxPoints: 1000,
-                            system: "-"
-                        },
-                        {
-                            name: "Last commit",
-                            value: "2 days ago",
-                            points: 600,
-                            maxPoints: 1000,
-                            system: "dt"
                         }
                     ]
                 }}/>

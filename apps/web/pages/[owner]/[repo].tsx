@@ -1,13 +1,18 @@
-import { ActionIcon, Card, Checkbox, CheckIcon, Container, Divider, Flex, Grid, Popover, Progress, SimpleGrid, Space, Text, ThemeIcon, Title } from "@mantine/core";
+import { ActionIcon, Anchor, Card, Checkbox, CheckIcon, Container, Divider, Flex, Grid, Popover, Progress, SimpleGrid, Skeleton, Space, Text, ThemeIcon, Title, useMantineTheme } from "@mantine/core";
 import { useRouter } from "next/router";
 import Navbar from "../../components/bars/navbar";
 import Repobar from "../../components/bars/repobar";
 import MetricGroupSection, { MetricGroup } from "../../components/metrics/metricGroup";
 
+const PRIMARY_COL_HEIGHT = 300;
+
 export default function Repo() {
 
     const router = useRouter();
     const { owner, repo } = router.query;
+
+  const theme = useMantineTheme();
+  const SECONDARY_COL_HEIGHT = PRIMARY_COL_HEIGHT / 2 - theme.spacing.md / 2;
 
     return (
         <>
@@ -16,7 +21,38 @@ export default function Repo() {
             <Repobar owner={owner as string} repo={repo as string} tier="B" points={40000} />
             {/* Main Content */}
             <Container size="lg" mt="md">
-                <Title>Metrics</Title>
+                <Title>About</Title>
+                <Divider mt="sm" mb="md" />
+                <SimpleGrid cols={2} spacing="md" breakpoints={[{ maxWidth: 'sm', cols: 1 }]}>
+                    <Card withBorder>
+                        af
+                    </Card>
+                    <Grid gutter="md">
+                    <Grid.Col>
+                        <Card withBorder>
+                            <Title order={4}>Owner</Title>
+                            <Flex style={{alignItems: "baseline"}}>
+                                <Title>russellbanks</Title>
+                                <ActionIcon variant="subtle" color="teal">a</ActionIcon>
+                            </Flex>
+                        </Card>
+                    </Grid.Col>
+                    <Grid.Col span={6}>
+                        <Card withBorder>
+                            <Title order={4}>Type</Title>
+                            <Title>Standard</Title>
+                        </Card>
+                    </Grid.Col>
+                    <Grid.Col span={6}>
+                        <Card withBorder>
+                            <Title order={4}>Primary language</Title>
+                            <Title>Kotlin</Title>
+                        </Card>
+                    </Grid.Col>
+                    </Grid>
+                </SimpleGrid>
+
+                <Title mt="lg">Metrics</Title>
                 <Divider mt="sm" mb="md" />
                 <MetricGroupSection group={{
                     title: "Overview",
@@ -61,6 +97,13 @@ export default function Repo() {
                             points: 600,
                             maxPoints: 1000,
                             system: "dt"
+                        },
+                        {
+                            name: "Open issues",
+                            value: 12,
+                            points: 120,
+                            maxPoints: 1000,
+                            system: "da"
                         }
                     ]
                 }} />
@@ -99,46 +142,7 @@ export default function Repo() {
                     ]
                 }} />
                 <Space mt="xl" mb="md" />
-                <MetricGroupSection group={{
-                    title: "Activity",
-                    metrics: [
-                        {
-                            name: "Commits this year",
-                            value: 789,
-                            points: 789,
-                            maxPoints: 1000,
-                            system: "-"
-                        },
-                        {
-                            name: "Last commit",
-                            value: "2 days ago",
-                            points: 600,
-                            maxPoints: 1000,
-                            system: "dt"
-                        }
-                    ]
-                }} />
-                <Space mt="xl" mb="md" />
-                <MetricGroupSection group={{
-                    title: "Activity",
-                    metrics: [
-                        {
-                            name: "Commits this year",
-                            value: 789,
-                            points: 789,
-                            maxPoints: 1000,
-                            system: "-"
-                        },
-                        {
-                            name: "Last commit",
-                            value: "2 days ago",
-                            points: 600,
-                            maxPoints: 1000,
-                            system: "dt"
-                        }
-                    ]
-                }} />
-                <Space mt="xl" mb="md" />
+             
             </Container>
         </>
     );

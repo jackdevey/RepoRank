@@ -2,7 +2,7 @@ import { ActionIcon, Card, Checkbox, CheckIcon, Container, Divider, Flex, Grid, 
 import { useRouter } from "next/router";
 import Navbar from "../../components/bars/navbar";
 import Repobar from "../../components/bars/repobar";
-import MetricGroupSection, { MetricGroup } from "../../components/metrics/metricGroupSection";
+import MetricGroupSection, { MetricGroup } from "../../components/metrics/metricGroup";
 
 export default function Repo() {
 
@@ -12,10 +12,12 @@ export default function Repo() {
     return (
         <>
             {/* Header */}
-            <Navbar/>
-            <Repobar owner={owner as string} repo={repo as string} tier="B" points={40000}/>
+            <Navbar />
+            <Repobar owner={owner as string} repo={repo as string} tier="B" points={40000} />
             {/* Main Content */}
             <Container size="lg" mt="md">
+                <Title>Metrics</Title>
+                <Divider mt="sm" mb="md" />
                 <MetricGroupSection group={{
                     title: "Overview",
                     metrics: [
@@ -41,8 +43,8 @@ export default function Repo() {
                             system: "da"
                         }
                     ]
-                }}/>
-                <Space mt="xl" mb="md"/>
+                }} />
+                <Space mt="xl" mb="md" />
                 <MetricGroupSection group={{
                     title: "Activity",
                     metrics: [
@@ -61,8 +63,42 @@ export default function Repo() {
                             system: "dt"
                         }
                     ]
-                }}/>
-                <Space mt="xl" mb="md"/>
+                }} />
+                <Space mt="xl" mb="md" />
+                <MetricGroupSection group={{
+                    title: "Community Standards",
+                    metrics: [
+                        {
+                            name: "Readme",
+                            value: "Yes",
+                            points: 150,
+                            maxPoints: 150,
+                            system: "-"
+                        },
+                        {
+                            name: "Code of conduct",
+                            value: "Yes",
+                            points: 150,
+                            maxPoints: 150,
+                            system: "-"
+                        },
+                        {
+                            name: "Contributing",
+                            value: "Yes",
+                            points: 150,
+                            maxPoints: 150,
+                            system: "-"
+                        },
+                        {
+                            name: "Secuirty Policy",
+                            value: "No",
+                            points: 0,
+                            maxPoints: 150,
+                            system: "-"
+                        }
+                    ]
+                }} />
+                <Space mt="xl" mb="md" />
                 <MetricGroupSection group={{
                     title: "Activity",
                     metrics: [
@@ -81,8 +117,8 @@ export default function Repo() {
                             system: "dt"
                         }
                     ]
-                }}/>
-                <Space mt="xl" mb="md"/>
+                }} />
+                <Space mt="xl" mb="md" />
                 <MetricGroupSection group={{
                     title: "Activity",
                     metrics: [
@@ -101,28 +137,8 @@ export default function Repo() {
                             system: "dt"
                         }
                     ]
-                }}/>
-                <Space mt="xl" mb="md"/>
-                <MetricGroupSection group={{
-                    title: "Activity",
-                    metrics: [
-                        {
-                            name: "Commits this year",
-                            value: 789,
-                            points: 789,
-                            maxPoints: 1000,
-                            system: "-"
-                        },
-                        {
-                            name: "Last commit",
-                            value: "2 days ago",
-                            points: 600,
-                            maxPoints: 1000,
-                            system: "dt"
-                        }
-                    ]
-                }}/>
-                <Space mt="xl" mb="md"/>
+                }} />
+                <Space mt="xl" mb="md" />
             </Container>
         </>
     );

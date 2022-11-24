@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Navbar from "../../components/bars/navbar";
 import Repobar from "../../components/bars/repobar";
 import Userbar from "../../components/bars/userbar";
-import MetricGroupSection, { MetricGroup } from "../../components/metrics/metricGroupSection";
+import MetricGroupSection, { MetricGroup } from "../../components/metrics/metricGroup";
 
 export default function Repo() {
 
@@ -13,8 +13,8 @@ export default function Repo() {
     return (
         <>
             {/* Header */}
-            <Navbar/>
-            <Userbar owner={owner as string} tier="C" points={40000}/>
+            <Navbar />
+            <Userbar owner={owner as string} tier="C" points={40000} />
             {/* Main Content */}
             <Container size="lg" mt="md">
                 <MetricGroupSection group={{
@@ -42,8 +42,8 @@ export default function Repo() {
                             system: "da"
                         }
                     ]
-                }}/>
-                <Space mt="xl" mb="md"/>
+                }} />
+                <Space mt="xl" mb="md" />
                 <MetricGroupSection group={{
                     title: "Activity",
                     metrics: [
@@ -62,8 +62,8 @@ export default function Repo() {
                             system: "dt"
                         }
                     ]
-                }}/>
-                <Space mt="xl" mb="md"/>
+                }} />
+                <Space mt="xl" mb="md" />
             </Container>
         </>
     );

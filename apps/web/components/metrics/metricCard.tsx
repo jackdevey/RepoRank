@@ -8,7 +8,7 @@ export default function MetricCard({ metric }: { metric: Metric }) {
             <Divider my="sm"/>
             <Flex style={{justifyContent: "space-between", alignItems: "center"}}>
                 <Text color="dimmed">+ {new Intl.NumberFormat("en-UK").format(metric.points)} / {new Intl.NumberFormat("en-UK").format(metric.maxPoints)} pts</Text>
-                <ThemeIcon variant="outline">{metric.system}</ThemeIcon>
+                <ThemeIcon variant="outline">{getSystem(metric.system)}</ThemeIcon>
             </Flex>
         </Card>
     </>
@@ -20,4 +20,9 @@ export type Metric = {
     points: number;
     maxPoints: number;
     system: string;
+}
+
+function getSystem(system: string) {
+    if (system.length == 2) return <Text size="sm">{system}</Text>
+    else return <Text>{system}</Text>
 }

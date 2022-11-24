@@ -9,53 +9,6 @@ export default function Repo() {
     const router = useRouter();
     const { owner, repo } = router.query;
 
-    const group: MetricGroup = {
-        title: "Overview",
-        metrics: [
-            {
-                name: "Stars",
-                count: 678000,
-                points: 678,
-                maxPoints: 1000,
-                system: "k"
-            },
-            {
-                name: "Forks",
-                count: 34600,
-                points: 346,
-                maxPoints: 1000,
-                system: "h"
-            },
-            {
-                name: "Watchers",
-                count: 2820,
-                points: 282,
-                maxPoints: 1000,
-                system: "da"
-            }
-        ]
-    }
-
-    const group2: MetricGroup = {
-        title: "Overview",
-        metrics: [
-            {
-                name: "Stars",
-                count: 678000,
-                points: 678,
-                maxPoints: 1000,
-                system: "k"
-            },
-            {
-                name: "Forks",
-                count: 34600,
-                points: 346,
-                maxPoints: 1000,
-                system: "h"
-            }
-        ]
-    }
-
     return (
         <>
             {/* Header */}
@@ -63,15 +16,53 @@ export default function Repo() {
             <Repobar owner={owner as string} repo={repo as string} tier="s" points={40000}/>
             {/* Main Content */}
             <Container size="lg" mt="md">
-                <MetricGroupSection group={group}></MetricGroupSection>
+                <MetricGroupSection group={{
+                    title: "Overview",
+                    metrics: [
+                        {
+                            name: "Stars",
+                            value: 678000,
+                            points: 678,
+                            maxPoints: 1000,
+                            system: "k"
+                        },
+                        {
+                            name: "Forks",
+                            value: 34600,
+                            points: 346,
+                            maxPoints: 1000,
+                            system: "h"
+                        },
+                        {
+                            name: "Watchers",
+                            value: 2820,
+                            points: 282,
+                            maxPoints: 1000,
+                            system: "da"
+                        }
+                    ]
+                }}/>
                 <Space mt="xl" mb="md"/>
-                <MetricGroupSection group={group2}></MetricGroupSection>
+                <MetricGroupSection group={{
+                    title: "Activity",
+                    metrics: [
+                        {
+                            name: "Commits this year",
+                            value: 789,
+                            points: 789,
+                            maxPoints: 1000,
+                            system: "-"
+                        },
+                        {
+                            name: "Last commit",
+                            value: "2 days ago",
+                            points: 600,
+                            maxPoints: 1000,
+                            system: "dt"
+                        }
+                    ]
+                }}/>
                 <Space mt="xl" mb="md"/>
-                <MetricGroupSection group={group2}></MetricGroupSection>
-                <Space mt="xl" mb="md"/>
-                <MetricGroupSection group={group2}></MetricGroupSection>
-                <Space mt="xl" mb="md"/>
-                <MetricGroupSection group={group2}></MetricGroupSection>
             </Container>
         </>
     );

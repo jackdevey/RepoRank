@@ -1,4 +1,4 @@
-import { ActionIcon, Anchor, Card, Checkbox, CheckIcon, Container, Divider, Flex, Grid, Popover, Progress, SimpleGrid, Skeleton, Space, Text, ThemeIcon, Title, useMantineTheme } from "@mantine/core";
+import { ActionIcon, Anchor, AppShell, Box, Card, Checkbox, CheckIcon, Container, Divider, Flex, Grid, Popover, Progress, SimpleGrid, Skeleton, Space, Text, ThemeIcon, Title, useMantineTheme } from "@mantine/core";
 import { useRouter } from "next/router";
 import Navbar from "../../components/bars/navbar";
 import Repobar from "../../components/bars/repobar";
@@ -112,51 +112,56 @@ export default function Repo() {
     };
 
     return (
-        <>
-            {/* Header */}
-            <Navbar />
-            <Repobar owner={owner as string} repo={repo as string} tier="B" points={40000} />
-            {/* Main Content */}
-            <Container size="lg" mt="md">
-                <Title>About</Title>
-                <Divider mt="sm" mb="md" />
-                <SimpleGrid cols={2} spacing="md" breakpoints={[{ maxWidth: 'sm', cols: 1 }]}>
-                    <Card withBorder>
-                        af
-                    </Card>
-                    <Grid gutter="md">
-                    <Grid.Col>
+        <AppShell
+            padding={0}
+            navbar={<Box style={{ position: "sticky" }}>
+                das
+            </Box>}
+            header={<Navbar/>}
+        >   
+            <div>
+                <Repobar owner={owner as string} repo={repo as string} tier="B" points={40000} />
+                <Container size="xl" mt="md">
+                    {/* Main Content */}
+                    <Title>About</Title>
+                    <Divider mt="sm" mb="md" />
+                    <SimpleGrid cols={2} spacing="md" breakpoints={[{ maxWidth: 'sm', cols: 1 }]}>
                         <Card withBorder>
-                            <Title order={4}>Owner</Title>
-                            <Flex style={{alignItems: "baseline"}}>
-                                <Title>{data.about.owner}</Title>
-                                <ActionIcon variant="subtle" color="teal">a</ActionIcon>
-                            </Flex>
+                            af
                         </Card>
-                    </Grid.Col>
-                    <Grid.Col span={6}>
-                        <Card withBorder>
-                            <Title order={4}>Type</Title>
-                            <Title>{data.about.type}</Title>
-                        </Card>
-                    </Grid.Col>
-                    <Grid.Col span={6}>
-                        <Card withBorder>
-                            <Title order={4}>Primary language</Title>
-                            <Title>{data.about.language.name}</Title>
-                        </Card>
-                    </Grid.Col>
-                    </Grid>
-                </SimpleGrid>
+                        <Grid gutter="md">
+                            <Grid.Col>
+                                <Card withBorder>
+                                    <Title order={4}>Owner</Title>
+                                    <Flex style={{alignItems: "baseline"}}>
+                                        <Title>{data.about.owner}</Title>
+                                        <ActionIcon variant="subtle" color="teal">a</ActionIcon>
+                                    </Flex>
+                                </Card>
+                            </Grid.Col>
+                            <Grid.Col span={6}>
+                                <Card withBorder>
+                                    <Title order={4}>Type</Title>
+                                    <Title>{data.about.type}</Title>
+                                </Card>
+                            </Grid.Col>
+                            <Grid.Col span={6}>
+                                <Card withBorder>
+                                    <Title order={4}>Primary language</Title>
+                                    <Title>{data.about.language.name}</Title>
+                                </Card>
+                            </Grid.Col>
+                        </Grid>
+                    </SimpleGrid>
 
-                <Title mt="lg">Metrics</Title>
-                <Divider mt="sm" mb="md" />
-                {data.metrics.map((group) => <>
-                    <MetricGroupSection group={group}/>
-                    <Space mt="xl" mb="md" />
-                </>)}
-             
-            </Container>
-        </>
+                    <Title mt="lg">Metrics</Title>
+                    <Divider mt="sm" mb="md" />
+                    {data.metrics.map((group) => <>
+                        <MetricGroupSection group={group}/>
+                        <Space mt="xl" mb="md" />
+                    </>)}
+                </Container>
+            </div>
+        </AppShell>
     );
 }

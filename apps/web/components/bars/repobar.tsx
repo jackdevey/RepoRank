@@ -1,4 +1,5 @@
-import { Box, Divider, Flex, ThemeIcon, Title, Text, Container } from "@mantine/core";
+import { Box, Divider, Flex, ThemeIcon, Title, Text, Container, ActionIcon } from "@mantine/core";
+import { Refresh } from "tabler-icons-react";
 import TierIcon from "../tiers/tierIcon";
 
 export default function Repobar({ owner, repo, tier, points}: RepobarProps) {
@@ -9,7 +10,10 @@ export default function Repobar({ owner, repo, tier, points}: RepobarProps) {
                     <Flex style={{ justifyContent: "space-between", alignItems: "center" }} pt="md" pb="sm">
                         <Flex>
                             <TierIcon tier={tier}/>
-                            <Title ml="sm" order={3}>{owner}/{repo}</Title>
+                            <Title ml="sm" mr="xs" order={3}>{owner}/{repo}</Title>
+                            <ActionIcon>
+                                <Refresh size={18}/>
+                            </ActionIcon>
                         </Flex>
                         <Text>{new Intl.NumberFormat("en-UK").format(points)} pts</Text>
                     </Flex>

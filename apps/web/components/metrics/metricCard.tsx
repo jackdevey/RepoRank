@@ -2,7 +2,7 @@ import { Card, Divider, Flex, ThemeIcon, Title, Text, Skeleton } from "@mantine/
 
 export default function MetricCard({ metric }: { metric: Metric }) {
     return <>
-        <Card withBorder>
+        <Card withBorder shadow={"md"}>
             <Title order={3}>{metric.name}</Title>
             <ValueTitle value={metric.value}/>
             <Divider my="sm"/>

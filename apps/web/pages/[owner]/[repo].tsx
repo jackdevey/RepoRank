@@ -156,7 +156,7 @@ export default function Repo() {
                     </SimpleGrid>
 
                     <Title mt="lg">Metrics</Title>
-                    <Divider mt="sm" mb="md" />
+                    <Divider mt="sm" mb="md"/>
                     {data.metrics.map((group) => <>
                         <MetricGroupSection group={group} />
                         <Space mt="xl" mb="md" />

@@ -11,6 +11,8 @@ export default function Repo() {
     const router = useRouter();
     const { owner, repo } = router.query;
 
+    let data2 = fetch("https://api.github.com/repos/russellbanks/hashhash");
+
     const theme = useMantineTheme();
     const data = {
         about: {
@@ -115,10 +117,9 @@ export default function Repo() {
         <AppShell
             padding={0}
             navbar={<Box style={{ position: "sticky" }}>
-                das
             </Box>}
-            header={<Navbar/>}
-        >   
+            header={<Navbar />}
+        >
             <div>
                 <Repobar owner={owner as string} repo={repo as string} tier="B" points={40000} />
                 <Container size="xl" mt="md">
@@ -133,7 +134,7 @@ export default function Repo() {
                             <Grid.Col>
                                 <Card withBorder>
                                     <Title order={4}>Owner</Title>
-                                    <Flex style={{alignItems: "baseline"}}>
+                                    <Flex style={{ alignItems: "baseline" }}>
                                         <Title>{data.about.owner}</Title>
                                         <ActionIcon variant="subtle" color="teal">a</ActionIcon>
                                     </Flex>
@@ -157,7 +158,7 @@ export default function Repo() {
                     <Title mt="lg">Metrics</Title>
                     <Divider mt="sm" mb="md" />
                     {data.metrics.map((group) => <>
-                        <MetricGroupSection group={group}/>
+                        <MetricGroupSection group={group} />
                         <Space mt="xl" mb="md" />
                     </>)}
                 </Container>

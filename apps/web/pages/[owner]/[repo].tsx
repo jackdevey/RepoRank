@@ -1,5 +1,7 @@
 import { ActionIcon, Anchor, AppShell, Box, Card, Checkbox, CheckIcon, Container, Divider, Flex, Grid, Popover, Progress, SimpleGrid, Skeleton, Space, Text, ThemeIcon, Title, useMantineTheme } from "@mantine/core";
+import Link from "next/link";
 import { useRouter } from "next/router";
+import { ArrowUpRight } from "tabler-icons-react";
 import Navbar from "../../components/bars/navbar";
 import Repobar from "../../components/bars/repobar";
 import MetricGroupSection, { MetricGroup } from "../../components/metrics/metricGroup";
@@ -136,7 +138,12 @@ export default function Repo() {
                                     <Title order={4}>Owner</Title>
                                     <Flex style={{ alignItems: "baseline" }}>
                                         <Title>{data.about.owner}</Title>
-                                        <ActionIcon variant="subtle" color="teal">a</ActionIcon>
+                                        {/* View in new tab link */}
+                                        <Link href={`https://github.com/${owner}`} passHref>
+                                            <ActionIcon variant="subtle" color="teal">
+                                                <ArrowUpRight size={24}/>
+                                            </ActionIcon>
+                                        </Link>
                                     </Flex>
                                 </Card>
                             </Grid.Col>

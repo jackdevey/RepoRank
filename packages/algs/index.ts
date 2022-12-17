@@ -19,10 +19,7 @@ export async function getRepo(owner: string, repo: string) {
             owner,
             repo: core.name,
             type,
-            language: {
-                name: core.language,
-                colour: "orange"
-            }
+            language: core.language 
         },
         metrics: [
             {

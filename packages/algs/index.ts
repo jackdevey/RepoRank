@@ -1,13 +1,26 @@
 import { graphql } from "@octokit/graphql";
+import fetch from 'node-fetch';
 
-export function repo(owner: string, repo: string) {
+export async function getRepo(owner: string, repo: string) {
+
+    const core = await (await fetch(`https://api.github.com/repos/${owner}/${repo}`)).json();
+
+    let type;
+    if (core.archived) {
+        type = "Archive"
+    } else if (core.disabled) {
+        type = "Disabled"
+    } else if (core.is_template) {
+        type = "Template"
+    } else type = "Standard"
+
     return {
         about: {
             owner,
-            repo,
-            type: "Standard",
+            repo: core.name,
+            type,
             language: {
-                name: "Kotlin",
+                name: core.language,
                 colour: "orange"
             }
         },
@@ -17,22 +30,22 @@ export function repo(owner: string, repo: string) {
                 metrics: [
                     {
                         name: "Stars",
-                        value: 678000,
-                        points: 678,
+                        value: core.stargazers_count,
+                        points: Math.floor(core.stargazers_count / 1000),
                         maxPoints: 1000,
                         system: "k"
                     },
                     {
                         name: "Forks",
-                        value: 34600,
-                        points: 346,
+                        value: core.forks,
+                        points: Math.floor(core.stargazers_count / 100),
                         maxPoints: 1000,
                         system: "h"
                     },
                     {
                         name: "Watchers",
-                        value: 2820,
-                        points: 282,
+                        value: core.watchers_count,
+                        points: Math.floor(core.stargazers_count / 10),
                         maxPoints: 1000,
                         system: "da"
                     }
@@ -57,8 +70,8 @@ export function repo(owner: string, repo: string) {
                     },
                     {
                         name: "Open issues",
-                        value: 12,
-                        points: 120,
+                        value: core.open_issues,
+                        points: Math.floor(core.open_issues / 10),
                         maxPoints: 1000,
                         system: "da"
                     }

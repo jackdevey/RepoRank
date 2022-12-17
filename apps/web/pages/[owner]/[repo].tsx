@@ -4,7 +4,9 @@ import { useRouter } from "next/router";
 import { ArrowUpRight } from "tabler-icons-react";
 import Navbar from "../../components/bars/navbar";
 import Repobar from "../../components/bars/repobar";
+import { getRepo } from "algs";
 import MetricGroupSection, { MetricGroup } from "../../components/metrics/metricGroup";
+import { useEffect, useState } from "react";
 
 const PRIMARY_COL_HEIGHT = 300;
 
@@ -13,10 +15,7 @@ export default function Repo() {
     const router = useRouter();
     const { owner, repo } = router.query;
 
-    let data2 = fetch("https://api.github.com/repos/russellbanks/hashhash");
-
-    const theme = useMantineTheme();
-    const data = {
+    const [data, setData] = useState({
         about: {
             owner,
             repo,
@@ -113,7 +112,14 @@ export default function Repo() {
                 ]
             }
         ]
-    };
+    });
+
+    useEffect(() => {
+        getRepo(owner as string, repo as string).then(data => setData(data))
+      }, []) 
+
+
+    const theme = useMantineTheme();
 
     return (
         <AppShell

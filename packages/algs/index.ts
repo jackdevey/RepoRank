@@ -124,7 +124,7 @@ interface RepoMetricGroup {
     metrics: RepoMetric[]
 }
 
-interface Repo {
+export interface Repo {
     about: {
         owner: string,
         repo: string,

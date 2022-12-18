@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { ArrowUpRight } from "tabler-icons-react";
 import Navbar from "../../components/bars/navbar";
 import Repobar from "../../components/bars/repobar";
-import { getRepo } from "algs";
+import { getRepo, Repo as RepoData } from "algs";
 import MetricGroupSection, { MetricGroup } from "../../components/metrics/metricGroup";
 import { useEffect, useState } from "react";
 
@@ -15,7 +15,7 @@ export default function Repo() {
     const router = useRouter();
     const { owner, repo } = router.query;
 
-    const [data, setData] = useState<Repo>();
+    const [data, setData] = useState<RepoData>();
 
     useEffect(() => {
         if(owner && repo) {
@@ -56,7 +56,7 @@ export default function Repo() {
                                     <Title order={4}>Owner</Title>
                                     <Flex style={{ alignItems: "baseline" }}>
                                         <Title>{data.about.owner}</Title>
-                                        {/* View in new tab link */}
+                                        {/* View owner in new tab */}
                                         <Link href={`https://github.com/${owner}`} passHref>
                                             <ActionIcon variant="subtle" color="teal">
                                                 <ArrowUpRight size={24}/>
@@ -74,7 +74,15 @@ export default function Repo() {
                             <Grid.Col span={6}>
                                 <Card withBorder>
                                     <Title order={4}>Primary language</Title>
-                                    <Title>{data.about.language}</Title>
+                                    <Flex style={{ alignItems: "baseline" }}>
+                                        <Title>{data.about.language}</Title>
+                                        {/* View language in new tab */}
+                                        <Link href={`https://github.com/topics/${data.about.language}`} passHref>
+                                            <ActionIcon variant="subtle" color="teal">
+                                                <ArrowUpRight size={24}/>
+                                            </ActionIcon>
+                                        </Link>
+                                    </Flex>
                                 </Card>
                             </Grid.Col>
                         </Grid>

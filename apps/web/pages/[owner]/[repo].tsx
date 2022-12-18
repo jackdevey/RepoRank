@@ -10,29 +10,6 @@ import { useEffect, useState } from "react";
 
 const PRIMARY_COL_HEIGHT = 300;
 
-type RepoMetric = {
-    name: string,
-    value: number,
-    points: number,
-    maxPoints: number,
-    system: string
-}
-
-type RepoMetricGroup = {
-    title: string,
-    metrics: RepoMetric[]
-}
-
-type Repo = {
-    about: {
-        owner: string,
-        repo: string,
-        type: string,
-        language: string
-    },
-    metrics: RepoMetricGroup[]
-}
-
 export default function Repo() {
 
     const router = useRouter();

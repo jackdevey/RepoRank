@@ -1,7 +1,7 @@
 import { graphql } from "@octokit/graphql";
 import fetch from 'node-fetch';
 
-export async function getRepo(owner: string, repo: string) {
+export async function getRepo(owner: string, repo: string): Promise<Repo> {
 
     const core = await (await fetch(`https://api.github.com/repos/${owner}/${repo}`)).json();
 
@@ -109,4 +109,27 @@ export async function getRepo(owner: string, repo: string) {
             }
         ]
     }
+}
+
+interface RepoMetric {
+    name: string,
+    value: number,
+    points: number,
+    maxPoints: number,
+    system: string
+}
+
+interface RepoMetricGroup {
+    title: string,
+    metrics: RepoMetric[]
+}
+
+interface Repo {
+    about: {
+        owner: string,
+        repo: string,
+        type: string,
+        language: string
+    },
+    metrics: RepoMetricGroup[]
 }

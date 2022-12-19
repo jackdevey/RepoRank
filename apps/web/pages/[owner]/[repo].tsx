@@ -4,9 +4,10 @@ import { useRouter } from "next/router";
 import { ArrowUpRight } from "tabler-icons-react";
 import Navbar from "../../components/bars/navbar";
 import Repobar from "../../components/bars/repobar";
-import { getRepo, Repo as RepoData } from "algs";
+import { getRepo, Repo as RepoData } from "@reporank/algs";
 import MetricGroupSection, { MetricGroup } from "../../components/metrics/metricGroup";
 import { useEffect, useState } from "react";
+import Head from "next/head";
 
 const PRIMARY_COL_HEIGHT = 300;
 
@@ -16,11 +17,14 @@ export default function Repo() {
     const { owner, repo } = router.query;
 
     const [data, setData] = useState<RepoData>();
+    const [error, setError] = useState<Error>();
 
     useEffect(() => {
         if(owner && repo) {
             console.log(owner); console.log(repo);
-            getRepo(owner as string, repo as string).then(data => setData(data))
+            getRepo(owner as string, repo as string)
+            .then(data => setData(data))
+            .catch(error => setError(error))
         }
     }, [owner, repo]) 
 
@@ -29,9 +33,8 @@ export default function Repo() {
 
     const theme = useMantineTheme();
 
-    if (!data) {
-        return <a>Loading</a>
-    }
+    if (!data && !error) return <a>Loading</a>
+    if (!data && !data) return <a>Error</a>
 
     return (
         <AppShell
@@ -40,7 +43,10 @@ export default function Repo() {
             </Box>}
             header={<Navbar />}
         >
-            <div>
+            <Head>
+                <title>{owner}/{repo}</title>
+            </Head>
+            <>
                 <Repobar owner={owner as string} repo={repo as string} tier="B" points={40000} />
                 <Container size="xl" mt="md">
                     {/* Main Content */}
@@ -95,7 +101,7 @@ export default function Repo() {
                         <Space mt="xl" mb="md" />
                     </>)}
                 </Container>
-            </div>
+            </>
         </AppShell>
     );
 }

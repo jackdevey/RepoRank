@@ -3,7 +3,25 @@ import fetch from 'node-fetch';
 
 export async function getRepo(owner: string, repo: string): Promise<Repo> {
 
-    const core = await (await fetch(`https://api.github.com/repos/${owner}/${repo}`)).json();
+    const coreApiCall = await fetch(`https://api.github.com/repos/${owner}/${repo}`);
+    const core = await coreApiCall.json();
+
+    if (coreApiCall.status != 200) {
+        // Refers to the GitHub REST API docs for types of possible status codes
+        // https://docs.github.com/en/rest/repos/repos?apiVersion=2022-11-28#get-a-repository--status-codes
+        switch (coreApiCall.status) {
+            // If 
+            case 301: {
+                throw new Error("Moved")
+            }
+            case 403: {
+                throw new Error("Forbidden")
+            }
+            case 404: {
+                throw new Error("Doesn't exist")
+            }
+        }
+    }
 
     let type;
     if (core.archived) {

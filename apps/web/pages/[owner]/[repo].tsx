@@ -8,6 +8,7 @@ import { getRepo, Repo as RepoData } from "@reporank/algs";
 import MetricGroupSection, { MetricGroup } from "../../components/metrics/metricGroup";
 import { useEffect, useState } from "react";
 import Head from "next/head";
+import DefaultLoading from "../../components/defaults/defaultLoading";
 
 const PRIMARY_COL_HEIGHT = 300;
 
@@ -19,16 +20,19 @@ export default function Repo() {
     const [data, setData] = useState<RepoData>();
     const [error, setError] = useState<Error>();
 
+    let title = 'Loading...';
+
     useEffect(() => {
         if(owner && repo) {
+            title = `${owner as string}/${repo as string}`;
             getRepo(owner as string, repo as string)
             .then(data => setData(data))
             .catch(error => setError(error))
         }
     }, [owner, repo]);
-
-    if (!data && !error) return <a>Loading</a>
-    if (!data && !data) return <a>Error</a>
+ 
+    if (!data && !error) return <DefaultLoading title={title}/>
+    if (!data && error) return <a>Error</a>
 
     return (
         <AppShell
@@ -38,10 +42,10 @@ export default function Repo() {
             header={<Navbar />}
         >
             <Head>
-                <title>{owner}/{repo}</title>
+                <title>{title}</title>
             </Head>
             <>
-                <Repobar owner={owner as string} repo={repo as string} tier="B" points={40000} />
+                <Repobar owner={owner as string} repo={repo as string} tier="B" points={40000}/>
                 <Container size="xl" mt="md">
                     {/* Main Content */}
                     <Title>About</Title>
@@ -54,35 +58,41 @@ export default function Repo() {
                             <Grid.Col>
                                 <Card withBorder>
                                     <Title order={4}>Owner</Title>
-                                    <Flex style={{ alignItems: "baseline" }}>
-                                        <Title>{data.about.owner}</Title>
-                                        {/* View owner in new tab */}
-                                        <Link href={`https://github.com/${owner}`} passHref>
-                                            <ActionIcon variant="subtle" color="teal">
-                                                <ArrowUpRight size={24}/>
-                                            </ActionIcon>
-                                        </Link>
-                                    </Flex>
+                                    <Skeleton visible={!data} width="70%">
+                                        <Flex style={{ alignItems: "baseline" }}>
+                                            <Title>{data && data.about.owner || "Ad"}</Title>
+                                            {/* View owner in new tab */}
+                                            <Link href={`https://github.com/${owner}`} passHref>
+                                                <ActionIcon variant="subtle" color="teal">
+                                                    <ArrowUpRight size={24}/>
+                                                </ActionIcon>
+                                            </Link>
+                                        </Flex>
+                                    </Skeleton>
                                 </Card>
                             </Grid.Col>
                             <Grid.Col span={6}>
                                 <Card withBorder>
                                     <Title order={4}>Type</Title>
-                                    <Title>{data.about.type}</Title>
+                                    <Skeleton visible={!data} width="80%">
+                                        <Title>{data && data.about.type || "As"}</Title>
+                                    </Skeleton>
                                 </Card>
                             </Grid.Col>
                             <Grid.Col span={6}>
                                 <Card withBorder>
                                     <Title order={4}>Primary language</Title>
-                                    <Flex style={{ alignItems: "baseline" }}>
-                                        <Title>{data.about.language}</Title>
-                                        {/* View language in new tab */}
-                                        <Link href={`https://github.com/topics/${data.about.language}`} passHref>
-                                            <ActionIcon variant="subtle" color="teal">
-                                                <ArrowUpRight size={24}/>
-                                            </ActionIcon>
-                                        </Link>
-                                    </Flex>
+                                    <Skeleton visible={!data} width="80%">
+                                        <Flex style={{ alignItems: "baseline" }}>
+                                            <Title>{data && data.about.language || "Ads"}</Title>
+                                            {/* View language in new tab */}
+                                            <Link href={`https://github.com/topics/${data && data.about.language || "Ads"}`} passHref>
+                                                <ActionIcon variant="subtle" color="teal">
+                                                    <ArrowUpRight size={24}/>
+                                                </ActionIcon>
+                                            </Link>
+                                        </Flex>
+                                    </Skeleton>
                                 </Card>
                             </Grid.Col>
                         </Grid>
@@ -90,7 +100,7 @@ export default function Repo() {
 
                     <Title mt="lg">Metrics</Title>
                     <Divider mt="sm" mb="md"/>
-                    {data.metrics.map((group) => <>
+                    {data && data.metrics.map((group) => <>
                         <MetricGroupSection group={group} />
                         <Space mt="xl" mb="md" />
                     </>)}

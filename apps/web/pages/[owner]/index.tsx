@@ -14,7 +14,7 @@ export default function Repo() {
         <>
             {/* Header */}
             <Navbar />
-            <Userbar owner={owner as string} tier="C" points={40000} />
+            <Userbar owner={owner as string} tier="C" points={40000}/>
             {/* Main Content */}
             <Container size="lg" mt="md">
                 <MetricGroupSection group={{

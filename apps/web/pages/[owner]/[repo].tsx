@@ -21,17 +21,11 @@ export default function Repo() {
 
     useEffect(() => {
         if(owner && repo) {
-            console.log(owner); console.log(repo);
             getRepo(owner as string, repo as string)
             .then(data => setData(data))
             .catch(error => setError(error))
         }
-    }, [owner, repo]) 
-
-    
-
-
-    const theme = useMantineTheme();
+    }, [owner, repo]);
 
     if (!data && !error) return <a>Loading</a>
     if (!data && !data) return <a>Error</a>

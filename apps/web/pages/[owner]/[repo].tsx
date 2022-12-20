@@ -4,11 +4,12 @@ import { useRouter } from "next/router";
 import { ArrowUpRight } from "tabler-icons-react";
 import Navbar from "../../components/bars/navbar";
 import Repobar from "../../components/bars/repobar";
-import { getRepo, Repo as RepoData } from "@reporank/algs";
+import { getRepo, Repo as RepoData, RRError } from "@reporank/algs";
 import MetricGroupSection, { MetricGroup } from "../../components/metrics/metricGroup";
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import DefaultLoading from "../../components/defaults/defaultLoading";
+import DefaultError from "../../components/defaults/defaultError";
 
 const PRIMARY_COL_HEIGHT = 300;
 
@@ -18,7 +19,7 @@ export default function Repo() {
     const { owner, repo } = router.query;
 
     const [data, setData] = useState<RepoData>();
-    const [error, setError] = useState<Error>();
+    const [error, setError] = useState<RRError>();
 
     let title = 'Loading...';
 
@@ -32,7 +33,7 @@ export default function Repo() {
     }, [owner, repo]);
  
     if (!data && !error) return <DefaultLoading title={title}/>
-    if (!data && error) return <a>Error</a>
+    if (!data && error) return <DefaultError error={error}/>
 
     return (
         <AppShell

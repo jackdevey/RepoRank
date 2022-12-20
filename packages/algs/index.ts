@@ -1,6 +1,31 @@
 import { graphql } from "@octokit/graphql";
 import fetch from 'node-fetch';
 
+export abstract class RRError extends Error {
+
+    code: number
+
+    constructor(code: number, message: string) {
+        super(message)
+        this.code = code
+    }
+
+}
+
+export class Error404 extends RRError {
+    constructor(message: string) {
+        super(404, message)
+    }
+}
+
+export class Error403 extends RRError {
+    constructor(message: string) {
+        super(403, message)
+    }
+}
+
+
+
 export async function getRepo(owner: string, repo: string): Promise<Repo> {
 
     const coreApiCall = await fetch(`https://api.github.com/repos/${owner}/${repo}`);
@@ -15,10 +40,10 @@ export async function getRepo(owner: string, repo: string): Promise<Repo> {
                 throw new Error("Moved")
             }
             case 403: {
-                throw new Error("Forbidden")
+                throw new Error403(`Access forbidden for some reason`)
             }
             case 404: {
-                throw new Error("Doesn't exist")
+                throw new Error404(`Are you sure ${owner}/${repo} exists?`)
             }
         }
     }

@@ -4,15 +4,14 @@ import Navbar from "../bars/navbar";
 
 export default function DefaultLoading({ title }: { title: string }) {
     return (
-        <AppShell
-            padding={0}
-            header={<Navbar/>}>
+        <>
+            <Navbar/>
             <Head>
                 <title>{title}</title>
             </Head>
             <Center h={500}>
                 <Loader/>
             </Center>
-        </AppShell>
+        </>
     );
 }

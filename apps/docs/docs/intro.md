@@ -24,13 +24,30 @@ be used in conjunction with *other* pieces of data, never on their own as they o
 * Any project begins with zero `stars`, `forks`, `watchers` regardless of how good it is. It takes time and exposure to grow these metrics, the algorithm **can't** ignore that many GitHub gems are buried due to low numbers.
 
 #### Stars
-`stars` are analysed on a reciprocal curve to achieve a variable score gradient and asymptote point for a maximum score. 
+`stars` have a weighting of `50%` with a maximum score of 100
 
-$$
-S = \frac{200x}{2x+400} * .40
-$$
 
-The equation for 
+| Attribute | Input | Output | Asymptote | Weighting |
+| --------- | ----- | ------ | ----- | --------- |
+| `stars` | $x$ - `stars` count | $(200x)(2x+10000)^{-1}$ | $100$ | `50%` |
+
+#### Forks
+`forks` have a weighting of `30%` with a maximum score of 100
+
+| Attribute | Input | Output | Asymptote | Weighting |
+| --------- | ----- | ------ | ----- | --------- |
+| `forks` | $x$ - `forks` count | $(600x)(6x+10000)^{-1}$ | $100$ | `30%` |
+
+#### Watchers
+`watchers` have a weighting of `20%` with a maximum score of 100
+
+| Attribute | Input | Output | Asymptote | Weighting |
+| --------- | ----- | ------ | ----- | --------- |
+| `watchers` | $x$ - `watchers` count | $(2000x)(20x+10000)^{-1}$ | $100$ | `20%` |
+
+Examples:
+* 8,651 `watchers` scores `94.546/100`
+* The `50/100` score is awareded at 500 `watchers`
 
 ## Final score
 

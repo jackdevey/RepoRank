@@ -4,27 +4,30 @@
  * work well for content-centric websites.
  */
 
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap");
+
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-font-family-base: 'Rubik';
+  --ifm-color-primary: #177a5d;
+  --ifm-color-primary-dark: #27ce9d;
+  --ifm-color-primary-darker: #14684f;
+  --ifm-color-primary-darkest: #105541;
+  --ifm-color-primary-light: #198666;
+  --ifm-color-primary-lighter: #1a8c6b;
+  --ifm-color-primary-lightest: #1e9f79;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
+  --ifm-color-primary: #38D9A9;
+  --ifm-color-primary-dark: #27ce9d;
+  --ifm-color-primary-darker: #25c394;
+  --ifm-color-primary-darkest: #1fa07a;
+  --ifm-color-primary-light: #4fddb3;
+  --ifm-color-primary-lighter: #5ae0b8;
+  --ifm-color-primary-lightest: #7de6c7;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }

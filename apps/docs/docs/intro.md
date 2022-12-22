@@ -2,10 +2,49 @@
 sidebar_position: 1
 ---
 
-# RepoRank
+# RepoRank Algorithm
 
-The RepoRank algorithm is used to assign a GitHub repository a comprehensive score denoting it's general notabiltiy,
+The RepoRank Algorithm is used to assign a GitHub repository a comprehensive score denoting it's general notabiltiy,
 trustworthiness and reputation, with the goal to assist in it's comparison.
+
+## General Architecture
+
+The algorithm is split into components with each component being an individual aspect of the repository to analyse, increasing the
+modularity of the algorithm. Each component is assigned a weighting, which is a percentage that affects the power the component has
+in defining the final score.
+
+Each component can be further broken down into sub-components which often analyse a metric directly, these are also weighted to alter
+their power in the output of their 'parent' component.
+
+The final score and output of the algorithm is derived from the summation of the weighted output from every component, in the format
+of a percentage, with 100% being the highest score.
+
+## Activation Functions
+
+Sometimes, such as when analysing stars, attempting to understand a metric linearly would lead to an unfair result. Take for 
+example, comparing the repos for `vercel/next.js` and `facebook/react` with `98k` stars and `199.5k` stars respectively 
+(at the time of writing). 
+
+It would be wrong to assume that `facebook/react` is twice as good as `vercel/next.js` just because it has approximately double the 
+star count, however, what can be derived from this is that `facebook/react` has double the exposure. 
+
+When evaluating metrics such as stars, it's vital for this to be taken into account. The RepoRank algorithm uses activation functions to
+fairly distribute sub-component scores by variably reducing the worth of stars as a repo's star count rises above an arbitrary threshold.
+
+This is generally achieved accross all metrics by using a translated [Sigmoid Function](https://en.wikipedia.org/wiki/Sigmoid_function)
+shifting the y axis by a scale of 2 units, and moving the curve down by 1 unit to achieve a range of 0 to 1 in the positive area of the
+graph.
+
+$$
+y=\frac{2}{1+e^{-(xs^{-1})}}-1
+$$
+
+The variable $s$ denotes the $x$ direction stretch of the curve and provides granular control over the score awarded. In essence, curves with a greater
+$s$ value require higher metric values to score high scores. For example when analysing stars the $s$ value will be set higher than when analysing
+watchers, as a repository often has more stars than watchers.
+
+The output of each activation function is then multipled by 100 to achieve a percentage score for the sub-component being addressed. These can
+then be swayed by their set weightings.
 
 ## Components
 
@@ -26,7 +65,6 @@ be used in conjunction with *other* pieces of data, never on their own as they o
 #### Stars
 `stars` have a weighting of `50%` with a maximum score of 100
 
-
 | Attribute | Input | Output | Asymptote | Weighting |
 | --------- | ----- | ------ | ----- | --------- |
 | `stars` | $x$ - `stars` count | $(200x)(2x+10000)^{-1}$ | $100$ | `50%` |
@@ -43,7 +81,7 @@ be used in conjunction with *other* pieces of data, never on their own as they o
 
 | Attribute | Input | Output | Asymptote | Weighting |
 | --------- | ----- | ------ | ----- | --------- |
-| `watchers` | $x$ - `watchers` count | $(2000x)(20x+10000)^{-1}$ | $100$ | `20%` |
+| `watchers` | $x$ - `watchers` count | $(200x)(2x+10000)^{-1}$ | $100$ | `20%` |
 
 Examples:
 * 8,651 `watchers` scores `94.546/100`

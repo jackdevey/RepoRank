@@ -1,0 +1,85 @@
+{
+  "pluginId": "default",
+  "version": "current",
+  "label": "Next",
+  "banner": null,
+  "badge": false,
+  "noIndex": false,
+  "className": "docs-version-current",
+  "isLast": true,
+  "docsSidebars": {
+    "tutorialSidebar": [
+      {
+        "type": "category",
+        "label": "RepoRank Algorithm",
+        "collapsible": true,
+        "collapsed": true,
+        "items": [
+          {
+            "type": "link",
+            "label": "General Architecture",
+            "href": "/docs/reporank-algorithm/general-architecture",
+            "docId": "reporank-algorithm/general-architecture"
+          },
+          {
+            "type": "link",
+            "label": "Activation Functions",
+            "href": "/docs/reporank-algorithm/activation-functions",
+            "docId": "reporank-algorithm/activation-functions"
+          },
+          {
+            "type": "link",
+            "label": "Components",
+            "href": "/docs/reporank-algorithm/components",
+            "docId": "reporank-algorithm/components"
+          },
+          {
+            "type": "link",
+            "label": "Final score",
+            "href": "/docs/reporank-algorithm/final-score",
+            "docId": "reporank-algorithm/final-score"
+          }
+        ],
+        "href": "/docs/category/reporank-algorithm"
+      },
+      {
+        "type": "link",
+        "label": "intro",
+        "href": "/docs/intro",
+        "docId": "intro"
+      }
+    ]
+  },
+  "docs": {
+    "intro": {
+      "id": "intro",
+      "title": "intro",
+      "description": "ded",
+      "sidebar": "tutorialSidebar"
+    },
+    "reporank-algorithm/activation-functions": {
+      "id": "reporank-algorithm/activation-functions",
+      "title": "Activation Functions",
+      "description": "Sometimes, such as when analysing stars, attempting to understand a metric linearly would lead to an unfair result. Take for",
+      "sidebar": "tutorialSidebar"
+    },
+    "reporank-algorithm/components": {
+      "id": "reporank-algorithm/components",
+      "title": "Components",
+      "description": "The algorithm can be broken down into a series of individual components that analyse a section of the repostiroy.",
+      "sidebar": "tutorialSidebar"
+    },
+    "reporank-algorithm/final-score": {
+      "id": "reporank-algorithm/final-score",
+      "title": "Final score",
+      "description": "The algorithm outputs an integer within the range of 0 to 1000 (inclusive), this is represents the repositories final score.",
+      "sidebar": "tutorialSidebar"
+    },
+    "reporank-algorithm/general-architecture": {
+      "id": "reporank-algorithm/general-architecture",
+      "title": "General Architecture",
+      "description": "The algorithm is split into components with each component being an individual aspect of the repository to analyse, increasing the",
+      "sidebar": "tutorialSidebar"
+    }
+  }
+}

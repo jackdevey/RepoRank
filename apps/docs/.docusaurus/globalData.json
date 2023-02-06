@@ -1,0 +1,58 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "path": "/docs",
+      "versions": [
+        {
+          "name": "current",
+          "label": "Next",
+          "isLast": true,
+          "path": "/docs",
+          "mainDocId": "reporank-algorithm/general-architecture",
+          "docs": [
+            {
+              "id": "intro",
+              "path": "/docs/intro",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "reporank-algorithm/activation-functions",
+              "path": "/docs/reporank-algorithm/activation-functions",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "reporank-algorithm/components",
+              "path": "/docs/reporank-algorithm/components",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "reporank-algorithm/final-score",
+              "path": "/docs/reporank-algorithm/final-score",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "reporank-algorithm/general-architecture",
+              "path": "/docs/reporank-algorithm/general-architecture",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "/category/reporank-algorithm",
+              "path": "/docs/category/reporank-algorithm",
+              "sidebar": "tutorialSidebar"
+            }
+          ],
+          "draftIds": [],
+          "sidebars": {
+            "tutorialSidebar": {
+              "link": {
+                "path": "/docs/category/reporank-algorithm",
+                "label": "RepoRank Algorithm"
+              }
+            }
+          }
+        }
+      ],
+      "breadcrumbs": true
+    }
+  }
+}

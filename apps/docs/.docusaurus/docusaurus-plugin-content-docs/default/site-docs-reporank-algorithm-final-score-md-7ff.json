@@ -1,0 +1,27 @@
+{
+  "unversionedId": "reporank-algorithm/final-score",
+  "id": "reporank-algorithm/final-score",
+  "title": "Final score",
+  "description": "The algorithm outputs an integer within the range of 0 to 1000 (inclusive), this is represents the repositories final score.",
+  "source": "@site/docs/reporank-algorithm/final-score.md",
+  "sourceDirName": "reporank-algorithm",
+  "slug": "/reporank-algorithm/final-score",
+  "permalink": "/docs/reporank-algorithm/final-score",
+  "draft": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/reporank-algorithm/final-score.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "sidebar_position": 4
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Components",
+    "permalink": "/docs/reporank-algorithm/components"
+  },
+  "next": {
+    "title": "intro",
+    "permalink": "/docs/intro"
+  }
+}

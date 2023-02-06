@@ -1,0 +1,27 @@
+{
+  "unversionedId": "reporank-algorithm/components",
+  "id": "reporank-algorithm/components",
+  "title": "Components",
+  "description": "The algorithm can be broken down into a series of individual components that analyse a section of the repostiroy.",
+  "source": "@site/docs/reporank-algorithm/components.md",
+  "sourceDirName": "reporank-algorithm",
+  "slug": "/reporank-algorithm/components",
+  "permalink": "/docs/reporank-algorithm/components",
+  "draft": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/reporank-algorithm/components.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "sidebar_position": 3
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Activation Functions",
+    "permalink": "/docs/reporank-algorithm/activation-functions"
+  },
+  "next": {
+    "title": "Final score",
+    "permalink": "/docs/reporank-algorithm/final-score"
+  }
+}

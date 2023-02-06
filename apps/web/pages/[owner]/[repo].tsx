@@ -29,6 +29,7 @@ import { getRepo, Repo as RepoData, RRError } from "@reporank/algs";
 import MetricGroupSection, {
   MetricGroup,
 } from "../../components/metrics/metricGroup";
+
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import DefaultLoading from "../../components/defaults/defaultLoading";

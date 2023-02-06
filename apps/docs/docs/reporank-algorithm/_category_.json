@@ -1,0 +1,9 @@
+{
+  "label": "RepoRank Algorithm",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "The RepoRank Algorithm is used to assign a GitHub repository a comprehensive score denoting it's general notabiltiy, trustworthiness and reputation, with the goal to assist in it's comparison."
+  }
+}
+  

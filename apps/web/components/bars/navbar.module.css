@@ -1,0 +1,12 @@
+.rrAnimExt {
+    display: inline-block;
+    max-width: 0;
+    opacity: 0;
+    transition: max-width 0.1s, opacity 0.1s;
+}
+  
+.rrAnimParent:hover .rrAnimExt {
+    max-width: 125px;
+    opacity: 1;
+    transition: max-width 0.1s, opacity 0.1s;
+}
